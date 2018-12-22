@@ -14,6 +14,10 @@ $(document).ready(function(e)
   {
     // フォームデータを取得
     var formdata = new FormData($('#uploadPictures').get(0));
+    for(item of formdata){
+      console.log(item);
+    }
+
     var csrf = $('input[name=_csrfToken]').val();
     /**
      * Ajax通信メソッド

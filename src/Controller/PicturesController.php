@@ -73,20 +73,20 @@ class PicturesController extends AppController
     {
         $picture = $this->Pictures->newEntity();
         if ($this->request->is('post')) {
-            $fileName =$this->request->data['image'];
-	    $picture->title = $this->request->data['title'];
-	    $picture->extension = pathinfo($fileName['name'], PATHINFO_EXTENSION);
-	    $picture->content = $this->MakeHtml->makeHtmlForPictures($picture);
-	    if ($this->Pictures->save($picture)) {
-		$this->Flash->success(__('The picture has been saved.'));
-	        move_uploaded_file($fileName['tmp_name'],'../webroot/img/pictures/'. $picture->title . '.' . $picture->extension);    
-		return $this->redirect('/pictures');
-            }
+          $fileName =$this->request->data['image'];
+			    $picture->title = $this->request->data['title'];
+			    $picture->extension = pathinfo($fileName['name'], PATHINFO_EXTENSION);
+			    $picture->content = $this->MakeHtml->makeHtmlForPictures($picture);
+	    	if ($this->Pictures->save($picture)) {
+					$this->Flash->success(__('The picture has been saved.'));
+	        move_uploaded_file($fileName['tmp_name'],'../webroot/img/pictures/'. $picture->title . '.' . $picture->extension);
+					return $this->redirect('/pictures');
+        }
             $this->Flash->error(__('The picture could not be saved. Please, try again.'));
         }
     }
 
-    
+
     /**
      * Delete method
      *

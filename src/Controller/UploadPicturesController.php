@@ -36,7 +36,8 @@ class UploadPicturesController extends AppController
     {
         $this->autoRender = FALSE;
         if ($this->request->is('ajax')) {
-          Log::write('debug','post Success!!');
+          $file =$this->request->data['uploadimage'];
+          move_uploaded_file($file['tmp_name'],'../webroot/img/uploaded/'. $file['name']);
         }else{
           $this->cakeError('error404');
         }
