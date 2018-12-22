@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event; // 追加
 use Cake\Log\Log;
 
 /**
@@ -18,6 +19,14 @@ class UploadPicturesController extends AppController
       return true;
     }
 
+    public function beforeFilter(Event $event)
+  	{
+  		parent::beforeFilter($event);
+  		$this->Security->setConfig('unlockedActions', ['add']);
+  		$this->Auth->allow(['add']);
+
+  	}
+
     /**
      * Add method
      *
@@ -25,7 +34,8 @@ class UploadPicturesController extends AppController
      */
     public function add()
     {
-        if ($this->request->is('post')) {
+        $this->autoRender = FALSE;
+        if ($this->request->is('ajax')) {
           Log::write('debug','post Success!!');
         }else{
           $this->cakeError('error404');
