@@ -11,7 +11,7 @@ use Cake\Log\Log;
  *
  * @method \App\Model\Entity\UploadPicture[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class UploadPicturesController extends AppController
+class UplPicturesController extends AppController
 {
 
     public function isAuthorized($user)
@@ -28,19 +28,51 @@ class UploadPicturesController extends AppController
   	}
 
     /**
+    *
+    *アップロード画像をロードするメソッド
+    *
+    */
+    // public function load(){
+    //
+    //
+    // }
+
+    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
+
         $this->autoRender = FALSE;
         if ($this->request->is('ajax')) {
-          $file =$this->request->data['uploadimage'];
-          move_uploaded_file($file['tmp_name'],'../webroot/img/uploaded/'. $file['name']);
+          $file = $this->request->data['uploadimage'];
+          $uplpicture = $this->Uplpictures->newEntity();
+          $uplpicture->title = $file['name'];
+
+          //データの検証
+          $validated = $this->Uplpictures->newEntity($uplpicture->toArray());
+          if($validated->errors()){
+            Log::write('debug','error occured');
+            $this->cakeError('error404');
+          }
+
+          if($this->Uplpictures->save($uplpicture)){
+            move_uploaded_file($file['tmp_name'],'../webroot/img/uploaded/'. $file['name']);
+          }
+
         }else{
           $this->cakeError('error404');
         }
+
+        //アップロード画像一覧を返す
+        $uplpictures = $this->Uplpictures->find('all');
+        $resultJ = json_encode($uplpictures);
+  			$this->response->type('json');
+  			$this->response->body($resultJ);
+  			return $this->response;
+
     }
 
 //    /**

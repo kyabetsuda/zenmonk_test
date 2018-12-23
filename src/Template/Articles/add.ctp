@@ -30,7 +30,7 @@ $(document).ready(function(e)
         beforeSend: function(xhr){
           xhr.setRequestHeader('X-CSRF-Token', csrf);
         },
-        url: "http://" + location.hostname + "/UploadPictures/add",
+        url: "http://" + location.hostname + "/Uplpictures/add",
         data: formdata,
         cache       : false,
         contentType : false,
@@ -100,7 +100,7 @@ $(document).ready(function(e)
     <?= $this->Form->end() ?>
 
     <?= $this->Form->create(null, [
-    	'url'=>['controller'=>'UploadPictures','action'=>'add'],
+    	'url'=>['controller'=>'Uplpictures','action'=>'add'],
 	    'type'=>'file',
       'id'=>'uploadPictures'
     ]) ?>
