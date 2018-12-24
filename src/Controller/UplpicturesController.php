@@ -22,8 +22,8 @@ class UplPicturesController extends AppController
     public function beforeFilter(Event $event)
   	{
   		parent::beforeFilter($event);
-  		$this->Security->setConfig('unlockedActions', ['add']);
-  		$this->Auth->allow(['add']);
+  		$this->Security->setConfig('unlockedActions', ['add','load']);
+  		$this->Auth->allow(['add','load']);
 
   	}
 
@@ -32,10 +32,20 @@ class UplPicturesController extends AppController
     *アップロード画像をロードするメソッド
     *
     */
-    // public function load(){
-    //
-    //
-    // }
+    public function load(){
+      $this->autoRender = FALSE;
+      if ($this->request->is('ajax')) {
+        //アップロード画像一覧を返す
+        $uplpictures = $this->Uplpictures->find('all');
+        $resultJ = json_encode($uplpictures);
+        $this->response->type('json');
+        $this->response->body($resultJ);
+        return $this->response;
+      }
+
+      $this->cakeError('error404');
+
+    }
 
     /**
      * Add method

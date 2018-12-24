@@ -5,6 +5,40 @@
  */
 ?>
 <script>
+$(window).on('load',function(){
+  var csrf = $('input[name=_csrfToken]').val();
+  /**
+   * Ajax通信メソッド
+   * @param type  : HTTP通信の種類
+   * @param url   : リクエスト送信先のURL
+   * @param data  : サーバに送信する値
+   */
+  $.ajax({
+      type: 'POST',
+      beforeSend: function(xhr){
+        xhr.setRequestHeader('X-CSRF-Token', csrf);
+      },
+      url: "http://" + location.hostname + "/Uplpictures/load",
+      success: function(data,dataType)
+      {
+        alert("success!");
+      },
+      /**
+       * Ajax通信が失敗した場合に呼び出されるメソッド
+       */
+      error: function(XMLHttpRequest, textStatus, errorThrown)
+      {
+        alert('Error : ' + errorThrown + '\n'
+          + 'textStatus : ' + textStatus + '\n'
+          + 'XMLHttpRequest : ' + XMLHttpRequest.status
+        );
+      }
+  });
+
+  return false;
+
+});
+
 $(document).ready(function(e)
 {
   /**
@@ -14,10 +48,6 @@ $(document).ready(function(e)
   {
     // フォームデータを取得
     var formdata = new FormData($('#uploadPictures').get(0));
-    for(item of formdata){
-      console.log(item);
-    }
-
     var csrf = $('input[name=_csrfToken]').val();
     /**
      * Ajax通信メソッド
