@@ -37,6 +37,9 @@ class UplPicturesController extends AppController
       if ($this->request->is('ajax')) {
         //アップロード画像一覧を返す
         $uplpictures = $this->Uplpictures->find('all');
+        foreach($uplpictures as $picture){
+          Log::write('debug', $picture->title);
+        }
         $resultJ = json_encode($uplpictures);
         $this->response->type('json');
         $this->response->body($resultJ);

@@ -5,6 +5,16 @@
  */
 ?>
 <script>
+function makeHtmlForGzList(title){
+  return "<img style='max-width: 25rem;' src='/webroot/img/uploaded/" + title + "'>";
+
+}
+
+function makeHtmlForArticle(title){
+  return ;
+
+}
+
 $(window).on('load',function(){
   var csrf = $('input[name=_csrfToken]').val();
   /**
@@ -18,10 +28,16 @@ $(window).on('load',function(){
       beforeSend: function(xhr){
         xhr.setRequestHeader('X-CSRF-Token', csrf);
       },
+      datatype:'json',
       url: "http://" + location.hostname + "/Uplpictures/load",
       success: function(data,dataType)
       {
-        alert("success!");
+        for(var item in data){
+          $('.thumbnail').append(
+            makeHtmlForGzList(data[item].title)
+          );
+        }
+
       },
       /**
        * Ajax通信が失敗した場合に呼び出されるメソッド
@@ -68,7 +84,7 @@ $(document).ready(function(e)
         dataType    : "html",
         success: function(data,dataType)
         {
-          alert("success!");
+          alert("image was successfully uploaded");
         },
         /**
          * Ajax通信が失敗した場合に呼び出されるメソッド
@@ -147,4 +163,13 @@ $(document).ready(function(e)
         </div>
       </div>
     <?= $this->Form->end() ?>
+    <div class="row">
+
+    </div>
+    <div class="row">
+      <div class="col-md-1">
+          <a href="#" class="thumbnail">
+          </a>
+      </div>
+    </div>
 </div>
