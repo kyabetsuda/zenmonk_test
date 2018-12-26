@@ -5,14 +5,43 @@
  */
 ?>
 <script>
-function makeHtmlForGzList(title){
-  return "<img style='max-width: 25rem;' src='/webroot/img/uploaded/" + title + "'>";
+function makeJsonToHtmlGzList(jsonData, containerClassName){
 
+    var tmp = [];
+    for(var i in jsonData){
+      var rowDiv = $("<div></div>", {
+        "class": "row"
+      });
+
+      tmp.push(makeDivForGzlist(makeImgHtmlForGzList(jsonData[i].title)));
+
+      //要素が3の倍数個または最後の要素の場合はrowをappend
+      if(i%3 == 2 | i==jsonData.length - 1){
+        for(var j in tmp){
+            rowDiv.append(tmp[j]);
+        }
+        $('.' + containerClassName).append(rowDiv);
+        tmp = [];
+      }
+    }
+
+
+}
+
+function makeDivForGzlist(imgHtml){
+  return "<div class='col-sm-4'>"
+      + imgHtml
+      + "</div>";
+}
+
+function makeImgHtmlForGzList(title){
+  return "<img style='max-width: 25rem; margin : 1%' src='/webroot/img/uploaded/"
+      + title
+      + "'>";
 }
 
 function makeHtmlForArticle(title){
   return ;
-
 }
 
 $(window).on('load',function(){
@@ -32,12 +61,7 @@ $(window).on('load',function(){
       url: "http://" + location.hostname + "/Uplpictures/load",
       success: function(data,dataType)
       {
-        for(var item in data){
-          $('.thumbnail').append(
-            makeHtmlForGzList(data[item].title)
-          );
-        }
-
+        makeJsonToHtmlGzList(data, 'uploadedList');
       },
       /**
        * Ajax通信が失敗した場合に呼び出されるメソッド
@@ -164,12 +188,9 @@ $(document).ready(function(e)
       </div>
     <?= $this->Form->end() ?>
     <div class="row">
+    </div>
 
+    <div class="container uploadedList">
     </div>
-    <div class="row">
-      <div class="col-md-1">
-          <a href="#" class="thumbnail">
-          </a>
-      </div>
-    </div>
+
 </div>
