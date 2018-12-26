@@ -28,7 +28,7 @@ function makeJsonToHtmlGzList(jsonData, containerClassName){
 }
 
 function makeDivForGzlist(imgHtml){
-  return "<div class='col-sm-4'>"
+  return "<div class='col-sm-4 my-auto'>"
       + imgHtml
       + "</div>";
 }
@@ -43,7 +43,7 @@ function makeHtmlForArticle(title){
   return ;
 }
 
-$(window).on('load',function(){
+function loadImg(){
   var csrf = $('input[name=_csrfToken]').val();
   /**
    * Ajax通信メソッド
@@ -74,8 +74,11 @@ $(window).on('load',function(){
       }
   });
 
-  return false;
+}
 
+$(window).on('load',function(){
+  loadImg();
+  return false;
 });
 
 $(document).ready(function(e)
@@ -108,6 +111,8 @@ $(document).ready(function(e)
         success: function(data,dataType)
         {
           alert("image was successfully uploaded");
+          $('.uploadedList').empty();
+          loadImg();
         },
         /**
          * Ajax通信が失敗した場合に呼び出されるメソッド
