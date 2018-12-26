@@ -25,7 +25,6 @@ function makeJsonToHtmlGzList(jsonData, containerClassName){
       }
     }
 
-
 }
 
 function makeDivForGzlist(imgHtml){
@@ -35,7 +34,7 @@ function makeDivForGzlist(imgHtml){
 }
 
 function makeImgHtmlForGzList(title){
-  return "<img style='max-width: 25rem; margin : 1%' src='/webroot/img/uploaded/"
+  return "<img style='max-width: 100%; margin : 1%;' src='/webroot/img/uploaded/"
       + title
       + "'>";
 }
@@ -187,7 +186,9 @@ $(document).ready(function(e)
         </div>
       </div>
     <?= $this->Form->end() ?>
-    <div class="row">
+
+    <div class="row mx-auto">
+      <div class="mx-auto">=============</div>
     </div>
 
     <div class="container uploadedList">
