@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Log\Log;
 use Cake\Event\Event; // 追加
 
 /**
@@ -19,7 +20,7 @@ class ArticlesController extends AppController
 	    parent::initialize();
 	    $this->loadComponent('MakeHtml');
 	}
-	
+
 	public function isAuthorized($user)
 	{
 		return true;
@@ -84,16 +85,19 @@ class ArticlesController extends AppController
     {
         $article = $this->Articles->newEntity();
         if ($this->request->is('post')) {
-            $article = $this->Articles->patchEntity($article, $this->request->getData());
-            $fileName =$this->request->data['image'];
-	    $article->content = $this->MakeHtml->makeHtmlForArticles($article);
-	    $article->extension = pathinfo($fileName['name'], PATHINFO_EXTENSION);
-	    if ($this->Articles->save($article)) {
-                $this->Flash->success(__('The article has been saved.'));
-	        move_uploaded_file($fileName['tmp_name'],'../webroot/img/articles/'. $article->title . '.' . $article->extension);    
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The article could not be saved. Please, try again.'));
+	        $article = $this->Articles->patchEntity($article, $this->request->getData());
+	        $fileName =$this->request->data['image'];
+			    $article->content = $this->MakeHtml->makeHtmlForArticles($article);
+			    $article->extension = pathinfo($fileName['name'], PATHINFO_EXTENSION);
+					$article->contName = 'Articles';
+			    if ($this->Articles->save($article)) {
+            $this->Flash->success(__('The article has been saved.'));
+      			move_uploaded_file($fileName['tmp_name'],'../webroot/img/articles/'. $article->title . '.' . $article->extension);
+            return $this->redirect(['action' => 'index']);
+          }else{
+						Log::write('error','記事の投稿に失敗しました');
+					}
+          $this->Flash->error(__('The article could not be saved. Please, try again.'));
         }
         $categories = $this->Articles->Categories->find('list', ['limit' => 200]);
         $this->set(compact('article', 'categories'));

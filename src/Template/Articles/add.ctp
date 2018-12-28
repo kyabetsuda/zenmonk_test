@@ -206,8 +206,6 @@ $(document).ready(function(e)
       <div class="mx-auto">=============</div>
     </div>
 
-    <div class="btn">aiuoeo</div>
-
     <div class="container uploadedList">
     </div>
 
