@@ -34,13 +34,20 @@ function makeDivForGzlist(imgHtml){
 }
 
 function makeImgHtmlForGzList(title){
-  return "<img style='max-width: 100%; margin : 1%;' src='/webroot/img/uploaded/"
+  return "<div class='btn'><img style='max-width: 100%; margin : 1%;' src='/webroot/img/uploaded/"
       + title
-      + "'>";
+      + "'></div>";
 }
 
-function makeHtmlForArticle(title){
-  return ;
+function makeHtmlForArticle(gzSrc){
+  return "<img style='max-width: 100%; margin : 1%;' src='"
+      + gzSrc
+      + "'>";
+
+}
+
+function insertGzHtmlIntoArticle(gzHtml, contentClassName){
+  $('.' + contentClassName).val($('.' + contentClassName).val() + gzHtml);
 }
 
 function loadImg(){
@@ -61,6 +68,11 @@ function loadImg(){
       success: function(data,dataType)
       {
         makeJsonToHtmlGzList(data, 'uploadedList');
+
+        //画像を全部挿入し終わってからイベントリスナーをつける
+        $('img').click(function(){
+          insertGzHtmlIntoArticle(makeHtmlForArticle(this.src), "articleContent");
+        })
       },
       /**
        * Ajax通信が失敗した場合に呼び出されるメソッド
@@ -76,13 +88,11 @@ function loadImg(){
 
 }
 
-$(window).on('load',function(){
-  loadImg();
-  return false;
-});
-
 $(document).ready(function(e)
 {
+  //アップロード画像のロード
+  loadImg();
+
   /**
   * 送信ボタンクリック
   */
@@ -155,7 +165,7 @@ $(document).ready(function(e)
       </div>
 
       <div class="row">
-          <?php  echo $this->Form->textarea('content',['rows'=>20, 'cols'=>100, 'class'=>'mx-auto', 'style'=>'max-width:90%']);?>
+          <?php  echo $this->Form->textarea('content',['rows'=>20, 'cols'=>100, 'class'=>'mx-auto articleContent', 'style'=>'max-width:90%']);?>
       </div>
 
       <div class="row">
@@ -195,6 +205,8 @@ $(document).ready(function(e)
     <div class="row mx-auto">
       <div class="mx-auto">=============</div>
     </div>
+
+    <div class="btn">aiuoeo</div>
 
     <div class="container uploadedList">
     </div>
