@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\Rule\IsUnique;
 
 /**
  * Articles Model
@@ -71,12 +72,12 @@ class ArticlesTable extends Table
             ->scalar('content')
             ->requirePresence('content', 'create')
             ->notEmpty('content');
-        
+
         $validator
-            ->scalar('extension')
-            ->requirePresence('extension', 'create')
-            ->notEmpty('extension');
-        
+            ->scalar('thumbnail')
+            ->requirePresence('thumbnail', 'create')
+            ->notEmpty('thumbnail');
+
         $validator
             ->scalar('contName')
             ->requirePresence('contName', 'create')
@@ -105,6 +106,7 @@ class ArticlesTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['category_id'], 'Categories'));
+        $rules->add($rules->isUnique(['thumbnail']));
 
         return $rules;
     }

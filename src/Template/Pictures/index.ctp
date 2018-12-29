@@ -13,7 +13,7 @@
 		<div class="col-sm-4 mb-1">
 			<div class="card mb-3" style="max-width: 25rem;">
 			<a href="">
-			<img class="card-img-top" src="/img/pictures/<?=$picture->title . '.' . $picture->extension?>">
+			<img class="card-img-top" src="/img/pictures/<?=$picture->thumbnail?>">
 			</a>
 			<div class="card-body text-center">
 				<span><?=$picture->title?>

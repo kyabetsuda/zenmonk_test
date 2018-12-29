@@ -88,11 +88,11 @@ class ArticlesController extends AppController
 	        $article = $this->Articles->patchEntity($article, $this->request->getData());
 	        $fileName =$this->request->data['image'];
 			    $article->content = $this->MakeHtml->makeHtmlForArticles($article);
-			    $article->extension = pathinfo($fileName['name'], PATHINFO_EXTENSION);
+			    $article->thumbnail = $fileName['name'];
 					$article->contName = 'Articles';
 			    if ($this->Articles->save($article)) {
             $this->Flash->success(__('The article has been saved.'));
-      			move_uploaded_file($fileName['tmp_name'],'../webroot/img/articles/'. $article->title . '.' . $article->extension);
+      			move_uploaded_file($fileName['tmp_name'],'../webroot/img/articles/'. $fileName['name']);
             return $this->redirect(['action' => 'index']);
           }else{
 						Log::write('error','記事の投稿に失敗しました');

@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\Rule\IsUnique;
 
 /**
  * Pictures Model
@@ -55,12 +56,6 @@ class PicturesTable extends Table
             ->notEmpty('title');
 
         $validator
-            ->scalar('extension')
-            ->maxLength('extension', 1024)
-            ->requirePresence('extension', 'create')
-            ->notEmpty('extension');
-
-        $validator
             ->dateTime('ins_ymd')
             ->requirePresence('ins_ymd', 'create')
             ->notEmpty('ins_ymd');
@@ -74,12 +69,26 @@ class PicturesTable extends Table
             ->dateTime('content')
             ->requirePresence('content', 'create')
             ->notEmpty('content');
-        
+
         $validator
         ->dateTime('contName')
         ->requirePresence('contName', 'create')
         ->notEmpty('contName');
 
+        $validator
+        ->dateTime('thumbnail')
+        ->requirePresence('thumbnail', 'create')
+        ->notEmpty('thumbnail');
+
         return $validator;
+    }
+
+    // テーブルクラスの中で
+    public function buildRules(RulesChecker $rules)
+    {
+
+      $rules->add($rules->isUnique(['thumbnail']));
+
+      return $rules;
     }
 }

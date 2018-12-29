@@ -26,10 +26,10 @@ class Picture extends Entity
      */
     protected $_accessible = [
         'title' => true,
-        'extension' => true,
         'ins_ymd' => true,
         'upd_ymd' => true,
         'content' => true,
-        'contName' => true
+        'contName' => true,
+        'thumbnail' => true
     ];
 }

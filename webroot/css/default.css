@@ -18,3 +18,7 @@ area {
   left: 50%;
   transform: translatex(-50%);
 }
+
+* {
+  min-height: 0.01px;
+}
