@@ -83,6 +83,7 @@ $cakeDescription = 'Portfolio';
     <div class="ml-auto"><button class="btn btn-outline-dark border modal-close">close</button></div>
   </div>
   <br>
+  <h3 class="modalTitle"></h3>
   <div class="modalBody"></div>
   </div>
 </div>

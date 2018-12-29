@@ -77,6 +77,7 @@ class PicturesController extends AppController
 			    $picture->title = $this->request->data['title'];
 			    $picture->extension = pathinfo($fileName['name'], PATHINFO_EXTENSION);
 			    $picture->content = $this->MakeHtml->makeHtmlForPictures($picture);
+					$picture->contName = 'Pictures';
 	    	if ($this->Pictures->save($picture)) {
 					$this->Flash->success(__('The picture has been saved.'));
 	        move_uploaded_file($fileName['tmp_name'],'../webroot/img/pictures/'. $picture->title . '.' . $picture->extension);

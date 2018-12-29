@@ -58,7 +58,9 @@ $(document).ready(function(e)
         data: data,
         success: function(data,dataType)
         {
+          $('.modalTitle').empty();
           $('.modalBody').empty();
+          $('.modalTitle').append(data.title);
           $('.modalBody').append(
                 data.content
           );
@@ -69,10 +71,12 @@ $(document).ready(function(e)
          */
         error: function(XMLHttpRequest, textStatus, errorThrown)
         {
-          alert('Error : ' + errorThrown + '\n'
-            + 'textStatus : ' + textStatus + '\n'
-            + 'XMLHttpRequest : ' + XMLHttpRequest.status
-          );
+          // alert('Error : ' + errorThrown + '\n'
+          //   + 'textStatus : ' + textStatus + '\n'
+          //   + 'XMLHttpRequest : ' + XMLHttpRequest.status
+          // );
+
+          alert("コンテンツ取得時にエラーが発生しました。");
         }
     });
 
