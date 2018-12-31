@@ -53,7 +53,7 @@ $cakeDescription = 'Portfolio';
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item"><a class="nav-link" href="/articles/">Articles</a></li>
 			<li class="nav-item"><a class="nav-link" href="/pictures/">Pictures</a></li>
-			<li class="nav-item"><a class="nav-link" href="/processings/">Processings</a></li>
+			<li class="nav-item"><a class="nav-link" href="/videos/">Videos</a></li>
 		</ul>
 		<?= $this->Form->create(null, [
 			'url'=>['controller'=>'SearchResult','action'=>'index'],
@@ -94,8 +94,6 @@ $cakeDescription = 'Portfolio';
 	<div class="text-muted text-center" style="font-size:12px">©︎2018 Shiran All Rights Reserved. </div>
 	</div>
 </footer>
-
-<video src="/img/processings/Untitled.mov" controls></video>
 
 
 </body>

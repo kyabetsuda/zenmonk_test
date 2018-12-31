@@ -11,15 +11,20 @@ class MakeHtmlComponent extends Component
 			. '<script src="/js/turnPicture.js"></script>');
 	}
 
-	public function makeHtmlForProcessings($processing){
-		return h('<script src="/js/processings/' . $processing->title . '.js"></script>'
-			.'<div><canvas class="mx-auto d-block" style="max-width:100%" id="processing"></canvas></div>'
-		);
-	}
-
 	public function makeHtmlForArticles($article){
 		return h('<div style="max-width:100%">' . $article->content . '</div>'
 			. '<script src="/js/jsForArticle.js"></script>'
 		);
 	}
+
+	public function makeHtmlForVideos($video){
+		return h('<video class="mx-auto d-block" style="max-width:100%" src="/mv/videos/' . $video->content . '" controls></video>'
+		);
+	}
+
+	// public function makeHtmlForProcessings($processing){
+	// 	return h('<script src="/js/processings/' . $processing->title . '.js"></script>'
+	// 		.'<div><canvas class="mx-auto d-block" style="max-width:100%" id="processing"></canvas></div>'
+	// 	);
+	// }
 }
