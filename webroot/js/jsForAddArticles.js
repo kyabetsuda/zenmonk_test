@@ -8,6 +8,7 @@ function insertCodeBlock(containerClassName){
   $('.' + containerClassName).val($('.' + containerClassName).val()
     + '<pre>\n'
     + '<code>\n'
+    + '\n'
     + '</code>\n'
     + '</pre>');
 }
@@ -21,6 +22,9 @@ function insertCitationBlock(containerClassName){
 
   $('.' + containerClassName).val($('.' + containerClassName).val()
     + '<blockquote>\n'
+    + '<p>\n'
+    + '\n'
+    + '</p>\n'
     + '</blockquote>');
 }
 
