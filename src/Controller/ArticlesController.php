@@ -40,7 +40,9 @@ class ArticlesController extends AppController
 			$article = $this->Articles->get($this->request->data['request'], [
 			    'contain' => []
 			]);
+			Log::write('debug','before : ' . $article->content);
 			$article->content = htmlspecialchars_decode($article->content,ENT_QUOTES|ENT_HTML5);
+			Log::write('debug','after : ' . $article->content);
 			$resultJ = json_encode($article);
 			$this->response->type('json');
 			$this->response->body($resultJ);

@@ -30,7 +30,9 @@ $cakeDescription = 'Portfolio';
     <?= $this->Html->css('bootstrap.css') ?>
     <?= $this->Html->css('iziToast.min.css') ?>
     <?= $this->Html->css('modaal.min.css') ?>
-    <?= $this->Html->css('default.css') ?>
+    <?= $this->Html->css('thisDefault.css') ?>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/styles/default.min.css"/>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.1/processing.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <?= $this->Html->script('jquery.rwdImageMaps.min.js') ?>

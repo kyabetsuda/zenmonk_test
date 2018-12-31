@@ -18,6 +18,8 @@ class MakeHtmlComponent extends Component
 	}
 
 	public function makeHtmlForArticles($article){
-		return h('<div style="max-width:100%">' . $article->content . '</div>');
+		return h('<div style="max-width:100%">' . $article->content . '</div>'
+			. '<script src="/js/jsForArticle.js"></script>'
+		);
 	}
 }

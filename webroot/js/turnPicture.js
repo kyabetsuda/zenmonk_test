@@ -5,7 +5,7 @@ if($(window).height() > $(window).width()){
   $('img').css('max-width', $(window).height());
 
   iziToast.settings({
-    iconUrl: 'icon_133010.svg',
+    iconUrl: '/icon_133010.svg',
     message: 'Please turn the display around',
     timeout: false,
     position: 'topCenter'

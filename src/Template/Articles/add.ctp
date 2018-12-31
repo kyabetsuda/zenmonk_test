@@ -5,6 +5,14 @@
  */
 ?>
 <script>
+function codeBlock(containerClassName){
+
+}
+
+function makeCitationBlock(containerClassName){
+
+}
+
 function makeJsonToHtmlGzList(jsonData, containerClassName){
 
     var tmp = [];

@@ -1,4 +1,3 @@
-
 $('head').append(
   '<style>.fadeIn{display:none;}'
 );
@@ -10,10 +9,13 @@ $(window).on('load resize', function(){
   // bodyのpaddingにnavbarの高さを設定する
   $('body').css('padding-top',height*2.5);
 
+
+
 });
 
 $(document).ready(function(e)
 {
+
   //fadeのコールバックとしてrwdImageMapsを呼び出す
   $('.fadeIn').delay(600).fadeIn("slow",function(){
     $('img[usemap]').rwdImageMaps();
@@ -51,7 +53,7 @@ $(document).ready(function(e)
     $.ajax({
         type: 'POST',
         beforeSend: function(xhr){
-      xhr.setRequestHeader('X-CSRF-Token', csrf);
+          xhr.setRequestHeader('X-CSRF-Token', csrf);
         },
         datatype:'json',
         url: "http://" + location.hostname + "/" + cntName + "/getContent",
@@ -61,9 +63,11 @@ $(document).ready(function(e)
           $('.modalTitle').empty();
           $('.modalBody').empty();
           $('.modalTitle').append(data.title);
-          $('.modalBody').append(
+          console.log(data.content);
+          $('.modalBody').html(
                 data.content
           );
+          console.log($('.modalBody').children());
           $('.inline').modaal('open');
         },
         /**
