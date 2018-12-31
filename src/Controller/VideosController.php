@@ -75,6 +75,7 @@ class VideosController extends AppController
         $videoFile =$this->request->data['video'];
         $video->title = $this->request->data['title'];
         $video->thumbnail = $imageFile['name'];
+        $video->video = $videoFile['name'];
         $video->content = $videoFile['name'];
         $video->content = $this->MakeHtml->makeHtmlForVideos($video);
         $video->contName = 'videos';

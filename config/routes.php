@@ -71,11 +71,11 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/pictures/*', ['controller' => 'Error']);
 
     //Processings
-    $routes->connect('/processings/', ['controller' => 'Processings', 'action'=>'index']);
-    $routes->connect('/processings/index', ['controller' => 'Processings', 'action'=>'index']);
-    $routes->connect('/processings/getContent', ['controller' => 'Processings', 'action'=>'getContent']);
-//    $routes->connect('/processings/view/**', ['controller' => 'Processings', 'action'=>'view']);
-    $routes->connect('/processings/*', ['controller' => 'Error']);
+    // $routes->connect('/processings/', ['controller' => 'Processings', 'action'=>'index']);
+    // $routes->connect('/processings/index', ['controller' => 'Processings', 'action'=>'index']);
+    // $routes->connect('/processings/getContent', ['controller' => 'Processings', 'action'=>'getContent']);
+    // $routes->connect('/processings/view/**', ['controller' => 'Processings', 'action'=>'view']);
+    // $routes->connect('/processings/*', ['controller' => 'Error']);
 
     //Videos
     $routes->connect('/videos/', ['controller' => 'Videos', 'action'=>'index']);
@@ -101,8 +101,8 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/deletePictures/**', ['controller' => 'Pictures', 'action' => 'delete']);
 
     //Processings
-    $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/addProcessings', ['controller' => 'Processings', 'action' => 'add']);
-    $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/deleteProcessings/**', ['controller' => 'Processings', 'action' => 'delete']);
+    // $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/addProcessings', ['controller' => 'Processings', 'action' => 'add']);
+    // $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/deleteProcessings/**', ['controller' => 'Processings', 'action' => 'delete']);
 
     //Videos
     $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/addVideos', ['controller' => 'Videos', 'action' => 'add']);
