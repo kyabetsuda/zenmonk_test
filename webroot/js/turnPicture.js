@@ -6,7 +6,7 @@ if($(window).height() > $(window).width()){
 
   iziToast.settings({
     iconUrl: '/icon_133010.svg',
-    message: 'Please turn the display around',
+    message: 'Please rotate the display',
     timeout: false,
     position: 'topCenter'
   });

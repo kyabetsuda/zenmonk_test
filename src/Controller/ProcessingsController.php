@@ -25,14 +25,14 @@ class ProcessingsController extends AppController
 		return true;
 
 	}
-	
+
 	public function beforeFilter(Event $event)
 	{
 		parent::beforeFilter($event);
 		$this->Security->setConfig('unlockedActions', ['getContent']);
 		$this->Auth->allow(['index','getContent']);
 	}
-	
+
 	public function getContent(){
 		$this->autoRender = FALSE;
 		if($this->request->is('ajax')) {
@@ -70,22 +70,23 @@ class ProcessingsController extends AppController
      */
     public function add()
     {
-        $processing = $this->Processings->newEntity();
-        if ($this->request->is('post')) {
-            $fileName = $this->request->data['image'];
-	    $jsfile = $this->request->data['js'];
-	    $processing = $this->Processings->patchEntity($processing, $this->request->getData());
-	    $processing->content = $this->MakeHtml->makeHtmlForProcessings($processing);
-	    $processing->extension = pathinfo($fileName['name'], PATHINFO_EXTENSION);
-	    if ($this->Processings->save($processing)) {
-                $this->Flash->success(__('The processing has been saved.'));
-	        move_uploaded_file($fileName['tmp_name'],'../webroot/img/processings/'. $processing->title . '.' . $processing->extension);    
-	        move_uploaded_file($jsfile['tmp_name'],'../webroot/js/processings/'. $processing->title . '.js');    
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The processing could not be saved. Please, try again.'));
-        }
-        $this->set(compact('processing'));
+			$processing = $this->Processings->newEntity();
+			if ($this->request->is('post')) {
+				$fileName = $this->request->data['image'];
+				$jsfile = $this->request->data['js'];
+				$processing = $this->Processings->patchEntity($processing, $this->request->getData());
+				$processing->content = $this->MakeHtml->makeHtmlForProcessings($processing);
+				$processing->thumbnail = $fileName['name'];
+				$processing->contName = 'processing';
+				if ($this->Processings->save($processing)) {
+					$this->Flash->success(__('The processing has been saved.'));
+					move_uploaded_file($fileName['tmp_name'],'../webroot/img/processings/'. $processing->title . '.' . $processing->extension);
+					move_uploaded_file($jsfile['tmp_name'],'../webroot/js/processings/'. $processing->title . '.js');
+					return $this->redirect(['action' => 'index']);
+				}
+				$this->Flash->error(__('The processing could not be saved. Please, try again.'));
+			}
+			$this->set(compact('processing'));
     }
 
 
@@ -108,7 +109,7 @@ class ProcessingsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    
+
 //    /**
 //     * View method
 //     *
@@ -124,7 +125,7 @@ class ProcessingsController extends AppController
 //
 //        $this->set('processing', $processing);
 //    }
-    
+
     /**
      * Edit method
      *
