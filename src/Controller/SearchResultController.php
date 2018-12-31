@@ -18,16 +18,16 @@ class SearchResultController extends AppController
 		parent::initialize();
 		$this->Pictures = TableRegistry::get('Pictures');
 		$this->Articles = TableRegistry::get('Articles');
-		$this->Processings = TableRegistry::get('Processings');
+		$this->Videos = TableRegistry::get('Videos');
 
-	}     
-	
+	}
+
 	public function isAuthorized($user)
 	{
 		return true;
 
 	}
-	
+
 	public function beforeFilter(Event $event)
 	{
 		parent::beforeFilter($event);
@@ -47,10 +47,10 @@ class SearchResultController extends AppController
 			->where(['title like' =>"%" . $title . "%"]);
 		$articles = $this->Articles->find('all')
 			->where(['title like' =>"%" . $title . "%"]);
-		$processings = $this->Processings->find('all')
+		$videos = $this->Videos->find('all')
 			->where(['title like' =>"%" . $title . "%"]);
 
-		$results = array_merge($pictures->toArray(), $articles->toArray(), $processings->toArray());
+		$results = array_merge($pictures->toArray(), $articles->toArray(), $videos->toArray());
 		$this->set(compact('results'));
 
 
