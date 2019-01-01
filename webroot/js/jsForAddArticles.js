@@ -48,14 +48,24 @@ function insertGzHtmlIntoArticle(gzHtml, containerClassName){
 function addEventListenerToImg(){
   //画像を全部挿入し終わってからイベントリスナーをつける
   $('img').click(function(){
-    insertGzHtmlIntoArticle(makeHtmlForArticle(this.src), "articleContent");
+    if($('input[name=q1]:checked').val() == 'content'){
+      insertGzHtmlIntoArticle(makeHtmlForArticle(this.src), "articleContent");
+    }else if($('input[name=q1]:checked').val() == 'thumbnail'){
+      var url = this.src;
+      var splittedUrl = url.split('/');
+      $('#thumbnail').val(splittedUrl[splittedUrl.length - 1]);
+    }else{
+
+    }
   })
 }
 
 $(document).ready(function(e)
 {
-  //アップロード画像のロード
-  loadPictures('uploadedList',addEventListenerToImg);
+  //uploadPictureのためのグローバルメソッド
+  callbackForLoad = function(){
+    addEventListenerToImg();
+  };
 
   $('.addCode').click(function(){
     insertCodeBlock('articleContent');
@@ -64,12 +74,5 @@ $(document).ready(function(e)
   $('.addCitation').click(function(){
     insertCitationBlock('articleContent');
   });
-  /**
-  * 送信ボタンクリック
-  */
-  $('.uploadPictures').click(function()
-  {
-    uploadPictures(function(){loadPictures('uploadedList',addEventListenerToImg)});
-    return false;
-  });
+
 });

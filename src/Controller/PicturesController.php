@@ -75,12 +75,11 @@ class PicturesController extends AppController
         if ($this->request->is('post')) {
           $fileName =$this->request->data['image'];
 			    $picture->title = $this->request->data['title'];
-					$picture->thumbnail = $fileName['name'];
-			    $picture->content = $this->MakeHtml->makeHtmlForPictures($picture);
 					$picture->contName = 'pictures';
+					$picture->thumbnail = $this->request->data['thumbnail'];
+			    $picture->content = $this->MakeHtml->makeHtmlForPictures($picture);
 	    	if ($this->Pictures->save($picture)) {
 					$this->Flash->success(__('The picture has been saved.'));
-	        move_uploaded_file($fileName['tmp_name'],'../webroot/img/pictures/' . $fileName['name']);
 					return $this->redirect('/pictures');
         }
             $this->Flash->error(__('The picture could not be saved. Please, try again.'));
@@ -108,13 +107,13 @@ class PicturesController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Picture id.
-     * @return \Cake\Http\Response|void
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    // /**
+    //  * View method
+    //  *
+    //  * @param string|null $id Picture id.
+    //  * @return \Cake\Http\Response|void
+    //  * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+    //  */
 //    public function view($id = null)
 //    {
 //        $picture = $this->Pictures->get($id, [
@@ -123,13 +122,13 @@ class PicturesController extends AppController
 //
 //        $this->set('picture', $picture);
 //    }
-    /**
-     * Edit method
-     *
-     * @param string|null $id Picture id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
+    // /**
+    //  * Edit method
+    //  *
+    //  * @param string|null $id Picture id.
+    //  * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+    //  * @throws \Cake\Network\Exception\NotFoundException When record not found.
+    //  */
  //   public function edit($id = null)
  //   {
  //       $picture = $this->Pictures->get($id, [

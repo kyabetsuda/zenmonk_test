@@ -7,7 +7,7 @@ class MakeHtmlComponent extends Component
 {
 	public function makeHtmlForPictures($picture)
 	{
-		return h('<img class="mx-auto d-block" style="max-width:100%" src="/img/pictures/' . $picture->thumbnail . '">'
+		return h('<img class="mx-auto d-block" style="max-width:100%" src="/img/uploaded/' . $picture->thumbnail . '">'
 			. '<script src="/js/turnPicture.js"></script>');
 	}
 

@@ -6,15 +6,23 @@
 ?>
 <?= $this->Html->script('jsForAddArticles.js') ?>
 
+
+<legend><?= __('Add Article') ?></legend>
+<hr>
+
+<div class="row">
+  <div class="mx-auto">
+    <input type="radio" name="q1" value="thumbnail"> サムネイル
+    <input type="radio" name="q1" value="content"> 記事
+  </div>
+</div>
+
+
 <div class="articles form large-9 medium-8 columns content">
     <?= $this->Form->create(null, [
-    	'url'=>['controller'=>'articles','action'=>'add'],
-	     'type'=>'file'
+    	'url'=>['controller'=>'articles','action'=>'add']
     ]) ?>
     <fieldset>
-      <legend><?= __('Add Article') ?></legend>
-      <hr>
-
       <div class="row">
         <div class="mx-auto">
           <?php  echo $this->Form->control('title');?>
@@ -28,13 +36,13 @@
       </div>
 
       <div class="row">
-          <?php  echo $this->Form->textarea('content',['rows'=>20, 'cols'=>100, 'class'=>'mx-auto articleContent', 'style'=>'max-width:90%']);?>
+        <div class="mx-auto">
+          <?=$this->Form->control('thumbnail',['type'=>'text', 'readonly' => 'readonly'])?>
+        </div>
       </div>
 
       <div class="row">
-        <div class="mx-auto">
-          <?=$this->Form->control('image',['type'=>'file'])?>
-        </div>
+          <?php  echo $this->Form->textarea('content',['rows'=>20, 'cols'=>100, 'class'=>'mx-auto articleContent', 'style'=>'max-width:90%']);?>
       </div>
 
     </fieldset>
@@ -46,15 +54,10 @@
     </div>
     <?= $this->Form->end() ?>
 
-    <?= $this->Form->create(null, [
-    	'url'=>['controller'=>'Uplpictures','action'=>'add'],
-	    'type'=>'file',
-      'id'=>'uploadPictures'
-    ]) ?>
     <legend><?= __('Accessories') ?></legend>
     <div class="btn addCode">addCode</div>
     <div class="btn addCitation">addCitation</div>
 
-    <?php echo $this->element('UploadPictures/uplPicture'); ?>
+    <?php echo $this->element('UploadPictures/uplPicture', ["callbackForLoad" => "callbackForLoad"]); ?>
 
 </div>

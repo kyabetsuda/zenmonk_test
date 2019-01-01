@@ -17,7 +17,13 @@ function loadPictures(containerClassName, callback){
       success: function(data,dataType)
       {
         makeJsonToHtmlGzList(data, containerClassName);
-        callback();
+
+        //callbackが定義されていない場合は実行しない。
+        if(typeof callback == 'function') {
+          callback();
+        }else{
+          console.log("callbackForLoadが定義されていません");
+        }
       },
       /**
        * Ajax通信が失敗した場合に呼び出されるメソッド
@@ -106,3 +112,18 @@ function makeImgHtmlForGzList(title){
       + title
       + "'></div>";
 }
+
+$(document).ready(function(){
+  //画像のロード。callbackForLoadは外部ファイルで定義しなければならない。
+  loadPictures('uploadedList',callbackForLoad);
+
+  /**
+  * 送信ボタンクリック
+  */
+  $('.uploadPictures').click(function()
+  {
+    uploadPictures(function(){loadPictures('uploadedList',callbackForLoad)});
+    return false;
+  });
+
+});
