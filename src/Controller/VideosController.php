@@ -71,17 +71,15 @@ class VideosController extends AppController
     {
       $video = $this->Videos->newEntity();
       if ($this->request->is('post')) {
-        $imageFile =$this->request->data['thumbnail'];
         $videoFile =$this->request->data['video'];
         $video->title = $this->request->data['title'];
-        $video->thumbnail = $imageFile['name'];
+        $video->thumbnail = $this->request->data['thumbnail'];
         $video->video = $videoFile['name'];
         $video->content = $videoFile['name'];
         $video->content = $this->MakeHtml->makeHtmlForVideos($video);
         $video->contName = 'videos';
       if ($this->Videos->save($video)) {
         $this->Flash->success(__('The video has been saved.'));
-        move_uploaded_file($imageFile['tmp_name'],'../webroot/img/videos/' . $imageFile['name']);
         move_uploaded_file($videoFile['tmp_name'],'../webroot/mv/videos/' . $videoFile['name']);
         return $this->redirect('/videos');
       }

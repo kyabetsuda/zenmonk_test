@@ -115,14 +115,25 @@ function makeImgHtmlForGzList(title){
 
 $(document).ready(function(){
   //画像のロード。callbackForLoadは外部ファイルで定義しなければならない。
-  loadPictures('uploadedList',callbackForLoad);
+  //callbackが定義されていない場合は実行しない。
+  if(typeof callbackForLoad == 'function') {
+    loadPictures('uploadedList',callbackForLoad);
+  }else{
+    loadPictures('uploadedList');
+  }
+
 
   /**
   * 送信ボタンクリック
   */
   $('.uploadPictures').click(function()
   {
-    uploadPictures(function(){loadPictures('uploadedList',callbackForLoad)});
+    if(typeof callbackForLoad == 'function') {
+      uploadPictures(function(){loadPictures('uploadedList',callbackForLoad)});
+    }else{
+      uploadPictures(function(){loadPictures('uploadedList')});
+    }
+
     return false;
   });
 

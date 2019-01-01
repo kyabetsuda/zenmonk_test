@@ -1,3 +1,5 @@
+<?= $this->Html->script('jsForAddVideos.js') ?>
+
 <div class="pictures form large-9 medium-8 columns content">
     <?= $this->Form->create(null, [
 	    'url'=>['controller'=>'videos','action'=>'add'],
@@ -9,8 +11,8 @@
           echo $this->Form->control('title');
       ?>
 
-      <legend><?= __('thumbnaijjjjjl') ?></legend>
-  	  <?=$this->Form->control('thumbnail',['type'=>'file','label'=>false])?>
+      <legend><?= __('thumbnail') ?></legend>
+  	  <?=$this->Form->control('thumbnail',['type'=>'text', 'readonly' => 'readonly'])?>
 
       <legend><?= __('video') ?></legend>
   	  <?=$this->Form->control('video',['type'=>'file','label'=>false])?>
@@ -18,4 +20,7 @@
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
+
+    <?php echo $this->element('UploadPictures/uplPicture'); ?>
+
 </div>

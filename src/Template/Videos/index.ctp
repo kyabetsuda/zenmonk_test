@@ -13,7 +13,7 @@
 		<div class="col-sm-4 mb-1">
 			<div class="card mb-3" style="max-width: 25rem;">
 			<a href="">
-			<img class="card-img-top" src="/img/<?=$video->contName?>/<?=$video->thumbnail?>">
+			<img class="card-img-top" src="/img/uploaded/<?=$video->thumbnail?>">
 			</a>
 			<div class="card-body text-center">
 				<span><?=$video->title?>

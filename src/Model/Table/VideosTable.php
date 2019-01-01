@@ -87,7 +87,6 @@ class VideosTable extends Table
     public function buildRules(RulesChecker $rules)
     {
 
-      $rules->add($rules->isUnique(['thumbnail']));
       $rules->add($rules->isUnique(['video']));
 
       return $rules;
