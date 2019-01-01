@@ -64,15 +64,10 @@ class UplPicturesController extends AppController
           $uplpicture = $this->Uplpictures->newEntity();
           $uplpicture->title = $file['name'];
 
-          //データの検証
-          $validated = $this->Uplpictures->newEntity($uplpicture->toArray());
-          if($validated->errors()){
-            Log::write('debug','error occured');
-            $this->cakeError('error404');
-          }
-
           if($this->Uplpictures->save($uplpicture)){
             move_uploaded_file($file['tmp_name'],'../webroot/img/uploaded/'. $file['name']);
+          }else{
+            $this->cakeError('error404');
           }
 
         }else{

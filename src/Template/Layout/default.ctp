@@ -95,6 +95,5 @@ $cakeDescription = 'Portfolio';
 	</div>
 </footer>
 
-
 </body>
 </html>
