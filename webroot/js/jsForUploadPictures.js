@@ -70,9 +70,9 @@ function uploadPictures(callback){
        */
       error: function(XMLHttpRequest, textStatus, errorThrown)
       {
-        alert('Error : ' + errorThrown + '\n'
+        alert('ErrorCode : ' + XMLHttpRequest.status + '\n'
           + 'textStatus : ' + textStatus + '\n'
-          + 'XMLHttpRequest : ' + XMLHttpRequest.status
+          + 'Error : ' + XMLHttpRequest.responseText
         );
       }
   });

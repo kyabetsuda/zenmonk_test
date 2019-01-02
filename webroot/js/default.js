@@ -9,8 +9,6 @@ $(window).on('load resize', function(){
   // bodyのpaddingにnavbarの高さを設定する
   $('body').css('padding-top',height*2.5);
 
-
-
 });
 
 $(document).ready(function(e)

@@ -14,6 +14,12 @@ use Cake\Log\Log;
 class UplPicturesController extends AppController
 {
 
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('CheckExtension');
+    }
+
     public function isAuthorized($user)
     {
       return true;
@@ -64,10 +70,24 @@ class UplPicturesController extends AppController
           $uplpicture = $this->Uplpictures->newEntity();
           $uplpicture->title = $file['name'];
 
+          //拡張子が画像ファイル以外の場合はエラー
+          $validExtension = array( "jpg", "png" );
+          if(!$this->CheckExtension->chk_ext($file['name'], $validExtension)){
+            Log::write('error','file extension is invalid');
+            $this->response->type('text');
+      			$this->response->body('file extension is invalid');
+            $this->response->statusCode(404);
+      			return $this->response;
+          }
+
           if($this->Uplpictures->save($uplpicture)){
             move_uploaded_file($file['tmp_name'],'../webroot/img/uploaded/'. $file['name']);
           }else{
-            $this->cakeError('error404');
+            Log::write('error','maybe same file has already existed');
+            $this->response->type('text');
+      			$this->response->body('maybe same file has already existed');
+            $this->response->statusCode(404);
+      			return $this->response;
           }
 
         }else{

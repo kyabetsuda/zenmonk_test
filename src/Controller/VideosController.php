@@ -17,6 +17,7 @@ class VideosController extends AppController
     {
         parent::initialize();
         $this->loadComponent('MakeHtml');
+        $this->loadComponent('CheckExtension');
     }
 
 
@@ -72,6 +73,14 @@ class VideosController extends AppController
       $video = $this->Videos->newEntity();
       if ($this->request->is('post')) {
         $videoFile =$this->request->data['video'];
+
+        //ファイル拡張子のチェック
+        $validExtension = array( "mp4", "avi", "mov", "wmv", "flv" );    
+        if(!$this->CheckExtension->chk_ext(videoFile['name'], $validExtension)){
+          Log::write('error', 'invalid file extension');
+          return $this->cakeError('error404');
+        }
+
         $video->title = $this->request->data['title'];
         $video->thumbnail = $this->request->data['thumbnail'];
         $video->video = $videoFile['name'];
