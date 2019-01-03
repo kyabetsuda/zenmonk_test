@@ -29,6 +29,12 @@ class UsersController extends AppController
 
 	public function login()
 	{
+		// すでにログインしていたらredirect
+		$user = $this->Auth->user();
+		if (isset($user)) {
+			return $this->redirect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/top');
+		}
+
 		if ($this->request->is('post')) {
 		    $user = $this->Auth->identify();
 		    if ($user) {
@@ -46,7 +52,6 @@ class UsersController extends AppController
 	}
 
 	public function top(){
-
 
 	}
 
