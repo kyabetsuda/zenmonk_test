@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Log\Log;
 use Cake\Event\Event; // 追加
+use Cake\ORM\TableRegistry;
 
 /**
  * Articles Controller
@@ -19,6 +20,7 @@ class ArticlesController extends AppController
 	{
 	    parent::initialize();
 	    $this->loadComponent('MakeHtml');
+			$this->Categories = TableRegistry::get('Categories');
 	}
 
 	public function isAuthorized($user)
@@ -30,8 +32,8 @@ class ArticlesController extends AppController
 	public function beforeFilter(Event $event)
 	{
 		parent::beforeFilter($event);
-		$this->Security->setConfig('unlockedActions', ['getContent']);
-		$this->Auth->allow(['index','getContent']);
+		$this->Security->setConfig('unlockedActions', ['getContent','uploadArticle']);
+		$this->Auth->allow(['index','getContent','uploadArticle']);
 	}
 
 	public function getContent(){
@@ -112,21 +114,28 @@ class ArticlesController extends AppController
      */
     public function edit($id = null)
     {
+				//記事
         $article = $this->Articles->get($id, [
-            'contain' => []
+            'contain' => ['Categories']
         ]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $article = $this->Articles->patchEntity($article, $this->request->getData());
             if ($this->Articles->save($article)) {
                 $this->Flash->success(__('The article has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The article could not be saved. Please, try again.'));
         }
-        $categories = $this->Articles->Categories->find('list', ['limit' => 200]);
+				//カテゴリ
+        $categories = $this->Categories->find('all');
         $this->set(compact('article', 'categories'));
     }
+
+		public function uploadArticle($id = null){
+			$this->autoRender = FALSE;
+			
+		}
 
     /**
      * Delete method

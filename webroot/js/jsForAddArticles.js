@@ -60,6 +60,61 @@ function addEventListenerToImg(){
   })
 }
 
+function uploadArticle(){
+  var id = $('.articleId').val();
+  var title = $('.articleTitle').val();
+  var thumbnail = $('.articleThumbnail').val();
+  var categories = [];
+  var content = $('.articleContent').val();
+  var csrf = $('input[name=_csrfToken]').val();
+
+  var json = {
+    "id" : id,
+    "title" : title,
+    "thumbnail" : thumbnail,
+    "categories" : categories,
+    "content" : content
+  }
+
+  $('.articleCategories').find('input').each(function(){
+    categories.push($(this).val());
+  });
+
+  /**
+   * Ajax通信メソッド
+   * @param type  : HTTP通信の種類
+   * @param url   : リクエスト送信先のURL
+   * @param data  : サーバに送信する値
+   */
+  $.ajax({
+      type: 'POST',
+      beforeSend: function(xhr){
+        xhr.setRequestHeader('X-CSRF-Token', csrf);
+      },
+      datatype:'json',
+      url: "http://" + location.hostname + "/articles/uploadArticle/" + id,
+      data: json,
+      success: function(data,dataType)
+      {
+        alert("成功");
+      },
+      /**
+       * Ajax通信が失敗した場合に呼び出されるメソッド
+       */
+      error: function(XMLHttpRequest, textStatus, errorThrown)
+      {
+        // alert('Error : ' + errorThrown + '\n'
+        //   + 'textStatus : ' + textStatus + '\n'
+        //   + 'XMLHttpRequest : ' + XMLHttpRequest.status
+        // );
+
+        alert("コンテンツ取得時にエラーが発生しました。");
+      }
+  });
+
+
+}
+
 $(document).ready(function(e)
 {
   //uploadPictureのためのグローバルメソッド
@@ -74,5 +129,18 @@ $(document).ready(function(e)
   $('.addCitation').click(function(){
     insertCitationBlock('articleContent');
   });
+
+  $('.addCategory').click(function(){
+    alert("hello");
+  });
+
+  $('.plusCategory').click(function(){
+    alert("a");
+  });
+
+  $('.uploadArticle').click(function(){
+    uploadArticle();
+  });
+
 
 });

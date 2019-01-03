@@ -4,30 +4,74 @@
  * @var \App\Model\Entity\Article $article
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $article->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $article->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Articles'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
+<?= $this->Html->script('jsForAddArticles.js') ?>
+
+
+<legend><?= __('Add Article') ?></legend>
+<hr>
+
+<div class="row">
+  <div class="mx-auto">
+    <input type="radio" name="q1" value="thumbnail"> サムネイル
+    <input type="radio" name="q1" value="content"> 記事
+  </div>
+</div>
+
+
 <div class="articles form large-9 medium-8 columns content">
-    <?= $this->Form->create($article) ?>
+    <?= $this->Form->create('null', [
+    	'url'=>['controller'=>'articles','action'=>'edit']
+    ]) ?>
     <fieldset>
-        <legend><?= __('Edit Article') ?></legend>
-        <?php
-            echo $this->Form->control('title');
-            echo $this->Form->control('category_id');
-            echo $this->Form->control('text');
-            echo $this->Form->control('ins_ymd');
-            echo $this->Form->control('upd_ymd');
-        ?>
+      <input type="hidden" class="articleId" value="<?=$article->id?>">
+      <div class="row">
+        <div class="mx-auto">
+          <?php  echo $this->Form->control('title', ['value' => $article->title, 'class' => 'articleTitle']);?>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="mx-auto">
+          <?=$this->Form->control('thumbnail',['type'=>'text', 'readonly' => 'readonly', 'class' => 'articleThumbnail'])?>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="mx-auto">
+          <div class="articleCategories">
+            <?php foreach($article->categories as $category): ?>
+              <input type="hidden" value="<?=$category->id?>">
+              <div class="btn btn-outline-dark border"><?=$category->name?></div>
+            <?php endforeach?>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+          <?php  echo $this->Form->textarea('content',['rows'=>20, 'cols'=>100, 'class'=>'mx-auto articleContent', 'style'=>'max-width:90%']);?>
+      </div>
+
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+
+    <div class="row">
+      <div class="mx-auto">
+        <button type="button" class="uploadArticle">upload</button>
+      </div>
+    </div>
     <?= $this->Form->end() ?>
+
+    <legend><?= __('Accessories') ?></legend>
+    <div class="btn addCode">addCode</div>
+    <div class="btn addCitation">addCitation</div>
+    <select id="category_id" name="category_id">
+      <?php foreach($categories as $category): ?>
+        <option value="<?=$category->id?>"><?=$category->name?></option>
+      <?php endforeach?>
+    </select>
+    <div class="btn addCategory">addCategory</div>
+    <input type="text">
+    <div class="btn plusCategory">plusCategory</div>
+
+    <?php echo $this->element('UploadPictures/uplPicture', ["callbackForLoad" => "callbackForLoad"]); ?>
+
 </div>
