@@ -72,4 +72,12 @@ class CategoriesTable extends Table
 
         return $validator;
     }
+
+    public function buildRules(RulesChecker $rules)
+    {
+
+      $rules->add($rules->isUnique(['name']));
+
+      return $rules;
+    }
 }
