@@ -132,9 +132,25 @@ class ArticlesController extends AppController
         $this->set(compact('article', 'categories'));
     }
 
-		public function uploadArticle($id = null){
+		public function uploadArticle(){
 			$this->autoRender = FALSE;
-			
+			if($this->request->is('ajax')) {
+				$article = $this->Articles->get($this->request->data['id'], [
+            'contain' => []
+        ]);
+				$article->title = $this->request->data['title'];
+				$article->thumbnail = $this->request->data['thumbnail'];
+				$article->content = $this->request->data['content'];
+
+				if ($this->Articles->save($article)) {
+						$this->Flash->success(__('The article has been saved.'));
+				}else{
+					$this->cakeError('error404');
+				}
+
+			}else{
+				$this->cakeError('error404');
+			}
 		}
 
     /**

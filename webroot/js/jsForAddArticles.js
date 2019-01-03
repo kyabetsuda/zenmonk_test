@@ -92,7 +92,7 @@ function uploadArticle(){
         xhr.setRequestHeader('X-CSRF-Token', csrf);
       },
       datatype:'json',
-      url: "http://" + location.hostname + "/articles/uploadArticle/" + id,
+      url: "http://" + location.hostname + "/articles/uploadArticle",
       data: json,
       success: function(data,dataType)
       {

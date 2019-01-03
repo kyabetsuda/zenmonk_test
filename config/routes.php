@@ -60,7 +60,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/articles/', ['controller' => 'Articles', 'action'=>'index']);
     $routes->connect('/articles/index', ['controller' => 'Articles', 'action'=>'index']);
     $routes->connect('/articles/getContent', ['controller' => 'Articles', 'action'=>'getContent']);
-    $routes->connect('/articles/uploadArticle/**', ['controller' => 'Articles', 'action'=>'uploadArticle']);
+    $routes->connect('/articles/uploadArticle', ['controller' => 'Articles', 'action'=>'uploadArticle']);
 //    $routes->connect('/articles/view/**', ['controller' => 'Articles', 'action'=>'view']);
     $routes->connect('/articles/*', ['controller' => 'Error']);
 
