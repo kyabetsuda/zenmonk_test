@@ -28,7 +28,7 @@ class Article extends Entity
      * @var array
      */
     protected $_accessible = [
-        'id' => true,
+        //'id' => true,
         'title' => true,
         'category_id' => true,
         'content' => true,

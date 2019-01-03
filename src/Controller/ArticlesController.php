@@ -21,6 +21,7 @@ class ArticlesController extends AppController
 	    parent::initialize();
 	    $this->loadComponent('MakeHtml');
 			$this->Categories = TableRegistry::get('Categories');
+			$this->ArticlesCategories = TableRegistry::get('ArticlesCategories');
 	}
 
 	public function isAuthorized($user)
@@ -32,8 +33,8 @@ class ArticlesController extends AppController
 	public function beforeFilter(Event $event)
 	{
 		parent::beforeFilter($event);
-		$this->Security->setConfig('unlockedActions', ['getContent','uploadArticle']);
-		$this->Auth->allow(['index','getContent','uploadArticle']);
+		$this->Security->setConfig('unlockedActions', ['getContent','uploadArticle','plusCategory']);
+		$this->Auth->allow(['index','getContent','uploadArticle','plusCategory']);
 	}
 
 	public function getContent(){
@@ -119,14 +120,6 @@ class ArticlesController extends AppController
             'contain' => ['Categories']
         ]);
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $article = $this->Articles->patchEntity($article, $this->request->getData());
-            if ($this->Articles->save($article)) {
-                $this->Flash->success(__('The article has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The article could not be saved. Please, try again.'));
-        }
 				//カテゴリ
         $categories = $this->Categories->find('all');
         $this->set(compact('article', 'categories'));
@@ -135,19 +128,57 @@ class ArticlesController extends AppController
 		public function uploadArticle(){
 			$this->autoRender = FALSE;
 			if($this->request->is('ajax')) {
-				$article = $this->Articles->get($this->request->data['id'], [
-            'contain' => []
-        ]);
+				$article = $this->Articles->find()->where(['id' => $this->request->data['id']])->first();
+
+				//articleがいないときはエラー
+				if($article == null){
+					Log::write('debug','nullnullnull');
+					$this->cakeError('error404');
+				}
+
+				//カテゴリー登録
+				foreach($this->request->data['categories'] as $category){
+					$ArticleCategory = $this->ArticlesCategories->find()->where(['article_id' => $this->request->data['id'],'category_id' => $category])->first();
+
+				}
+
+				//各種データ登録
 				$article->title = $this->request->data['title'];
 				$article->thumbnail = $this->request->data['thumbnail'];
 				$article->content = $this->request->data['content'];
 
+				//更新
 				if ($this->Articles->save($article)) {
 						$this->Flash->success(__('The article has been saved.'));
 				}else{
 					$this->cakeError('error404');
 				}
 
+			}else{
+				$this->cakeError('error404');
+			}
+		}
+
+		public function plusCategory(){
+			$this->autoRender = FALSE;
+			if($this->request->is('ajax')) {
+				$category = $this->Categories->newEntity();
+				$category->name = $this->request->data['category'];
+
+				//新規カテゴリー登録
+				if ($this->Categories->save($category)) {
+						$this->Flash->success(__('The article has been saved.'));
+						$categories = $this->Categories->find('all');
+
+						//新しいカテゴリーリストを返却
+						$resultJ = json_encode($categories);
+		        $this->response->type('json');
+		        $this->response->body($resultJ);
+		        return $this->response;
+
+				}else{
+					$this->cakeError('error404');
+				}
 			}else{
 				$this->cakeError('error404');
 			}

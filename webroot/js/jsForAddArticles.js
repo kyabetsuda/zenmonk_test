@@ -97,6 +97,7 @@ function uploadArticle(){
       success: function(data,dataType)
       {
         alert("成功");
+
       },
       /**
        * Ajax通信が失敗した場合に呼び出されるメソッド
@@ -112,7 +113,57 @@ function uploadArticle(){
       }
   });
 
+}
 
+function plusCategory(){
+  var category = $('.plusedCategory').val();
+  var csrf = $('input[name=_csrfToken]').val();
+
+  var json = {
+    "category" : category
+  }
+
+  /**
+   * Ajax通信メソッド
+   * @param type  : HTTP通信の種類
+   * @param url   : リクエスト送信先のURL
+   * @param data  : サーバに送信する値
+   */
+  $.ajax({
+      type: 'POST',
+      beforeSend: function(xhr){
+        xhr.setRequestHeader('X-CSRF-Token', csrf);
+      },
+      datatype:'json',
+      url: "http://" + location.hostname + "/articles/plusCategory",
+      data: json,
+      success: function(data,dataType)
+      {
+        alert("成功");
+        $('#category_id').empty();
+        for(var i in data){
+          $('#category_id').append(
+            makeOptionForCategories(data[i])
+          );
+        }
+      },
+      /**
+       * Ajax通信が失敗した場合に呼び出されるメソッド
+       */
+      error: function(XMLHttpRequest, textStatus, errorThrown)
+      {
+        // alert('Error : ' + errorThrown + '\n'
+        //   + 'textStatus : ' + textStatus + '\n'
+        //   + 'XMLHttpRequest : ' + XMLHttpRequest.status
+        // );
+
+        alert("コンテンツ取得時にエラーが発生しました。");
+      }
+  });
+}
+
+function makeOptionForCategories(data){
+  return '<option value="' + data.id + '">' + data.name + '</option>';
 }
 
 $(document).ready(function(e)
@@ -135,7 +186,7 @@ $(document).ready(function(e)
   });
 
   $('.plusCategory').click(function(){
-    alert("a");
+    plusCategory();
   });
 
   $('.uploadArticle').click(function(){

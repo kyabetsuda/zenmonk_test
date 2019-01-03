@@ -69,7 +69,7 @@
       <?php endforeach?>
     </select>
     <div class="btn addCategory">addCategory</div>
-    <input type="text">
+    <input class="plusedCategory" type="text">
     <div class="btn plusCategory">plusCategory</div>
 
     <?php echo $this->element('UploadPictures/uplPicture', ["callbackForLoad" => "callbackForLoad"]); ?>
