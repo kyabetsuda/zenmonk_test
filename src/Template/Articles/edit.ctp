@@ -7,7 +7,7 @@
 <?= $this->Html->script('jsForAddArticles.js') ?>
 
 
-<legend><?= __('Add Article') ?></legend>
+<legend><?= __('Edit Article') ?></legend>
 <hr>
 
 <div class="row">
@@ -32,7 +32,7 @@
 
       <div class="row">
         <div class="mx-auto">
-          <?=$this->Form->control('thumbnail',['type'=>'text', 'readonly' => 'readonly', 'class' => 'articleThumbnail'])?>
+          <?=$this->Form->control('thumbnail',['value' => $article->thumbnail, 'type'=>'text', 'readonly' => 'readonly', 'class' => 'articleThumbnail'])?>
         </div>
       </div>
 
@@ -48,7 +48,7 @@
       </div>
 
       <div class="row">
-          <?php  echo $this->Form->textarea('content',['rows'=>20, 'cols'=>100, 'class'=>'mx-auto articleContent', 'style'=>'max-width:90%']);?>
+          <?php  echo $this->Form->textarea('content',['value' => $article->content, 'rows'=>20, 'cols'=>100, 'class'=>'mx-auto articleContent', 'style'=>'max-width:90%']);?>
       </div>
 
     </fieldset>

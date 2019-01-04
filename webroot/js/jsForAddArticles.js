@@ -175,7 +175,7 @@ function addCategoryToArticle(){
   var val = searchCategoryFromName('プログラミング');
   console.log(val);
 
-  //すでにカテゴリーがある場合はreturn
+  //すでにカテゴリーがある場合はflg = false
   $('.articleCategories').find('input').each(function(){
     if($(this).val() == id){
       flg = false;

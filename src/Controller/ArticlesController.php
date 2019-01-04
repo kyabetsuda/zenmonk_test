@@ -77,7 +77,6 @@ class ArticlesController extends AppController
         $article = $this->Articles->get($id, [
             'contain' => ['Categories']
         ]);
-
         $this->set('article', $article);
     }
 
@@ -88,22 +87,8 @@ class ArticlesController extends AppController
      */
     public function add()
     {
-        $article = $this->Articles->newEntity();
-        if ($this->request->is('post')) {
-	        $article = $this->Articles->patchEntity($article, $this->request->getData());
-			    $article->content = $this->MakeHtml->makeHtmlForArticles($article);
-			    $article->thumbnail = $this->request->data['thumbnail'];
-					$article->contName = 'articles';
-			    if ($this->Articles->save($article)) {
-            $this->Flash->success(__('The article has been saved.'));
-            return $this->redirect(['action' => 'index']);
-          }else{
-						Log::write('error','記事の投稿に失敗しました');
-					}
-          $this->Flash->error(__('The article could not be saved. Please, try again.'));
-        }
-        $categories = $this->Articles->Categories->find('list', ['limit' => 200]);
-        $this->set(compact('article', 'categories'));
+        $categories = $this->Categories->find('all');
+        $this->set(compact('categories'));
     }
 
     /**
@@ -119,7 +104,6 @@ class ArticlesController extends AppController
         $article = $this->Articles->get($id, [
             'contain' => ['Categories']
         ]);
-
 				//カテゴリ
         $categories = $this->Categories->find('all');
         $this->set(compact('article', 'categories'));
@@ -129,16 +113,33 @@ class ArticlesController extends AppController
 		public function uploadArticle(){
 			$this->autoRender = FALSE;
 			if($this->request->is('ajax')) {
-				$article = $this->Articles->find()->where(['id' => $this->request->data['id']])->first();
+				if($this->request->data['id'] != null){
+					$article = $this->Articles->find()->where(['id' => $this->request->data['id']])->first();
+					//articleがnullの場合は新規追加
+					if($article == null){
+						$article = $this->Articles->newEntity();
+					}
+				}else{
+					//idがそもそも設定されていない場合は新規追加
+					$article = $this->Articles->newEntity();
+					Log::write('debug','new Entity was created, id : ' . $article->id);
+				}
 
-				//articleがいないときはエラー
-				if($article == null){
-					Log::write('debug','nullnullnull');
+				//各種データ登録
+				$article->title = $this->request->data['title'];
+				$article->thumbnail = $this->request->data['thumbnail'];
+				$article->content = $this->MakeHtml->makeHtmlForArticles($this->request->data['content']);
+				$article->contName = "articles";
+
+				//更新
+				if ($this->Articles->save($article)) {
+					$this->Flash->success(__('The article has been saved.'));
+				}else{
 					$this->cakeError('error404');
 				}
 
 				//一旦カテゴリーを全部削除する
-				$ArticlesCategoriesForDelete = $this->ArticlesCategories->find()->where(['article_id' => $this->request->data['id']]);
+				$ArticlesCategoriesForDelete = $this->ArticlesCategories->find()->where(['article_id' => $article->id]);
 				foreach($ArticlesCategoriesForDelete as $category){
 					Log::write('debug','category id is : ' . $category);
 					if ($this->ArticlesCategories->delete($category)) {
@@ -151,7 +152,7 @@ class ArticlesController extends AppController
 				//カテゴリー登録
 				foreach($this->request->data['categories'] as $category){
 					$ArticleCategory = $this->ArticlesCategories->newEntity();
-					$ArticleCategory->article_id = $this->request->data['id'];
+					$ArticleCategory->article_id = $article->id;
 					$ArticleCategory->category_id = $category;
 					if ($this->ArticlesCategories->save($ArticleCategory)) {
 					   $this->Flash->success(__('The article has been deleted.'));
@@ -160,18 +161,6 @@ class ArticlesController extends AppController
 					}
 				}
 
-				//各種データ登録
-				$article->title = $this->request->data['title'];
-				$article->thumbnail = $this->request->data['thumbnail'];
-				$article->content = $this->request->data['content'];
-
-				//更新
-				if ($this->Articles->save($article)) {
-						$this->Flash->success(__('The article has been saved.'));
-				}else{
-					$this->cakeError('error404');
-				}
-				
 
 			}else{
 				$this->cakeError('error404');

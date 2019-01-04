@@ -11,8 +11,8 @@ class MakeHtmlComponent extends Component
 			. '<script src="/js/turnPicture.js"></script>');
 	}
 
-	public function makeHtmlForArticles($article){
-		return h('<div style="max-width:100%">' . $article->content . '</div>'
+	public function makeHtmlForArticles($content){
+		return h('<div style="max-width:100%">' . $content . '</div>'
 			. '<script src="/js/jsForArticle.js"></script>'
 		);
 	}
