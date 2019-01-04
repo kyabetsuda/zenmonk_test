@@ -35,6 +35,7 @@ class ArticlesCategoriesTable extends Table
         parent::initialize($config);
 
         $this->setTable('articles_categories');
+        $this->setPrimaryKey('id');
 
         $this->belongsTo('Articles', [
             'foreignKey' => 'article_id',
@@ -54,15 +55,6 @@ class ArticlesCategoriesTable extends Table
      */
     public function validationDefault(Validator $validator)
     {
-        $validator
-            ->dateTime('ins_ymd')
-            ->requirePresence('ins_ymd', 'create')
-            ->notEmpty('ins_ymd');
-
-        $validator
-            ->dateTime('upd_ymd')
-            ->requirePresence('upd_ymd', 'create')
-            ->notEmpty('upd_ymd');
 
         return $validator;
     }

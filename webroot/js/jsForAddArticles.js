@@ -69,6 +69,7 @@ function uploadArticle(){
   var csrf = $('input[name=_csrfToken]').val();
 
   $('.articleCategories').find('input').each(function(){
+    console.log($(this).val());
     categories.push($(this).val());
   });
 
@@ -212,18 +213,6 @@ function makeBtnForCategory(id, name){
    + '<div class="btn btn-outline-dark border articleCategory">' + name + '</div>'
 }
 
-function testClick(){
-  var categories = [];
-  $('.articleCategories').find('input').each(function(){
-    categories.push($(this).val());
-  });
-
-  for(var i in categories){
-    console.log(categories[i]);
-  }
-
-}
-
 $(document).ready(function(e)
 {
   //uploadPictureのためのグローバルメソッド
@@ -248,8 +237,7 @@ $(document).ready(function(e)
   });
 
   $('.uploadArticle').click(function(){
-    //uploadArticle();
-    testClick();
+    uploadArticle();
   });
 
   $('.articleCategory').click(function(){

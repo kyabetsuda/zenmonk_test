@@ -125,6 +125,7 @@ class ArticlesController extends AppController
         $this->set(compact('article', 'categories'));
     }
 
+
 		public function uploadArticle(){
 			$this->autoRender = FALSE;
 			if($this->request->is('ajax')) {
@@ -136,11 +137,27 @@ class ArticlesController extends AppController
 					$this->cakeError('error404');
 				}
 
+				//一旦カテゴリーを全部削除する
+				$ArticlesCategoriesForDelete = $this->ArticlesCategories->find()->where(['article_id' => $this->request->data['id']]);
+				foreach($ArticlesCategoriesForDelete as $category){
+					Log::write('debug','category id is : ' . $category);
+					if ($this->ArticlesCategories->delete($category)) {
+	            $this->Flash->success(__('The article has been deleted.'));
+	        } else {
+	            $this->cakeError('error404');
+	        }
+				}
+
 				//カテゴリー登録
 				foreach($this->request->data['categories'] as $category){
-					$ArticleCategory = $this->ArticlesCategories->find()->where(['article_id' => $this->request->data['id'],'category_id' => $category])->first();
-					//すでにカテゴリー登録されていない場合のみ追加する
-					
+					$ArticleCategory = $this->ArticlesCategories->newEntity();
+					$ArticleCategory->article_id = $this->request->data['id'];
+					$ArticleCategory->category_id = $category;
+					if ($this->ArticlesCategories->save($ArticleCategory)) {
+					   $this->Flash->success(__('The article has been deleted.'));
+					} else {
+					   $this->cakeError('error404');
+					}
 				}
 
 				//各種データ登録
@@ -154,6 +171,7 @@ class ArticlesController extends AppController
 				}else{
 					$this->cakeError('error404');
 				}
+				
 
 			}else{
 				$this->cakeError('error404');
