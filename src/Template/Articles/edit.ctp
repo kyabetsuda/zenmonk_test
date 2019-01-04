@@ -41,7 +41,7 @@
           <div class="articleCategories">
             <?php foreach($article->categories as $category): ?>
               <input type="hidden" value="<?=$category->id?>">
-              <div class="btn btn-outline-dark border"><?=$category->name?></div>
+              <div class="btn btn-outline-dark border articleCategory"><?=$category->name?></div>
             <?php endforeach?>
           </div>
         </div>

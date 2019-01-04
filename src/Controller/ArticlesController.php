@@ -139,7 +139,8 @@ class ArticlesController extends AppController
 				//カテゴリー登録
 				foreach($this->request->data['categories'] as $category){
 					$ArticleCategory = $this->ArticlesCategories->find()->where(['article_id' => $this->request->data['id'],'category_id' => $category])->first();
-
+					//すでにカテゴリー登録されていない場合のみ追加する
+					
 				}
 
 				//各種データ登録

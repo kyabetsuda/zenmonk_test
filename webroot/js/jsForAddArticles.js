@@ -68,6 +68,10 @@ function uploadArticle(){
   var content = $('.articleContent').val();
   var csrf = $('input[name=_csrfToken]').val();
 
+  $('.articleCategories').find('input').each(function(){
+    categories.push($(this).val());
+  });
+
   var json = {
     "id" : id,
     "title" : title,
@@ -75,10 +79,6 @@ function uploadArticle(){
     "categories" : categories,
     "content" : content
   }
-
-  $('.articleCategories').find('input').each(function(){
-    categories.push($(this).val());
-  });
 
   /**
    * Ajax通信メソッド
@@ -166,6 +166,64 @@ function makeOptionForCategories(data){
   return '<option value="' + data.id + '">' + data.name + '</option>';
 }
 
+function addCategoryToArticle(){
+  var id = $('#category_id option:selected').val();
+  var name = $('#category_id option:selected').text();
+  var flg = true;
+
+  var val = searchCategoryFromName('プログラミング');
+  console.log(val);
+
+  //すでにカテゴリーがある場合はreturn
+  $('.articleCategories').find('input').each(function(){
+    if($(this).val() == id){
+      flg = false;
+    }
+  });
+
+  if(flg){
+    $('.articleCategories').append(makeBtnForCategory(id, name)).ready(function(){
+      //callbackでクリックしたら削除を追加
+      $('.articleCategory').click(function(){
+        var inputId = searchCategoryFromName($(this).text());
+        $(this).remove();
+        //同時にinput要素も削除
+        $('.articleCategories').find('input[value="' + inputId + '"]').remove();
+      });
+    });
+  }
+}
+
+function searchCategoryFromName(name){
+  //カテゴリー名からカテゴリーIDを検索する
+  var val = 0;
+  $('#category_id').find('option').each(function(){
+    if($(this).text() == name){
+      console.log("hello");
+      val = $(this).val();
+    }
+  });
+
+  return val;
+}
+
+function makeBtnForCategory(id, name){
+  return '<input type="hidden" value="' + id + '">'
+   + '<div class="btn btn-outline-dark border articleCategory">' + name + '</div>'
+}
+
+function testClick(){
+  var categories = [];
+  $('.articleCategories').find('input').each(function(){
+    categories.push($(this).val());
+  });
+
+  for(var i in categories){
+    console.log(categories[i]);
+  }
+
+}
+
 $(document).ready(function(e)
 {
   //uploadPictureのためのグローバルメソッド
@@ -182,7 +240,7 @@ $(document).ready(function(e)
   });
 
   $('.addCategory').click(function(){
-    alert("hello");
+    addCategoryToArticle();
   });
 
   $('.plusCategory').click(function(){
@@ -190,7 +248,12 @@ $(document).ready(function(e)
   });
 
   $('.uploadArticle').click(function(){
-    uploadArticle();
+    //uploadArticle();
+    testClick();
+  });
+
+  $('.articleCategory').click(function(){
+    $(this).remove();
   });
 
 
