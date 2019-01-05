@@ -46,39 +46,20 @@ class VideosTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id')
-            ->allowEmpty('id', 'create');
+          ->integer('id')
+          ->allowEmpty('id', 'create');
 
         $validator
-            ->scalar('title')
-            ->maxLength('title', 255)
-            ->requirePresence('title', 'create')
-            ->notEmpty('title');
+          ->scalar('title')
+          ->maxLength('title', 255)
+          ->requirePresence('title', 'create')
+          ->notEmpty('title');
+
 
         $validator
-            ->dateTime('ins_ymd')
-            ->requirePresence('ins_ymd', 'create')
-            ->notEmpty('ins_ymd');
-
-        $validator
-            ->dateTime('upd_ymd')
-            ->requirePresence('upd_ymd', 'create')
-            ->notEmpty('upd_ymd');
-
-        $validator
-            ->dateTime('content')
-            ->requirePresence('content', 'create')
-            ->notEmpty('content');
-
-        $validator
-        ->dateTime('contName')
-        ->requirePresence('contName', 'create')
-        ->notEmpty('contName');
-
-        $validator
-        ->dateTime('thumbnail')
-        ->requirePresence('thumbnail', 'create')
-        ->notEmpty('thumbnail');
+          ->dateTime('thumbnail')
+          ->requirePresence('thumbnail', 'create')
+          ->notEmpty('thumbnail');
 
         return $validator;
     }
@@ -87,7 +68,7 @@ class VideosTable extends Table
     public function buildRules(RulesChecker $rules)
     {
 
-      $rules->add($rules->isUnique(['video']));
+      $rules->add($rules->isUnique(['title']));
 
       return $rules;
     }

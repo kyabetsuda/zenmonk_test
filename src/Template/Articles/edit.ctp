@@ -56,7 +56,7 @@
       </div>
 
       <div class="row">
-          <?php  echo $this->Form->textarea('content',['value' => $article->content, 'rows'=>20, 'cols'=>100, 'class'=>'mx-auto articleContent', 'style'=>'max-width:90%']);?>
+          <?php  echo $this->Form->textarea('content',['value' => htmlspecialchars_decode($article->content,ENT_QUOTES|ENT_HTML5), 'rows'=>20, 'cols'=>100, 'class'=>'mx-auto articleContent', 'style'=>'max-width:90%']);?>
       </div>
 
     </fieldset>
@@ -81,5 +81,6 @@
     <div class="btn plusCategory">plusCategory</div>
 
     <?php echo $this->element('UploadPictures/uplPicture', ["callbackForLoad" => "callbackForLoad"]); ?>
+    <?php echo $this->element('UploadVideos/uplVideos'); ?>
 
 </div>

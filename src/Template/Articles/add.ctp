@@ -80,5 +80,6 @@
     <div class="btn plusCategory">plusCategory</div>
 
     <?php echo $this->element('UploadPictures/uplPicture', ["callbackForLoad" => "callbackForLoad"]); ?>
+    <?php echo $this->element('UploadVideos/uplVideos'); ?>
 
 </div>

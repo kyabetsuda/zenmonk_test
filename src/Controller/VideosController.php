@@ -30,36 +30,35 @@ class VideosController extends AppController
     public function beforeFilter(Event $event)
   	{
   		parent::beforeFilter($event);
-  		$this->Security->setConfig('unlockedActions', ['getContent']);
-  		$this->Auth->allow(['index','getContent']);
+  		$this->Security->setConfig('unlockedActions', ['getContent','add','load']);
+  		$this->Auth->allow(['index','getContent','add','load']);
 
   	}
 
-    public function getContent(){
-  		$this->autoRender = FALSE;
-  		if($this->request->is('ajax')) {
-  			$video = $this->Videos->get($this->request->data['request'], [
-  			    'contain' => []
-  			]);
-  			$video->content = htmlspecialchars_decode($video->content,ENT_QUOTES|ENT_HTML5);
-  			$resultJ = json_encode($video);
-  			$this->response->type('json');
-  			$this->response->body($resultJ);
-  			return $this->response;
-  		}else{
-  			$this->cakeError('error404');
-      }
-  	}
+    // public function getContent(){
+  	// 	$this->autoRender = FALSE;
+  	// 	if($this->request->is('ajax')) {
+  	// 		$video = $this->Videos->get($this->request->data['request'], [
+  	// 		    'contain' => []
+  	// 		]);
+  	// 		$video->content = htmlspecialchars_decode($video->content,ENT_QUOTES|ENT_HTML5);
+  	// 		$resultJ = json_encode($video);
+  	// 		$this->response->type('json');
+  	// 		$this->response->body($resultJ);
+  	// 		return $this->response;
+  	// 	}else{
+  	// 		$this->cakeError('error404');
+    //   }
+  	// }
 
     /**
-     * Index method
+     * load method
      *
      * @return \Cake\Http\Response|void
      */
-    public function index()
+    public function load()
     {
-         $videos = $this->paginate($this->Videos);
-         $this->set(compact('videos'));
+      $this->autoRender = FALSE;
     }
 
 
@@ -70,29 +69,40 @@ class VideosController extends AppController
      */
     public function add()
     {
+      $this->autoRender = FALSE;
       $video = $this->Videos->newEntity();
-      if ($this->request->is('post')) {
-        $videoFile =$this->request->data['video'];
+      if ($this->request->is('ajax')) {
+        $videoFile = $this->request->data['title'];
+        $thumbnail = $this->request->data['thumbnail'];
 
-        //ファイル拡張子のチェック
-        $validExtension = array( "mp4", "avi", "mov", "wmv", "flv" );    
-        if(!$this->CheckExtension->chk_ext(videoFile['name'], $validExtension)){
-          Log::write('error', 'invalid file extension');
+        Log::write('debug', 'thumbnail is : ' . $thumbnail['name']);
+        Log::write('debug', 'videoFile is : ' . $videoFile['name']);
+
+        //画像ファイル拡張子のチェック
+        $validExtension = array( "jpg", "png");
+        if(!$this->CheckExtension->chk_ext($thumbnail['name'], $validExtension)){
+          Log::write('error', 'invalid file extension : ' . $thumbnail['name']);
           return $this->cakeError('error404');
         }
 
-        $video->title = $this->request->data['title'];
-        $video->thumbnail = $this->request->data['thumbnail'];
-        $video->video = $videoFile['name'];
-        $video->content = $videoFile['name'];
-        $video->content = $this->MakeHtml->makeHtmlForVideos($video);
-        $video->contName = 'videos';
-      if ($this->Videos->save($video)) {
-        $this->Flash->success(__('The video has been saved.'));
-        move_uploaded_file($videoFile['tmp_name'],'../webroot/mv/videos/' . $videoFile['name']);
-        return $this->redirect('/videos');
-      }
-        $this->Flash->error(__('The video could not be saved. Please, try again.'));
+        //動画ファイル拡張子のチェック
+        $validExtension = array( "mp4", "avi", "mov", "wmv", "flv" );
+        if(!$this->CheckExtension->chk_ext($videoFile['name'], $validExtension)){
+          Log::write('error', 'invalid file extension : ' . $videoFile['name']);
+          return $this->cakeError('error404');
+        }
+
+        $video->thumbnail = $thumbnail['name'];
+        $video->title = $videoFile['name'];
+
+        if ($this->Videos->save($video)) {
+          $this->Flash->success(__('The video has been saved.'));
+          move_uploaded_file($thumbnail['tmp_name'],'../webroot/img/videos/' . $thumbnail['name']);
+          move_uploaded_file($videoFile['tmp_name'],'../webroot/mv/videos/' . $videoFile['name']);
+        }
+
+      }else{
+        return $this->cakeError('error404');
       }
     }
 

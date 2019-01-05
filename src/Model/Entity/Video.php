@@ -26,10 +26,7 @@ class Video extends Entity
      */
     protected $_accessible = [
         'title' => true,
-        'ins_ymd' => true,
-        'upd_ymd' => true,
-        'content' => true,
-        'contName' => true,
-        'thumbnail' => true
+        'thumbnail' => true,
+        'ins_ymd' => true
     ];
 }

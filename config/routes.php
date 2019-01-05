@@ -84,6 +84,8 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/videos/', ['controller' => 'Videos', 'action'=>'index']);
     $routes->connect('/videos/index', ['controller' => 'Videos', 'action'=>'index']);
     $routes->connect('/videos/getContent', ['controller' => 'Videos', 'action'=>'getContent']);
+    $routes->connect('/videos/add', ['controller' => 'Videos', 'action'=>'add']);
+    $routes->connect('/videos/load', ['controller' => 'Videos', 'action'=>'load']);
 //    $routes->connect('/processings/view/**', ['controller' => 'Processings', 'action'=>'view']);
     $routes->connect('/videos/*', ['controller' => 'Error']);
 

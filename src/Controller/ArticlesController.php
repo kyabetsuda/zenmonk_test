@@ -165,7 +165,9 @@ class ArticlesController extends AppController
 		if($this->request->is('ajax')) {
 			if($this->request->data['id'] != null){
 				$article = $this->Articles->find()->where(['id' => $this->request->data['id']])->first();
-				$article->content = $this->request->data['content'];
+				//articleがeditの場合はコンテンツをそのままセットする
+				//ここは保守性が悪い気がする。いずれ訂正したい
+				$article->content = h($this->request->data['content']);
 				//articleがnullの場合は新規追加
 				if($article == null){
 					$article = $this->Articles->newEntity();
@@ -183,6 +185,8 @@ class ArticlesController extends AppController
 			$article->thumbnail = $this->request->data['thumbnail'];
 			$article->contName = "articles";
 			if($this->request->data['draft']  > -1){
+				//リクエストのdraftに何か設定されている場合のみ設定(設定されていない場合、かつeditの場合に元の値を保持するため)
+				//javascript側で設定されていない場合は初期値-1をそのまま渡すようにしている
 				$article->draft = $this->request->data['draft'];
 			}
 
