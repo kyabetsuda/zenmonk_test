@@ -29,7 +29,7 @@ function insertCitationBlock(containerClassName){
 }
 
 function makeHtmlForArticle(gzSrc){
-  return "<img style='max-width: 100%; margin : 1%;' src='"
+  return "<img class='mx-auto d-block' style='max-width: 100%; margin : 1%;' src='"
       + gzSrc
       + "'>";
 
