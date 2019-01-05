@@ -85,6 +85,7 @@ class ArticlesController extends AppController
 	public function index()
 	{
 	    $this->paginate = [
+					'conditions'=>['draft'=>'0'],
 	        'contain' => ['Categories']
 	    ];
 	    $articles = $this->paginate($this->Articles);
@@ -164,21 +165,24 @@ class ArticlesController extends AppController
 		if($this->request->is('ajax')) {
 			if($this->request->data['id'] != null){
 				$article = $this->Articles->find()->where(['id' => $this->request->data['id']])->first();
+				$article->content = $this->request->data['content'];
 				//articleがnullの場合は新規追加
 				if($article == null){
 					$article = $this->Articles->newEntity();
+					$article->content = $this->MakeHtml->makeHtmlForArticles($this->request->data['content']);
 				}
 			}else{
 				//idがそもそも設定されていない場合は新規追加
 				$article = $this->Articles->newEntity();
+				$article->content = $this->MakeHtml->makeHtmlForArticles($this->request->data['content']);
 				Log::write('debug','new Entity was created, id : ' . $article->id);
 			}
 
 			//各種データ登録
 			$article->title = $this->request->data['title'];
 			$article->thumbnail = $this->request->data['thumbnail'];
-			$article->content = $this->MakeHtml->makeHtmlForArticles($this->request->data['content']);
 			$article->contName = "articles";
+			$article->draft = $this->request->data['draft'];
 
 			//更新
 			if ($this->Articles->save($article)) {
@@ -251,7 +255,7 @@ class ArticlesController extends AppController
 
 
   /**
-   * Delete method
+   * Delete method(ajax)
    *
    * @param
    * @return

@@ -84,6 +84,10 @@ function uploadArticle(){
   var thumbnail = $('.articleThumbnail').val();
   var categories = [];
   var content = $('.articleContent').val();
+  var draft = 0;
+  if($('input[name=q2]:checked').val() == 'draft'){
+    draft = 1;
+  }
   var csrf = $('input[name=_csrfToken]').val();
 
   $('.articleCategories').find('input').each(function(){
@@ -96,7 +100,8 @@ function uploadArticle(){
     "title" : title,
     "thumbnail" : thumbnail,
     "categories" : categories,
-    "content" : content
+    "content" : content,
+    "draft" : draft
   }
 
   /**
@@ -198,9 +203,6 @@ function addCategoryToArticle(){
   var id = $('#category_id option:selected').val();
   var name = $('#category_id option:selected').text();
   var flg = true;
-
-  var val = searchCategoryFromName('プログラミング');
-  console.log(val);
 
   //すでにカテゴリーがある場合はflg = false
   $('.articleCategories').find('input').each(function(){

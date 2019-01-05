@@ -36,7 +36,8 @@ class Article extends Entity
         'upd_ymd' => true,
         'category' => true,
         'thumbnail' => true,
-        'contName' => true
+        'contName' => true,
+        'draft' => true
 
     ];
 }

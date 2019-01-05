@@ -17,6 +17,13 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="mx-auto">
+    <input type="radio" name="q2" value="draft"> 下書き
+    <input type="radio" name="q2" value="clean"> 清書
+  </div>
+</div>
+
 
 <div class="articles form large-9 medium-8 columns content">
     <?= $this->Form->create('null', [
