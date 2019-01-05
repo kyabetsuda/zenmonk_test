@@ -19,6 +19,7 @@
 
 <div class="row">
   <div class="mx-auto">
+    現在値 : <?=$article->draft?>
     <input type="radio" name="q2" value="draft"> 下書き
     <input type="radio" name="q2" value="clean"> 清書
   </div>

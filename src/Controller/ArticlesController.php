@@ -182,7 +182,9 @@ class ArticlesController extends AppController
 			$article->title = $this->request->data['title'];
 			$article->thumbnail = $this->request->data['thumbnail'];
 			$article->contName = "articles";
-			$article->draft = $this->request->data['draft'];
+			if($this->request->data['draft']  > -1){
+				$article->draft = $this->request->data['draft'];
+			}
 
 			//更新
 			if ($this->Articles->save($article)) {

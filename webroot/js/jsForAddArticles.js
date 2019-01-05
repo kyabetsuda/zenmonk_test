@@ -84,9 +84,11 @@ function uploadArticle(){
   var thumbnail = $('.articleThumbnail').val();
   var categories = [];
   var content = $('.articleContent').val();
-  var draft = 0;
+  var draft = -1;
   if($('input[name=q2]:checked').val() == 'draft'){
     draft = 1;
+  }else if($('input[name=q2]:checked').val() == 'clean'){
+    draft = 0;
   }
   var csrf = $('input[name=_csrfToken]').val();
 
