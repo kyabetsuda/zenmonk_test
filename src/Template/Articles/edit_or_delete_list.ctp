@@ -1,3 +1,5 @@
+<?= $this->Html->script('jsForEditOrDeleteList.js') ?>
+
 <!--作品をフェードインさせるためのdiv -->
 <div class="fadeIn">
 	<h1 class="text-center">Articles</h1>
@@ -14,7 +16,7 @@
 			</div>
 			<div class="card-footer text-center" style="font-size:11px; background-color:#ffffff">
 			<a href="/<?=$secretUrl?>/editArticles/<?=$article->id?>"><button class="btn btn-outline-dark border">Edit</button></a>
-      <a href="/<?=$secretUrl?>/deleteArticles/<?=$article->id?>"><button class="btn btn-outline-dark border">Delete</button></a>
+      <div class="btn btn-outline-dark border delete"><input type="hidden" value="<?=$article->id?>">Delete</div>
       	<span><?=$article->upd_ymd?></span>
 				</div>
 			</div>

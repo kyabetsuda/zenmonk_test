@@ -62,6 +62,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/articles/getContent', ['controller' => 'Articles', 'action'=>'getContent']);
     $routes->connect('/articles/uploadArticle', ['controller' => 'Articles', 'action'=>'uploadArticle']);
     $routes->connect('/articles/plusCategory', ['controller' => 'Articles', 'action'=>'plusCategory']);
+    $routes->connect('/articles/delete', ['controller' => 'Articles', 'action'=>'delete']);
 //    $routes->connect('/articles/view/**', ['controller' => 'Articles', 'action'=>'view']);
     $routes->connect('/articles/*', ['controller' => 'Error']);
 
@@ -97,7 +98,6 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/addArticles', ['controller' => 'Articles', 'action' => 'add']);
     $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/editArticles/**', ['controller' => 'Articles', 'action' => 'edit']);
     $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/editOrDeleteList', ['controller' => 'Articles', 'action' => 'editOrDeleteList']);
-    $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/deleteArticles/**', ['controller' => 'Articles', 'action' => 'delete']);
 
     //Pictures
     $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/addPictures', ['controller' => 'Pictures', 'action' => 'add']);

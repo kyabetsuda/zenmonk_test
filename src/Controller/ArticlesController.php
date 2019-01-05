@@ -20,7 +20,7 @@ class ArticlesController extends AppController
 	/**
 	* initialize
 	*
-	* @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+	* @return
 	*/
 	public function initialize()
 	{
@@ -34,7 +34,7 @@ class ArticlesController extends AppController
 	/**
 	* izAuthorized
 	*
-	* @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+	* @return
 	*/
 	public function isAuthorized($user)
 	{
@@ -45,19 +45,19 @@ class ArticlesController extends AppController
 	/**
 	* beforeFilter
 	*
-	* @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+	* @return
 	*/
 	public function beforeFilter(Event $event)
 	{
 		parent::beforeFilter($event);
-		$this->Security->setConfig('unlockedActions', ['getContent','uploadArticle','plusCategory']);
-		$this->Auth->allow(['index','getContent','uploadArticle','plusCategory']);
+		$this->Security->setConfig('unlockedActions', ['getContent','uploadArticle','plusCategory','delete']);
+		$this->Auth->allow(['index','getContent','uploadArticle','plusCategory','delete']);
 	}
 
 	/**
 	* 記事の取得
 	*
-	* @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+	* @return
 	*/
 	public function getContent(){
 		$this->autoRender = FALSE;
@@ -80,7 +80,7 @@ class ArticlesController extends AppController
 	/**
 	* 記事の一覧
 	*
-	* @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+	* @return
 	*/
 	public function index()
 	{
@@ -94,9 +94,9 @@ class ArticlesController extends AppController
   /**
    * View method
    *
-   * @param string|null $id Article id.
-   * @return \Cake\Http\Response|void
-   * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+   * @param
+   * @return
+   * @throws
    */
   public function view($id = null)
   {
@@ -109,7 +109,7 @@ class ArticlesController extends AppController
   /**
    * Add method
    *
-   * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+   * @return
    */
   public function add()
   {
@@ -121,7 +121,7 @@ class ArticlesController extends AppController
 	/**
    * 編集および削除記事リストの表示
    *
-   * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+   * @return
    */
 	public function editOrDeleteList(){
 		$secretUrl = Configure::read("secretUrl");
@@ -255,18 +255,17 @@ class ArticlesController extends AppController
    *
    * @param
    * @return
-   * @throws 
+   * @throws
    */
-  public function delete($id = null)
+  public function delete()
   {
-      $this->request->allowMethod(['post', 'delete']);
-      $article = $this->Articles->get($id);
+			$this->autoRender = FALSE;
+      $this->request->allowMethod(['ajax']);
+      $article = $this->Articles->get($this->request->data['id']);
       if ($this->Articles->delete($article)) {
           $this->Flash->success(__('The article has been deleted.'));
       } else {
           $this->Flash->error(__('The article could not be deleted. Please, try again.'));
       }
-
-      return $this->redirect(['action' => 'index']);
   }
 }

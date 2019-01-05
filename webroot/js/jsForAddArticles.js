@@ -1,3 +1,6 @@
+/*
+*コードブロックの挿入
+*/
 function insertCodeBlock(containerClassName){
   var val = $('.' + containerClassName).val();
   //中身が空じゃないときは改行コードを入れる
@@ -13,6 +16,9 @@ function insertCodeBlock(containerClassName){
     + '</pre>');
 }
 
+/*
+*引用ブロックの挿入
+*/
 function insertCitationBlock(containerClassName){
   var val = $('.' + containerClassName).val();
   //中身が空じゃないときは改行コードを入れる
@@ -28,13 +34,19 @@ function insertCitationBlock(containerClassName){
     + '</blockquote>');
 }
 
-function makeHtmlForArticle(gzSrc){
+/*
+*画像挿入ようHTML作成
+*/
+function makeGzHtmlForArticle(gzSrc){
   return "<img class='mx-auto d-block' style='max-width: 100%; margin : 1%;' src='"
       + gzSrc
       + "'>";
 
 }
 
+/*
+*画像HTML挿入
+*/
 function insertGzHtmlIntoArticle(gzHtml, containerClassName){
   var val = $('.' + containerClassName).val();
   //中身が空じゃないときは改行コードを入れる
@@ -45,11 +57,14 @@ function insertGzHtmlIntoArticle(gzHtml, containerClassName){
   $('.' + containerClassName).val($('.' + containerClassName).val() + gzHtml);
 }
 
+/*
+*画像リストにイベントリスナーを追加する
+*/
 function addEventListenerToImg(){
   //画像を全部挿入し終わってからイベントリスナーをつける
   $('img').click(function(){
     if($('input[name=q1]:checked').val() == 'content'){
-      insertGzHtmlIntoArticle(makeHtmlForArticle(this.src), "articleContent");
+      insertGzHtmlIntoArticle(makeGzHtmlForArticle(this.src), "articleContent");
     }else if($('input[name=q1]:checked').val() == 'thumbnail'){
       var url = this.src;
       var splittedUrl = url.split('/');
@@ -60,6 +75,9 @@ function addEventListenerToImg(){
   })
 }
 
+/*
+*記事のアップロード
+*/
 function uploadArticle(){
   var id = $('.articleId').val();
   var title = $('.articleTitle').val();
@@ -116,6 +134,9 @@ function uploadArticle(){
 
 }
 
+/*
+*新規カテゴリー登録
+*/
 function plusCategory(){
   var category = $('.plusedCategory').val();
   var csrf = $('input[name=_csrfToken]').val();
@@ -163,10 +184,16 @@ function plusCategory(){
   });
 }
 
+/*
+*セレクトボックス挿入用の HTML 作成
+*/
 function makeOptionForCategories(data){
   return '<option value="' + data.id + '">' + data.name + '</option>';
 }
 
+/*
+*記事にカテゴリーを追加する
+*/
 function addCategoryToArticle(){
   var id = $('#category_id option:selected').val();
   var name = $('#category_id option:selected').text();
@@ -195,8 +222,10 @@ function addCategoryToArticle(){
   }
 }
 
+/*
+*カテゴリー名からカテゴリーIDを検索する
+*/
 function searchCategoryFromName(name){
-  //カテゴリー名からカテゴリーIDを検索する
   var val = 0;
   $('#category_id').find('option').each(function(){
     if($(this).text() == name){
@@ -208,11 +237,17 @@ function searchCategoryFromName(name){
   return val;
 }
 
+/*
+*カテゴリー追加ようのHTML作成
+*/
 function makeBtnForCategory(id, name){
   return '<input type="hidden" value="' + id + '">'
    + '<div class="btn btn-outline-dark border articleCategory">' + name + '</div>'
 }
 
+/*
+*各種ボタンにイベントリスナー追加
+*/
 $(document).ready(function(e)
 {
   //uploadPictureのためのグローバルメソッド
