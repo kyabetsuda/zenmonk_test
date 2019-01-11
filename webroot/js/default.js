@@ -13,7 +13,6 @@ $(window).on('load resize', function(){
 
 $(document).ready(function(e)
 {
-
   //fadeのコールバックとしてrwdImageMapsを呼び出す
   $('.fadeIn').delay(600).fadeIn("slow",function(){
     $('img[usemap]').rwdImageMaps();

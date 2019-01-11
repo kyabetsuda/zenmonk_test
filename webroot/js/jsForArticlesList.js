@@ -1,4 +1,4 @@
-function loadArticles(containerClassName, callback){
+function loadArticles(containerClassName){
   //$('.' + containerClassName).empty();
   var csrf = $('input[name=_csrfToken]').val();
   /**
@@ -16,15 +16,19 @@ function loadArticles(containerClassName, callback){
       url: "http://" + location.hostname + "/articles/index",
       success: function(data,dataType)
       {
-        //alert("success");
-        insertHtmlForArticleList(containerClassName, data)
-        //makeJsonToHtmlGzList(data, containerClassName);
-        //callbackが定義されていない場合は実行しない。
-        if(typeof callback == 'function') {
-          callback();
-        }else{
-          console.log("callbackForLoadが定義されていません");
-        }
+        insertHtmlForArticleList(containerClassName, data);
+        //スクロール時に記事一覧をフェードインさせる処理
+        $(window).scroll(function(){
+          $('.cardWrapper').each(function(i){
+            var bottom_of_object = $(this).position().top + ($(this).outerHeight()/2);
+            var bottom_of_window = $(window).scrollTop() + $(window).height();
+            /* If the object is completely visible in the window, fade it it */
+            if( bottom_of_window > bottom_of_object ){
+                $(this).animate({'opacity':'1'},500);
+            }
+          });
+        });
+
       },
       /**
        * Ajax通信が失敗した場合に呼び出されるメソッド
@@ -49,7 +53,7 @@ function insertHtmlForArticleList(containerClassName, jsonData){
 }
 
 function makeHtmlForArticleList(article){
-  return '<div class="col-sm-4 mb-1">'
+  return '<div class="col-sm-4 mb-1 cardWrapper" style="opacity : 0;">'
     + '<div class="card mb-3" style="max-width: 25rem;">'
     + '<a href="/articles/post/' + article.id + '">'
     + '<img class="card-img-top" src="/img/uploaded/' + article.thumbnail + '">'
@@ -58,11 +62,20 @@ function makeHtmlForArticleList(article){
     + '<span>' + article.title + '</span>'
     + '</div>'
     + '<div class="card-footer text-center" style="font-size:11px; background-color:#ffffff">'
-    + '<span>' + article.upd_ymd + '</span>'
+    + '<span>' + sampleDate(new Date(article.upd_ymd),'YYYY/MM/DD') + '</span>'
     + '</div>'
     + '</div>'
     + '</div>'
     ;
+}
+
+function sampleDate(date, format) {
+
+    format = format.replace(/YYYY/, date.getFullYear());
+    format = format.replace(/MM/, date.getMonth() + 1);
+    format = format.replace(/DD/, date.getDate());
+
+    return format;
 }
 
 /********************************************************************************************

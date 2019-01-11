@@ -8,6 +8,7 @@
 var height = $('.navbar').height();
 $(document).ready(function(e)
 	{
+
 		//高さは文字が画面の真ん中に来るように調整されている
 		//topStringの高さは ブラウザの縦 - 画面上のnavbar分の高さ*2.5 - 画面下からnavbar分の高さ*2.5
 		//navbar*2.5となっているのは、もともとbodyがnavbarの下に隠れるのを防ぐためにnavbar*2.5下げているから
@@ -31,6 +32,11 @@ $(document).ready(function(e)
 		//bodyの最小の高さは全てのコンテンツ(要素)の1.2倍になるように設定
 		$('body').css({
 		  'min-height' : (heightOfTopString + (height*2.5) + heightOfArticleList)*1.5
+		});
+
+		//タイトルをクリックするとスクロール
+		$('.topString').click(function(){
+			$("html,body").animate({scrollTop:heightOfTopString + (height*2.5)});
 		});
 
 		//タイトル文字にアニメーションを追加する
