@@ -59,6 +59,17 @@ class VideosController extends AppController
     public function load()
     {
       $this->autoRender = FALSE;
+      if ($this->request->is('ajax')) {
+        //アップロード画像一覧を返す
+        $videos = $this->Videos->find('all');
+
+        $resultJ = json_encode($videos);
+        $this->response->type('json');
+        $this->response->body($resultJ);
+        return $this->response;
+      }
+
+      $this->cakeError('error404');
     }
 
 

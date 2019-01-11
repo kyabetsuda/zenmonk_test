@@ -13,16 +13,15 @@ function loadVideos(containerClassName, callback){
         xhr.setRequestHeader('X-CSRF-Token', csrf);
       },
       datatype:'json',
-      url: "http://" + location.hostname + "/Uplpictures/load",
+      url: "http://" + location.hostname + "/videos/load",
       success: function(data,dataType)
       {
         makeJsonToHtmlMvList(data, containerClassName);
-
         //callbackが定義されていない場合は実行しない。
         if(typeof callback == 'function') {
           callback();
         }else{
-          console.log("callbackForLoadが定義されていません");
+          console.log("callbackForMvLoadが定義されていません");
         }
       },
       /**
@@ -88,7 +87,7 @@ function makeJsonToHtmlMvList(jsonData, containerClassName){
         "class": "row"
       });
 
-      tmp.push(makeDivForMvlist(makeImgHtmlForMvList(jsonData[i].thumbnail)));
+      tmp.push(makeDivForMvlist(makeImgHtmlForMvList(jsonData[i].thumbnail, jsonData[i].title)));
 
       //要素が3の倍数個または最後の要素の場合はrowをappend
       if(i%3 == 2 | i==jsonData.length - 1){
@@ -108,20 +107,20 @@ function makeDivForMvlist(mvHtml){
       + "</div>";
 }
 
-function makeImgHtmlForMvList(title){
-  return "<div class='btn'><img style='max-width: 100%; margin : 1%;' src='/webroot/img/uploaded/"
-      + title
-      + "'></div>";
+function makeImgHtmlForMvList(thumbnail,title){
+  return "<div class='btn'><img name='" + title + "' class='mvThumbnail' style='max-width: 100%; margin : 1%;' src='/webroot/img/uploaded/"
+      + thumbnail
+      + "'></img>";
 }
 
 $(document).ready(function(){
-  //画像のロード。callbackForLoadは外部ファイルで定義しなければならない。
-  //callbackが定義されていない場合は実行しない。
-  // if(typeof callbackForMvLoad == 'function') {
-  //   loadVideos('uploadedMvList',callbackForLoad);
-  // }else{
-  //   loadVideos('uploadedMvList');
-  // }
+  // 画像のロード。callbackForLoadは外部ファイルで定義しなければならない。
+  // callbackが定義されていない場合は実行しない。
+  if(typeof callbackForMvLoad == 'function') {
+    loadVideos('uploadedMvList',callbackForMvLoad);
+  }else{
+    loadVideos('uploadedMvList');
+  }
 
 
   /**
@@ -129,11 +128,11 @@ $(document).ready(function(){
   */
   $('.uploadVideos').click(function()
   {
-    // if(typeof callbackForLoad == 'function') {
-    //   uploadVideos(function(){loadVideos('uploadedMvList',callbackForLoad)});
-    // }else{
+    if(typeof callbackForLoad == 'function') {
+      uploadVideos(function(){loadVideos('uploadedMvList',callbackForMvLoad)});
+    }else{
       uploadVideos(function(){loadVideos('uploadedMvList')});
-    // }
+     }
 
     return false;
   });

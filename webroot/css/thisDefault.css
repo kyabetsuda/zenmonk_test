@@ -1,5 +1,6 @@
 body {
-  font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic';
+  /* font-family: fantasy,Arial,Avenir,'Helvetica Neue','Helvetica','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic'; */
+  font-family: Script,sans-serif,serif,cursive,monospace,inherit,fantasy;
   min-height: 100vh;
   word-wrap: break-word;
 }

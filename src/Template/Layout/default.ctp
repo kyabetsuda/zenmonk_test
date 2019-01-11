@@ -13,7 +13,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = 'Portfolio';
+$cakeDescription = 'Tsudarticles';
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,6 +32,7 @@ $cakeDescription = 'Portfolio';
     <?= $this->Html->css('modaal.min.css') ?>
     <?= $this->Html->css('thisDefault.css') ?>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/styles/default.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <?= $this->Html->script('jquery.rwdImageMaps.min.js') ?>
@@ -45,15 +46,13 @@ $cakeDescription = 'Portfolio';
 </head>
 <body class="d-flex flex-column">
 <nav class="navbar navbar-expand-lg navbar-light d-print fixed-top">
-	<a class="navbar-brand" href="/top">Portfolio</a>
+	<a class="navbar-brand" href="/top">Tsudarticles</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topmenu" aria-controls="topmenu" aria-expanded="false" aria-label="toggledMenu">
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	<div class="collapse navbar-collapse" id="topmenu">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item"><a class="nav-link" href="/articles/">Articles</a></li>
-			<li class="nav-item"><a class="nav-link" href="/pictures/">Pictures</a></li>
-			<li class="nav-item"><a class="nav-link" href="/videos/">Videos</a></li>
+			<!-- <li class="nav-item"><a class="nav-link" href="/articles/">Articles</a></li> -->
 		</ul>
 		<?= $this->Form->create(null, [
 			'url'=>['controller'=>'SearchResult','action'=>'index'],

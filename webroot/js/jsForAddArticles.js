@@ -1,3 +1,26 @@
+/********************************************************************************************
+*変数定義
+*********************************************************************************************/
+//動画パス
+var mvSrc = "/mv/videos/";
+
+//画像パス
+var gzSrc = "";
+
+//uploadPictureのためのグローバルメソッド
+callbackForLoad = function(){
+  addEventListenerToImg();
+};
+
+//uploadVideosのためのグローバルメソッド
+callbackForMvLoad = function(){
+  addEventListenerToImgForMv()
+};
+
+/********************************************************************************************
+*コードブロック、または引用ブロック
+*********************************************************************************************/
+
 /*
 *コードブロックの挿入
 */
@@ -33,6 +56,10 @@ function insertCitationBlock(containerClassName){
     + '</p>\n'
     + '</blockquote>');
 }
+
+/********************************************************************************************
+*画像にイベントリスナーを追加する
+*********************************************************************************************/
 
 /*
 *画像挿入ようHTML作成
@@ -75,9 +102,45 @@ function addEventListenerToImg(){
   })
 }
 
+/********************************************************************************************
+*動画にイベントリスナーを追加する
+*********************************************************************************************/
 /*
-*記事のアップロード
+*動画リストにイベントリスナーを追加する
 */
+function addEventListenerToImgForMv(){
+  //画像を全部挿入し終わってからイベントリスナーをつける
+  $('.mvThumbnail').click(function(){
+      insertMvHtmlIntoArticle(makeMvHtmlForArticle(mvSrc,$(this).attr('name')), "articleContent");
+  });
+}
+
+/*
+*動画挿入用HTML作成
+*/
+function makeMvHtmlForArticle(mvSrc,title){
+  return "<video class='mx-auto d-block' style='max-width: 100%; margin : 1%;' src='"
+      + mvSrc + title
+      + "' controls></video>";
+
+}
+
+/*
+*動画HTML挿入
+*/
+function insertMvHtmlIntoArticle(mvHtml, containerClassName){
+  var val = $('.' + containerClassName).val();
+  //中身が空じゃないときは改行コードを入れる
+  if (!val == "" ) {
+    val = val + '\n';
+  }
+  $('.' + containerClassName).val(val + mvHtml);
+}
+
+
+/********************************************************************************************
+*記事のアップロード
+*********************************************************************************************/
 function uploadArticle(){
   var id = $('.articleId').val();
   var title = $('.articleTitle').val();
@@ -141,9 +204,9 @@ function uploadArticle(){
 
 }
 
-/*
-*新規カテゴリー登録
-*/
+/********************************************************************************************
+*新規カテゴリー追加
+*********************************************************************************************/
 function plusCategory(){
   var category = $('.plusedCategory').val();
   var csrf = $('input[name=_csrfToken]').val();
@@ -249,15 +312,11 @@ function makeBtnForCategory(id, name){
    + '<div class="btn btn-outline-dark border articleCategory">' + name + '</div>'
 }
 
-/*
-*各種ボタンにイベントリスナー追加
-*/
+/********************************************************************************************
+*各種ボタンにイベントリスナーを追加する
+*********************************************************************************************/
 $(document).ready(function(e)
 {
-  //uploadPictureのためのグローバルメソッド
-  callbackForLoad = function(){
-    addEventListenerToImg();
-  };
 
   $('.addCode').click(function(){
     insertCodeBlock('articleContent');
