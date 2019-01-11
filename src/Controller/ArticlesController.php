@@ -50,8 +50,8 @@ class ArticlesController extends AppController
 	public function beforeFilter(Event $event)
 	{
 		parent::beforeFilter($event);
-		$this->Security->setConfig('unlockedActions', ['getContent','uploadArticle','plusCategory','delete']);
-		$this->Auth->allow(['index','getContent','uploadArticle','plusCategory','delete']);
+		$this->Security->setConfig('unlockedActions', ['index','getContent','uploadArticle','plusCategory','delete']);
+		$this->Auth->allow(['index','post','getContent','uploadArticle','plusCategory','delete']);
 	}
 
 	/**
@@ -84,12 +84,23 @@ class ArticlesController extends AppController
 	*/
 	public function index()
 	{
-	    $this->paginate = [
-					'conditions'=>['draft'=>'0'],
-	        'contain' => ['Categories']
-	    ];
-	    $articles = $this->paginate($this->Articles);
-	    $this->set(compact('articles'));
+		$this->autoRender = FALSE;
+		if($this->request->is('ajax')) {
+			$article = $this->Articles->find()->where(['draft' => '0']);
+			$resultJ = json_encode($article);
+			$this->response->type('json');
+			$this->response->body($resultJ);
+			return $this->response;
+		}else{
+			$this->cakeError('error404');
+		}
+
+	    // $this->paginate = [
+			// 		'conditions'=>['draft'=>'0'],
+	    //     'contain' => ['Categories']
+	    // ];
+	    // $articles = $this->paginate($this->Articles);
+	    // $this->set(compact('articles'));
 	}
 
   /**
@@ -99,11 +110,12 @@ class ArticlesController extends AppController
    * @return
    * @throws
    */
-  public function view($id = null)
+  public function post($id = null)
   {
       $article = $this->Articles->get($id, [
           'contain' => ['Categories']
       ]);
+			$article->content = htmlspecialchars_decode($article->content,ENT_QUOTES|ENT_HTML5);
       $this->set('article', $article);
   }
 

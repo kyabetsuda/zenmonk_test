@@ -59,9 +59,9 @@ $cakeDescription = 'Tsudarticles';
 		]) ?>
 		<ul class="navbar-nav">
 				<div class="input-group">
-					<li class="nav-item mr-2">
+					<li class="nav-item mr-2 mb-2">
 						<!--<input type="text" class="form-control mr-auto rounded" placeholder="Search Works" aria-label="Search Works" aria-describedby="basic-addon1">-->
-						<?=$this->Form->text('word',['class' => 'form-control mr-auto rounded', 'placeholder' => 'Search Works'])?>
+						<?=$this->Form->text('word',['class' => 'form-control mr-auto rounded', 'placeholder' => 'Search'])?>
 					</li>
 					<li class="nav-item">
 						<button class="btn btn-outline-success" type="submit">Search</button>
@@ -72,7 +72,7 @@ $cakeDescription = 'Tsudarticles';
 	</div>
 </nav>
 
-<div class="container">
+<div class="container contentBody">
 	<?= $this->fetch('content') ?>
 </div>
 

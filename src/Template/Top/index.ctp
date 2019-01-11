@@ -8,6 +8,9 @@
 var height = $('.navbar').height();
 $(document).ready(function(e)
 	{
+		//高さは文字が画面の真ん中に来るように調整されている
+		//topStringの高さは ブラウザの縦 - 画面上のnavbar分の高さ*2.5 - 画面下からnavbar分の高さ*2.5
+		//navbar*2.5となっているのは、もともとbodyがnavbarの下に隠れるのを防ぐためにnavbar*2.5下げているから
 		$('.topString').css({
 			'height':$(window).height() - (height*2.5*2),
 			'width' : '100vw',
@@ -16,6 +19,21 @@ $(document).ready(function(e)
 			'justify-content' : 'center'
 		});
 
+		//topStringの下にはnavbar*2.5の余白があるため、articleListはそれ分下げる
+		$('.articleListTitle').css({
+		  'margin-top' : height*2.5,
+		});
+
+		//それぞれの要素の高さを取得
+		var heightOfTopString = $('.topString').height();
+		var heightOfArticleList = $('.articleList').height();
+
+		//bodyの最小の高さは全てのコンテンツ(要素)の1.2倍になるように設定
+		$('body').css({
+		  'min-height' : (heightOfTopString + (height*2.5) + heightOfArticleList)*1.5
+		});
+
+		//タイトル文字にアニメーションを追加する
 		var id = 'title'
 		var classes = 'animated rubberBand';
 		var interval = 2000;
@@ -48,6 +66,8 @@ function addClassInterval(id, classes, interval){
 		</div>
 	</div>
 </div>
+
+<?php echo $this->element('Articles/list'); ?>
 
 
 </div>
