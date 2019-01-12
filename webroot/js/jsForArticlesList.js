@@ -1,6 +1,10 @@
-function loadArticles(containerClassName){
-  //$('.' + containerClassName).empty();
+function loadArticles(containerClassName,url,word){
+  $('.' + containerClassName).empty();
   var csrf = $('input[name=_csrfToken]').val();
+  var json = {
+    'word' : word
+  }
+
   /**
    * Ajax通信メソッド
    * @param type  : HTTP通信の種類
@@ -13,7 +17,8 @@ function loadArticles(containerClassName){
         xhr.setRequestHeader('X-CSRF-Token', csrf);
       },
       datatype:'json',
-      url: "http://" + location.hostname + "/articles/index",
+      data : json,
+      url: "http://" + location.hostname + url,
       success: function(data,dataType)
       {
         insertHtmlForArticleList(containerClassName, data);
@@ -83,5 +88,5 @@ function sampleDate(date, format) {
 *********************************************************************************************/
 $(document).ready(function(e)
 {
-  loadArticles('articleList');
+  loadArticles('articleList','/articles/index');
 });

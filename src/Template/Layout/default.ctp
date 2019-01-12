@@ -54,21 +54,21 @@ $cakeDescription = 'Tsudarticles';
 		<ul class="navbar-nav mr-auto">
 			<!-- <li class="nav-item"><a class="nav-link" href="/articles/">Articles</a></li> -->
 		</ul>
-		<?= $this->Form->create(null, [
+		<!-- <?= $this->Form->create(null, [
 			'url'=>['controller'=>'SearchResult','action'=>'index'],
-		]) ?>
+		]) ?> -->
 		<ul class="navbar-nav">
 				<div class="input-group">
 					<li class="nav-item mr-2 mb-2">
 						<!--<input type="text" class="form-control mr-auto rounded" placeholder="Search Works" aria-label="Search Works" aria-describedby="basic-addon1">-->
-						<?=$this->Form->text('word',['class' => 'form-control mr-auto rounded', 'placeholder' => 'Search'])?>
+						<?=$this->Form->text('word',['class' => 'form-control mr-auto rounded searchWord', 'placeholder' => 'Search'])?>
 					</li>
 					<li class="nav-item">
-						<button class="btn btn-outline-success" type="submit">Search</button>
+						<div class="btn btn-outline-success searchBtn">Search</div>
 					</li>
 				</div>
 		</ul>
-		<?= $this->Form->end() ?>
+		<!-- <?= $this->Form->end() ?> -->
 	</div>
 </nav>
 

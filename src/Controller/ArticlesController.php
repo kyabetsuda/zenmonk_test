@@ -62,13 +62,11 @@ class ArticlesController extends AppController
 	public function getContent(){
 		$this->autoRender = FALSE;
 		if($this->request->is('ajax')) {
-			$article = $this->Articles->get($this->request->data['request'], [
-			    'contain' => []
-			]);
-			Log::write('debug','before : ' . $article->content);
-			$article->content = htmlspecialchars_decode($article->content,ENT_QUOTES|ENT_HTML5);
-			Log::write('debug','after : ' . $article->content);
-			$resultJ = json_encode($article);
+			$articles = $this->Articles->find()->where(['title like' => '%' . $this->request->data['word'] . '%']);
+			Log::write('debug','before : ' . $articles->content);
+			$articles->content = htmlspecialchars_decode($articles->content,ENT_QUOTES|ENT_HTML5);
+			Log::write('debug','after : ' . $articles->content);
+			$resultJ = json_encode($articles);
 			$this->response->type('json');
 			$this->response->body($resultJ);
 			return $this->response;
