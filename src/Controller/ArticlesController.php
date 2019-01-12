@@ -55,27 +55,6 @@ class ArticlesController extends AppController
 	}
 
 	/**
-	* 記事の取得
-	*
-	* @return
-	*/
-	public function getContent(){
-		$this->autoRender = FALSE;
-		if($this->request->is('ajax')) {
-			$articles = $this->Articles->find()->where(['title like' => '%' . $this->request->data['word'] . '%']);
-			Log::write('debug','before : ' . $articles->content);
-			$articles->content = htmlspecialchars_decode($articles->content,ENT_QUOTES|ENT_HTML5);
-			Log::write('debug','after : ' . $articles->content);
-			$resultJ = json_encode($articles);
-			$this->response->type('json');
-			$this->response->body($resultJ);
-			return $this->response;
-		}else{
-			$this->cakeError('error404');
-		}
-	}
-
-	/**
 	* 記事の一覧
 	*
 	* @return
@@ -99,6 +78,27 @@ class ArticlesController extends AppController
 	    // ];
 	    // $articles = $this->paginate($this->Articles);
 	    // $this->set(compact('articles'));
+	}
+
+	/**
+	* 記事の取得
+	*
+	* @return
+	*/
+	public function getContent(){
+		$this->autoRender = FALSE;
+		if($this->request->is('ajax')) {
+			$articles = $this->Articles->find()->where(['title like' => '%' . $this->request->data['word'] . '%', 'draft' => '0']);
+			Log::write('debug','before : ' . $articles->content);
+			$articles->content = htmlspecialchars_decode($articles->content,ENT_QUOTES|ENT_HTML5);
+			Log::write('debug','after : ' . $articles->content);
+			$resultJ = json_encode($articles);
+			$this->response->type('json');
+			$this->response->body($resultJ);
+			return $this->response;
+		}else{
+			$this->cakeError('error404');
+		}
 	}
 
   /**

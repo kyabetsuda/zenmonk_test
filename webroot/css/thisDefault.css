@@ -59,3 +59,11 @@ blockquote cite {
     color: #888888;
     font-size: 0.9em;
 }
+
+.categoryList{
+  border: 1px solid #dcdcdc;
+}
+
+.category{
+  margin:2px;
+}

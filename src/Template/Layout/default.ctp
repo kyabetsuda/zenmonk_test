@@ -33,9 +33,8 @@ $cakeDescription = 'Tsudarticles';
     <?= $this->Html->css('thisDefault.css') ?>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/styles/default.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <?= $this->Html->script('jquery.rwdImageMaps.min.js') ?>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
     <?= $this->Html->script('bootstrap.bundle.min.js') ?>
     <?= $this->Html->script('iziToast.min.js') ?>
     <?= $this->Html->script('modaal.min.js') ?>
@@ -76,15 +75,27 @@ $cakeDescription = 'Tsudarticles';
 	<?= $this->fetch('content') ?>
 </div>
 
-<a href="#modal" class="inline" style="display:none"></a>
-<div id="modal" class="" style="display: none">
-  <div class="container">
-  <div class="row">
-    <div class="ml-auto"><button class="btn btn-outline-dark border modal-close">close</button></div>
-  </div>
-  <br>
-  <h3 class="modalTitle"></h3>
-  <div class="modalBody"></div>
+<div class="container" style="max-width:90vw;">
+  <div class="row" style="display:flex; justify-content: center;"><h2 class="text-center" style="text-decoration: underline;">Categories</h2></div>
+  <div class="row categoryList" style="
+    display: flex;
+    justify-content: center;
+  ">
+  	<button class="btn btn-outline-dark border category">Hello World</button>
+    <button class="btn btn-outline-dark border category">Hello World</button>
+    <button class="btn btn-outline-dark border category">Hello World</button>
+    <button class="btn btn-outline-dark border category">Hello Worldddddddddddddd</button>
+    <button class="btn btn-outline-dark border category">Hello World</button>
+    <button class="btn btn-outline-dark border category">Hello World</button>
+    <button class="btn btn-outline-dark border category">Hello World</button>
+    <button class="btn btn-outline-dark border category">Hello World</button>
+    <button class="btn btn-outline-dark border category">Hello World</button>
+    <button class="btn btn-outline-dark border category">Hello World</button>
+    <button class="btn btn-outline-dark border category">Hello World</button>
+    <button class="btn btn-outline-dark border category">Hello World</button>
+    <button class="btn btn-outline-dark border category">Hell</button>
+    <button class="btn btn-outline-dark border category">Hello World</button>
+    <button class="btn btn-outline-dark border category">Hello World</button>
   </div>
 </div>
 
