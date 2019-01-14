@@ -61,7 +61,9 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/articles/index', ['controller' => 'Articles', 'action'=>'index']);
     $routes->connect('/articles/post/**', ['controller' => 'Articles', 'action'=>'post']);
     $routes->connect('/articles/getContent', ['controller' => 'Articles', 'action'=>'getContent']);
+    $routes->connect('/articles/getContentByCategory', ['controller' => 'Articles', 'action'=>'getContentByCategory']);
     $routes->connect('/articles/uploadArticle', ['controller' => 'Articles', 'action'=>'uploadArticle']);
+    $routes->connect('/articles/getCategories', ['controller' => 'Articles', 'action'=>'getCategories']);
     $routes->connect('/articles/plusCategory', ['controller' => 'Articles', 'action'=>'plusCategory']);
     $routes->connect('/articles/delete', ['controller' => 'Articles', 'action'=>'delete']);
 //    $routes->connect('/articles/view/**', ['controller' => 'Articles', 'action'=>'view']);

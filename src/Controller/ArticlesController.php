@@ -6,6 +6,7 @@ use Cake\Log\Log;
 use Cake\Event\Event; // 追加
 use Cake\ORM\TableRegistry;
 use Cake\Core\Configure;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Articles Controller
@@ -50,8 +51,23 @@ class ArticlesController extends AppController
 	public function beforeFilter(Event $event)
 	{
 		parent::beforeFilter($event);
-		$this->Security->setConfig('unlockedActions', ['index','getContent','uploadArticle','plusCategory','delete']);
-		$this->Auth->allow(['index','post','getContent','uploadArticle','plusCategory','delete']);
+		$this->Security->setConfig('unlockedActions', [
+			'index',
+			'getContent',
+			'getContentByCategory',
+			'uploadArticle',
+			'getCategories',
+			'plusCategory',
+			'delete']);
+
+		$this->Auth->allow(['index','
+			post',
+			'getContent',
+			'getContentByCategory',
+			'uploadArticle',
+			'getCategories',
+			'plusCategory',
+			'delete']);
 	}
 
 	/**
@@ -63,7 +79,13 @@ class ArticlesController extends AppController
 	{
 		$this->autoRender = FALSE;
 		if($this->request->is('ajax')) {
-			$article = $this->Articles->find()->where(['draft' => '0']);
+			$conn = ConnectionManager::get('default');
+			$stmt = $conn->prepare(
+	    	'select * from articles where draft = :draft'
+			);
+			$stmt->bindValue(':draft', '0');
+			$stmt->execute();
+			$article = $stmt->fetchAll('assoc');
 			$resultJ = json_encode($article);
 			$this->response->type('json');
 			$this->response->body($resultJ);
@@ -99,6 +121,29 @@ class ArticlesController extends AppController
 		}else{
 			$this->cakeError('error404');
 		}
+	}
+
+	public function getContentByCategory(){
+		$this->autoRender = FALSE;
+		$conn = ConnectionManager::get('default');
+		$stmt = $conn->prepare(
+			'select * from'
+			. ' articles t1'
+			. ',articles_categories t2'
+			. ',categories t3'
+			. ' where t1.draft = :draft'
+			. ' and t1.id = t2.article_id'
+			. ' and t2.category_id = t3.id'
+			. ' and t3.name = :name'
+		);
+		$stmt->bindValue(':draft', '0');
+		$stmt->bindValue(':name', $this->request->data['word']);
+		$stmt->execute();
+		$articles = $stmt->fetchAll('assoc');
+		$resultJ = json_encode($articles);
+		$this->response->type('json');
+		$this->response->body($resultJ);
+		return $this->response;
 	}
 
   /**
@@ -236,6 +281,25 @@ class ArticlesController extends AppController
 		}
 	}
 
+	/**
+   * カテゴリーの取得(ajax)
+   *
+   * @param
+   * @return
+   * @throws
+   */
+	public function getCategories(){
+		$this->autoRender = FALSE;
+		if($this->request->is('ajax')) {
+			$categories = $this->Categories->find('all');
+			$resultJ = json_encode($categories);
+			$this->response->type('json');
+			$this->response->body($resultJ);
+			return $this->response;
+		}else{
+			$this->cakeError('error404');
+		}
+	}
 
 	/**
    * カテゴリーの登録(ajax)

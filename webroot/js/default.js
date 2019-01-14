@@ -26,6 +26,15 @@ function search(word){
 //json取得用汎用メソッド
 //input words[] 配列
 //      url     送信先url
+function getJsonAndDoSomething(words, url, callback){
+  getJson(words, url).done(function(result){
+    callback(result);
+  });
+}
+
+//jsonデータ取得
+//input words[] 配列
+//      url     送信先url
 function getJson(words, url){
   var csrf = $('input[name=_csrfToken]').val();
   var json = {
@@ -38,7 +47,7 @@ function getJson(words, url){
    * @param url   : リクエスト送信先のURL
    * @param data  : サーバに送信する値
    */
-  $.ajax({
+  return $.ajax({
       type: 'POST',
       beforeSend: function(xhr){
         xhr.setRequestHeader('X-CSRF-Token', csrf);
@@ -48,7 +57,7 @@ function getJson(words, url){
       url: "http://" + location.hostname + url,
       success: function(data,dataType)
       {
-        return data;
+        alert("success");
       },
       /**
        * Ajax通信が失敗した場合に呼び出されるメソッド

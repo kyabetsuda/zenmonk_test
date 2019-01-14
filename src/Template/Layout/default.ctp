@@ -71,32 +71,9 @@ $cakeDescription = 'Tsudarticles';
 	</div>
 </nav>
 
+<!-- コンテンツ -->
 <div class="container contentBody">
 	<?= $this->fetch('content') ?>
-</div>
-
-<div class="container" style="max-width:90vw;">
-  <div class="row" style="display:flex; justify-content: center;"><h2 class="text-center" style="text-decoration: underline;">Categories</h2></div>
-  <div class="row categoryList" style="
-    display: flex;
-    justify-content: center;
-  ">
-  	<button class="btn btn-outline-dark border category">Hello World</button>
-    <button class="btn btn-outline-dark border category">Hello World</button>
-    <button class="btn btn-outline-dark border category">Hello World</button>
-    <button class="btn btn-outline-dark border category">Hello Worldddddddddddddd</button>
-    <button class="btn btn-outline-dark border category">Hello World</button>
-    <button class="btn btn-outline-dark border category">Hello World</button>
-    <button class="btn btn-outline-dark border category">Hello World</button>
-    <button class="btn btn-outline-dark border category">Hello World</button>
-    <button class="btn btn-outline-dark border category">Hello World</button>
-    <button class="btn btn-outline-dark border category">Hello World</button>
-    <button class="btn btn-outline-dark border category">Hello World</button>
-    <button class="btn btn-outline-dark border category">Hello World</button>
-    <button class="btn btn-outline-dark border category">Hell</button>
-    <button class="btn btn-outline-dark border category">Hello World</button>
-    <button class="btn btn-outline-dark border category">Hello World</button>
-  </div>
 </div>
 
 <footer class="footer mt-auto py-3">
