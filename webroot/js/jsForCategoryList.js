@@ -1,8 +1,5 @@
 //カテゴリー取得
 function loadCategories(jsonData){
-  for(var i in jsonData){
-    console.log(jsonData[i].name);
-  }
   insertHtmlIntoCategoryList('categoryList',jsonData);
   $('.category').click(function(){
     getJsonAndDoSomething($(this).text(),'/articles/getContentByCategory',insertHtmlForArticleListByCategory);

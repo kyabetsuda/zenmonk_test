@@ -67,7 +67,7 @@ function makeHtmlForArticleList(article){
     + '<span>' + article.title + '</span>'
     + '</div>'
     + '<div class="card-footer text-center" style="font-size:11px; background-color:#ffffff">'
-    + '<span>' + sampleDate(new Date(article.upd_ymd),'YYYY/MM/DD') + '</span>'
+    + '<span>' + sampleDate(new Date(article.upd_ymd.replace(/-/g,'/')),'YYYY/MM/DD') + '</span>'
     + '</div>'
     + '</div>'
     + '</div>'
