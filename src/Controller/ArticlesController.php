@@ -60,8 +60,8 @@ class ArticlesController extends AppController
 			'plusCategory',
 			'delete']);
 
-		$this->Auth->allow(['index','
-			post',
+		$this->Auth->allow(['index',
+			'post',
 			'getContent',
 			'getContentByCategory',
 			'uploadArticle',
@@ -127,7 +127,12 @@ class ArticlesController extends AppController
 		$this->autoRender = FALSE;
 		$conn = ConnectionManager::get('default');
 		$stmt = $conn->prepare(
-			'select * from'
+			'select'
+			. ' t1.id'
+			. ' ,t1.thumbnail'
+			. ' ,t1.title'
+			. ' ,t1.upd_ymd'
+			. ' from'
 			. ' articles t1'
 			. ',articles_categories t2'
 			. ',categories t3'
@@ -140,6 +145,7 @@ class ArticlesController extends AppController
 		$stmt->bindValue(':name', $this->request->data['word']);
 		$stmt->execute();
 		$articles = $stmt->fetchAll('assoc');
+		Log::write('debug',$articles);
 		$resultJ = json_encode($articles);
 		$this->response->type('json');
 		$this->response->body($resultJ);

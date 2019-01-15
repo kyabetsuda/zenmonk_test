@@ -1,3 +1,6 @@
+/********************************************************************************************
+*bodyがnavの下に隠れないようにする
+*********************************************************************************************/
 //フェードは消しておく
 $('head').append(
   '<style>.fadeIn{display:none;}'
@@ -13,6 +16,9 @@ $(window).on('load resize', function(){
 
 });
 
+/********************************************************************************************
+*検索用
+*********************************************************************************************/
 function search(word){
   //jsForArticlesListのメソッド
   loadArticles('articleList','/articles/getContent',word);
@@ -23,18 +29,15 @@ function search(word){
   $("html,body").animate({scrollTop:heightOfTopString + (height*2.5)});
 }
 
-//json取得用汎用メソッド
-//input words[] 配列
-//      url     送信先url
+/********************************************************************************************
+*jsonデータを取得し何かをするメソッド
+*********************************************************************************************/
 function getJsonAndDoSomething(words, url, callback){
   getJson(words, url).done(function(result){
     callback(result);
   });
 }
 
-//jsonデータ取得
-//input words[] 配列
-//      url     送信先url
 function getJson(words, url){
   var csrf = $('input[name=_csrfToken]').val();
   var json = {
@@ -72,6 +75,62 @@ function getJson(words, url){
   });
 }
 
+/********************************************************************************************
+*記事リスト挿入用メソッド
+*********************************************************************************************/
+function getJsonAndInsertHtmlForArticleList(result){
+  var containerClassName = 'articleList';
+  $('.' + containerClassName).empty();
+  insertHtmlForArticleList(containerClassName, result);
+  $(window).scroll(function(){
+    $('.cardWrapper').each(function(i){
+      var bottom_of_object = $(this).position().top + ($(this).outerHeight()/2);
+      var bottom_of_window = $(window).scrollTop() + $(window).height();
+      /* If the object is completely visible in the window, fade it it */
+      if( bottom_of_window > bottom_of_object ){
+          $(this).animate({'opacity':'1'},500);
+      }
+    });
+  });
+}
+
+function insertHtmlForArticleList(containerClassName, jsonData){
+  for(var i in jsonData){
+    $('.' + containerClassName).append(
+      makeHtmlForArticleList(jsonData[i])
+    );
+  }
+}
+
+function makeHtmlForArticleList(article){
+  return '<div class="col-sm-4 mb-1 cardWrapper" style="opacity : 0;">'
+    + '<div class="card mb-3" style="max-width: 25rem;">'
+    + '<a href="/articles/post/' + article.id + '">'
+    + '<img class="card-img-top" src="/img/uploaded/' + article.thumbnail + '">'
+    + '</a>'
+    + '<div class="card-body text-center">'
+    + '<span>' + article.title + '</span>'
+    + '</div>'
+    + '<div class="card-footer text-center" style="font-size:11px; background-color:#ffffff">'
+    + '<span>' + sampleDate(new Date(article.upd_ymd.replace(/-/g,'/')),'YYYY/MM/DD') + '</span>'
+    + '</div>'
+    + '</div>'
+    + '</div>'
+    ;
+}
+
+function sampleDate(date, format) {
+
+    format = format.replace(/YYYY/, date.getFullYear());
+    format = format.replace(/MM/, date.getMonth() + 1);
+    format = format.replace(/DD/, date.getDate());
+
+    return format;
+}
+
+/********************************************************************************************
+*各種ボタンにイベントリスナーを追加する
+*********************************************************************************************/
 $(document).ready(function(e)
 {
   //各種グローバル変数定義

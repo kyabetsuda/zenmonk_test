@@ -28,16 +28,12 @@ $cakeDescription = 'Tsudarticles';
     </title>
     <?= $this->Html->meta('icon') ?>
     <?= $this->Html->css('bootstrap.css') ?>
-    <?= $this->Html->css('iziToast.min.css') ?>
-    <?= $this->Html->css('modaal.min.css') ?>
     <?= $this->Html->css('thisDefault.css') ?>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/styles/default.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
     <?= $this->Html->script('bootstrap.bundle.min.js') ?>
-    <?= $this->Html->script('iziToast.min.js') ?>
-    <?= $this->Html->script('modaal.min.js') ?>
     <?= $this->Html->script('default.js') ?>
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
