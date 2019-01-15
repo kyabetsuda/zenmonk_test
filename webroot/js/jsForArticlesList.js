@@ -3,5 +3,7 @@
 *********************************************************************************************/
 $(document).ready(function(e)
 {
-  getJsonAndDoSomething('','/articles/index',getJsonAndInsertHtmlForArticleList);
+  var inputJson = {};
+  var url = '/articles/index';
+  getJsonAndInsertHtmlForArticleList(inputJson, url);
 });

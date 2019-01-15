@@ -30,19 +30,29 @@ function search(word){
 }
 
 /********************************************************************************************
+*jsonデータ取得用に渡すプロトタイプ
+*********************************************************************************************/
+function Callback(result){
+}
+Callback.prototype.setResult = function(result){
+  this.result = result;
+}
+Callback.prototype.callback = function(){
+}
+
+/********************************************************************************************
 *jsonデータを取得し何かをするメソッド
 *********************************************************************************************/
-function getJsonAndDoSomething(words, url, callback){
-  getJson(words, url).done(function(result){
-    callback(result);
+function getJsonAndDoSomething(inputJson, url, callback){
+  getJson(inputJson, url).done(function(result){
+    //callbackは必ず上記のprototypeを渡すこと
+    callback.setResult(result);
+    callback.callback();
   });
 }
 
-function getJson(words, url){
+function getJson(inputJson, url){
   var csrf = $('input[name=_csrfToken]').val();
-  var json = {
-    'word' : words
-  }
 
   /**
    * Ajax通信メソッド
@@ -56,7 +66,7 @@ function getJson(words, url){
         xhr.setRequestHeader('X-CSRF-Token', csrf);
       },
       datatype:'json',
-      data : json,
+      data : inputJson,
       url: "http://" + location.hostname + url,
       success: function(data,dataType)
       {
@@ -78,10 +88,20 @@ function getJson(words, url){
 /********************************************************************************************
 *記事リスト挿入用メソッド
 *********************************************************************************************/
-function getJsonAndInsertHtmlForArticleList(result){
+function getJsonAndInsertHtmlForArticleList(inputJson, url){
   var containerClassName = 'articleList';
   $('.' + containerClassName).empty();
-  insertHtmlForArticleList(containerClassName, result);
+
+  //callbackオブジェクト定義
+  var callback = new Callback();
+  callback.callback = function(){
+      insertHtmlForArticleList(containerClassName, this.result);
+  }
+
+  //jsonデータの取得とcallback起動
+  getJsonAndDoSomething(inputJson, url, callback);
+
+  //追加されたcardに対してanimation追加
   $(window).scroll(function(){
     $('.cardWrapper').each(function(i){
       var bottom_of_object = $(this).position().top + ($(this).outerHeight()/2);
