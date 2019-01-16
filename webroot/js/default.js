@@ -86,6 +86,52 @@ function getJson(inputJson, url){
 }
 
 /********************************************************************************************
+*fileをajax送信し何かをするメソッド
+*********************************************************************************************/
+function getJsonWithFileAndDoSomething(inputJson, url, callback){
+  getJsonWithFile(inputJson, url).done(function(result){
+    //callbackは必ず上記のprototypeを渡すこと
+    callback.setResult(result);
+    callback.callback();
+  });
+}
+
+function getJsonWithFile(inputJson, url){
+  var csrf = $('input[name=_csrfToken]').val();
+  /**
+   * Ajax通信メソッド
+   * @param type  : HTTP通信の種類
+   * @param url   : リクエスト送信先のURL
+   * @param data  : サーバに送信する値
+   */
+  return $.ajax({
+      type: 'POST',
+      beforeSend: function(xhr){
+        xhr.setRequestHeader('X-CSRF-Token', csrf);
+      },
+      url: "http://" + location.hostname + url,
+      datatype:'json',
+      contentType : false,
+      processData : false,
+      data: inputJson,
+      success: function(data,dataType)
+      {
+        alert("success");
+      },
+      /**
+       * Ajax通信が失敗した場合に呼び出されるメソッド
+       */
+      error: function(XMLHttpRequest, textStatus, errorThrown)
+      {
+        alert('ErrorCode : ' + XMLHttpRequest.status + '\n'
+          + 'textStatus : ' + textStatus + '\n'
+          + 'Error : ' + XMLHttpRequest.responseText
+        );
+      }
+  });
+}
+
+/********************************************************************************************
 *記事リスト挿入用メソッド
 *********************************************************************************************/
 function getJsonAndInsertHtmlForArticleList(inputJson, url){

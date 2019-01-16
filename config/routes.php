@@ -56,7 +56,6 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/', ['controller' => 'Top']);
 
     //Articles
-    $routes->connect('/users/*', ['controller' => 'Error']);
     $routes->connect('/articles/', ['controller' => 'Articles', 'action'=>'index']);
     $routes->connect('/articles/index', ['controller' => 'Articles', 'action'=>'index']);
     $routes->connect('/articles/post/**', ['controller' => 'Articles', 'action'=>'post']);
@@ -66,8 +65,11 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/articles/getCategories', ['controller' => 'Articles', 'action'=>'getCategories']);
     $routes->connect('/articles/plusCategory', ['controller' => 'Articles', 'action'=>'plusCategory']);
     $routes->connect('/articles/delete', ['controller' => 'Articles', 'action'=>'delete']);
-//    $routes->connect('/articles/view/**', ['controller' => 'Articles', 'action'=>'view']);
+    $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/addArticles', ['controller' => 'Articles', 'action' => 'add']);
+    $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/editArticles/**', ['controller' => 'Articles', 'action' => 'edit']);
+    $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/editOrDeleteList', ['controller' => 'Articles', 'action' => 'editOrDeleteList']);
     $routes->connect('/articles/*', ['controller' => 'Error']);
+    $routes->connect('/Articles/*', ['controller' => 'Error']);
 
     //Pictures
     // $routes->connect('/pictures/', ['controller' => 'Pictures', 'action'=>'index']);
@@ -75,22 +77,27 @@ Router::scope('/', function (RouteBuilder $routes) {
     // $routes->connect('/pictures/getContent', ['controller' => 'Pictures', 'action'=>'getContent']);
     // $routes->connect('/pictures/view/**', ['controller' => 'Pictures', 'action'=>'view']);
     $routes->connect('/pictures/*', ['controller' => 'Error']);
+    $routes->connect('/Pictures/*', ['controller' => 'Error']);
 
     //Processings
     // $routes->connect('/processings/', ['controller' => 'Processings', 'action'=>'index']);
     // $routes->connect('/processings/index', ['controller' => 'Processings', 'action'=>'index']);
     // $routes->connect('/processings/getContent', ['controller' => 'Processings', 'action'=>'getContent']);
     // $routes->connect('/processings/view/**', ['controller' => 'Processings', 'action'=>'view']);
-    // $routes->connect('/processings/*', ['controller' => 'Error']);
+    $routes->connect('/processings/*', ['controller' => 'Error']);
+    $routes->connect('/Processings/*', ['controller' => 'Error']);
 
     //Videos
-    // $routes->connect('/videos/', ['controller' => 'Videos', 'action'=>'index']);
-    // $routes->connect('/videos/index', ['controller' => 'Videos', 'action'=>'index']);
-    // $routes->connect('/videos/getContent', ['controller' => 'Videos', 'action'=>'getContent']);
-    // $routes->connect('/videos/add', ['controller' => 'Videos', 'action'=>'add']);
-    // $routes->connect('/videos/load', ['controller' => 'Videos', 'action'=>'load']);
-    // $routes->connect('/processings/view/**', ['controller' => 'Processings', 'action'=>'view']);
+    $routes->connect('/videos/load', ['controller' => 'Videos', 'action'=>'load']);
+    $routes->connect('/videos/add', ['controller' => 'Videos', 'action'=>'add']);
     $routes->connect('/videos/*', ['controller' => 'Error']);
+    $routes->connect('/Videos/*', ['controller' => 'Error']);
+
+    //Uplpictures
+    $routes->connect('/uplpictures/load', ['controller' => 'Uplpictures', 'action'=>'load']);
+    $routes->connect('/uplpictures/add', ['controller' => 'Uplpictures', 'action'=>'add']);
+    $routes->connect('/uplpictures/*', ['controller' => 'Error']);
+    $routes->connect('/Uplpictures/*', ['controller' => 'Error']);
 
     //Users
     $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/login', ['controller' => 'Users', 'action' => 'login']);
@@ -98,23 +105,8 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/top', ['controller' => 'Users', 'action' => 'top']);
     //$routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/index', ['controller' => 'Users', 'action' => 'index']);
     //$routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/add', ['controller' => 'Users', 'action' => 'add']);
-
-    //Articles
-    $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/addArticles', ['controller' => 'Articles', 'action' => 'add']);
-    $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/editArticles/**', ['controller' => 'Articles', 'action' => 'edit']);
-    $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/editOrDeleteList', ['controller' => 'Articles', 'action' => 'editOrDeleteList']);
-
-    //Pictures
-    // $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/addPictures', ['controller' => 'Pictures', 'action' => 'add']);
-    // $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/deletePictures/**', ['controller' => 'Pictures', 'action' => 'delete']);
-
-    //Processings
-    // $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/addProcessings', ['controller' => 'Processings', 'action' => 'add']);
-    // $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/deleteProcessings/**', ['controller' => 'Processings', 'action' => 'delete']);
-
-    //Videos
-    // $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/addVideos', ['controller' => 'Videos', 'action' => 'add']);
-    // $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/deleteVideos/**', ['controller' => 'Videos', 'action' => 'delete']);
+    $routes->connect('/users/*', ['controller' => 'Error']);
+    $routes->connect('/Users/*', ['controller' => 'Error']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.

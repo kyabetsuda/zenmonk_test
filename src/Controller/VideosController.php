@@ -93,14 +93,20 @@ class VideosController extends AppController
         $validExtension = array( "jpg", "png");
         if(!$this->CheckExtension->chk_ext($thumbnail['name'], $validExtension)){
           Log::write('error', 'invalid file extension : ' . $thumbnail['name']);
-          return $this->cakeError('error404');
+          $this->response->type('text');
+          $this->response->body('file extension is invalid');
+          $this->response->statusCode(404);
+          return $this->response;
         }
 
         //動画ファイル拡張子のチェック
         $validExtension = array( "mp4", "avi", "mov", "wmv", "flv" );
         if(!$this->CheckExtension->chk_ext($videoFile['name'], $validExtension)){
           Log::write('error', 'invalid file extension : ' . $videoFile['name']);
-          return $this->cakeError('error404');
+          $this->response->type('text');
+          $this->response->body('file extension is invalid');
+          $this->response->statusCode(404);
+          return $this->response;
         }
 
         $video->thumbnail = $thumbnail['name'];
@@ -110,6 +116,11 @@ class VideosController extends AppController
           $this->Flash->success(__('The video has been saved.'));
           move_uploaded_file($thumbnail['tmp_name'],'../webroot/img/videos/' . $thumbnail['name']);
           move_uploaded_file($videoFile['tmp_name'],'../webroot/mv/videos/' . $videoFile['name']);
+        }else{
+          $this->response->type('text');
+          $this->response->body('maybe same file already exists');
+          $this->response->statusCode(404);
+          return $this->response;
         }
 
       }else{

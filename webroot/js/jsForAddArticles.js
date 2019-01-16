@@ -317,6 +317,17 @@ function makeBtnForCategory(id, name){
 *********************************************************************************************/
 $(document).ready(function(e)
 {
+  //uploadpictures
+  loadPictures('uploadedList',callbackForLoad);
+
+  //uploadvideos
+  loadVideos('uploadedMvList',callbackForMvLoad);
+  $('.uploadVideos').click(function()
+  {
+    uploadVideos(function(){loadVideos('uploadedMvList',callbackForMvLoad)});
+    return false;
+  });
+
 
   $('.addCode').click(function(){
     insertCodeBlock('articleContent');
