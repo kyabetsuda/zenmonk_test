@@ -148,6 +148,8 @@ function uploadArticle(){
   var categories = [];
   var content = $('.articleContent').val();
   var draft = -1;
+
+  //下書きが清書か判定する
   if($('input[name=q2]:checked').val() == 'draft'){
     draft = 1;
   }else if($('input[name=q2]:checked').val() == 'clean'){
@@ -155,12 +157,14 @@ function uploadArticle(){
   }
   var csrf = $('input[name=_csrfToken]').val();
 
+  //カテゴリーを全て追加する
   $('.articleCategories').find('input').each(function(){
     console.log($(this).val());
     categories.push($(this).val());
   });
 
-  var json = {
+  //記事をアップロードする
+  var inputJson = {
     "id" : id,
     "title" : title,
     "thumbnail" : thumbnail,
@@ -168,40 +172,12 @@ function uploadArticle(){
     "content" : content,
     "draft" : draft
   }
-
-  /**
-   * Ajax通信メソッド
-   * @param type  : HTTP通信の種類
-   * @param url   : リクエスト送信先のURL
-   * @param data  : サーバに送信する値
-   */
-  $.ajax({
-      type: 'POST',
-      beforeSend: function(xhr){
-        xhr.setRequestHeader('X-CSRF-Token', csrf);
-      },
-      datatype:'json',
-      url: "http://" + location.hostname + "/articles/uploadArticle",
-      data: json,
-      success: function(data,dataType)
-      {
-        alert("成功");
-
-      },
-      /**
-       * Ajax通信が失敗した場合に呼び出されるメソッド
-       */
-      error: function(XMLHttpRequest, textStatus, errorThrown)
-      {
-        // alert('Error : ' + errorThrown + '\n'
-        //   + 'textStatus : ' + textStatus + '\n'
-        //   + 'XMLHttpRequest : ' + XMLHttpRequest.status
-        // );
-
-        alert("コンテンツ取得時にエラーが発生しました。");
-      }
-  });
-
+  var url = '/articles/uploadArticle';
+  var callback = new Callback();
+  callback.callback = function(){
+    alert("成功");
+  }
+  getJsonAndDoSomething(inputJson, url, callback);
 }
 
 /********************************************************************************************
@@ -209,49 +185,21 @@ function uploadArticle(){
 *********************************************************************************************/
 function plusCategory(){
   var category = $('.plusedCategory').val();
-  var csrf = $('input[name=_csrfToken]').val();
-
-  var json = {
+  var inputJson = {
     "category" : category
   }
-
-  /**
-   * Ajax通信メソッド
-   * @param type  : HTTP通信の種類
-   * @param url   : リクエスト送信先のURL
-   * @param data  : サーバに送信する値
-   */
-  $.ajax({
-      type: 'POST',
-      beforeSend: function(xhr){
-        xhr.setRequestHeader('X-CSRF-Token', csrf);
-      },
-      datatype:'json',
-      url: "http://" + location.hostname + "/articles/plusCategory",
-      data: json,
-      success: function(data,dataType)
-      {
-        alert("成功");
-        $('#category_id').empty();
-        for(var i in data){
-          $('#category_id').append(
-            makeOptionForCategories(data[i])
-          );
-        }
-      },
-      /**
-       * Ajax通信が失敗した場合に呼び出されるメソッド
-       */
-      error: function(XMLHttpRequest, textStatus, errorThrown)
-      {
-        // alert('Error : ' + errorThrown + '\n'
-        //   + 'textStatus : ' + textStatus + '\n'
-        //   + 'XMLHttpRequest : ' + XMLHttpRequest.status
-        // );
-
-        alert("コンテンツ取得時にエラーが発生しました。");
-      }
-  });
+  var url = '/articles/plusCategory';
+  var callback = new Callback();
+  callback.callback = function(){
+    alert("成功");
+    $('#category_id').empty();
+    for(var i in this.result){
+      $('#category_id').append(
+        makeOptionForCategories(this.result[i])
+      );
+    }
+  }
+  getJsonAndDoSomething(inputJson, url, callback);
 }
 
 /*
