@@ -20,8 +20,11 @@ $(window).on('load resize', function(){
 *検索用
 *********************************************************************************************/
 function search(word){
-  //jsForArticlesListのメソッド
-  loadArticles('articleList','/articles/getContent',word);
+  var inputJson = {
+    'word' : word
+  }
+  var url = '/articles/getContent';
+  getJsonAndInsertHtmlForArticleList(inputJson, url);
 
   //スクロール
   var height = $('.navbar').height();
@@ -70,7 +73,7 @@ function getJson(inputJson, url){
       url: "http://" + location.hostname + url,
       success: function(data,dataType)
       {
-        alert("success");
+        //alert("success");
       },
       /**
        * Ajax通信が失敗した場合に呼び出されるメソッド
