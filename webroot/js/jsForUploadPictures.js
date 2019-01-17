@@ -14,8 +14,19 @@ function loadPictures(containerClassName, callbackMethod){
 
 }
 
+/********************************************************************************************
+*画像のアップロード
+*********************************************************************************************/
 function uploadPictures(callbackMethod){
-  
+  // フォームデータを取得
+  var form = $('#uploadPictures').get(0);
+  var inputJson = new FormData( form );
+  var url = '/uplpictures/add';
+  var callback = new Callback();
+  callback.callback = function(){
+    callbackMethod();
+  }
+  getJsonWithFileAndDoSomething(inputJson, url, callback);
 }
 
 function makeJsonToHtmlGzList(jsonData, containerClassName){
@@ -47,7 +58,7 @@ function makeDivForGzlist(imgHtml){
 }
 
 function makeImgHtmlForGzList(title){
-  return "<div class='btn'><img style='max-width: 100%; margin : 1%;' src='/webroot/img/uploaded/"
+  return "<div class='btn'><img class='pictThumbnail' style='max-width: 100%; margin : 1%;' src='/webroot/img/uploaded/"
       + title
       + "'></div>";
 }

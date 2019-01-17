@@ -89,7 +89,7 @@ function insertGzHtmlIntoArticle(gzHtml, containerClassName){
 */
 function addEventListenerToImg(){
   //画像を全部挿入し終わってからイベントリスナーをつける
-  $('img').click(function(){
+  $('.pictThumbnail').click(function(){
     if($('input[name=q1]:checked').val() == 'content'){
       insertGzHtmlIntoArticle(makeGzHtmlForArticle(this.src), "articleContent");
     }else if($('input[name=q1]:checked').val() == 'thumbnail'){
@@ -319,6 +319,11 @@ $(document).ready(function(e)
 {
   //uploadpictures
   loadPictures('uploadedList',callbackForLoad);
+  $('.uploadPictures').click(function()
+  {
+    uploadPictures(function(){loadPictures('uploadedList',callbackForLoad)});
+    return false;
+  });
 
   //uploadvideos
   loadVideos('uploadedMvList',callbackForMvLoad);

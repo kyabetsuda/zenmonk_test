@@ -27,7 +27,6 @@ function uploadVideos(callbackMethod){
     callbackMethod();
   }
   getJsonWithFileAndDoSomething(inputJson, url, callback);
-
 }
 
 function makeJsonToHtmlMvList(jsonData, containerClassName){
