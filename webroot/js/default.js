@@ -9,10 +9,10 @@ $('head').append(
 //コンテンツがnavbarに隠れないようにする
 $(window).on('load resize', function(){
 
-  // navbarの高さを取得する
-  var height = $('.navbar').height();
-  // bodyのpaddingにnavbarの高さを設定する
-  $('body').css('padding-top',height*2.5);
+  // // navbarの高さを取得する
+  // var height = $('.navbar').height();
+  // // bodyのpaddingにnavbarの高さを設定する
+  // $('body').css('padding-top',height*2.5);
 
 });
 
@@ -20,17 +20,82 @@ $(window).on('load resize', function(){
 *検索用
 *********************************************************************************************/
 function search(word){
+
+  //トップページ以外にいる場合
+  if(!$('.articleList').length){
+    var inputJson = {
+      'word' : word
+    }
+    var url = '/articles/getContent';
+    getJsonAndInsertHtmlForArticleList2(inputJson, url, 'articleList2');
+    insertSearchTitleIntoArticleList('searchResult');
+    return;
+  }
+
   var inputJson = {
     'word' : word
   }
   var url = '/articles/getContent';
-  getJsonAndInsertHtmlForArticleList(inputJson, url);
+  getJsonAndInsertHtmlForArticleList(inputJson, url, 'articleList');
 
   //スクロール
   var height = $('.navbar').height();
   var heightOfTopString = $('.topString').height();
   $("html,body").animate({scrollTop:heightOfTopString + (height*2.5)});
 }
+
+function insertSearchTitleIntoArticleList(containerClassName){
+  $('.' + containerClassName).empty();
+  $('.' + containerClassName).prepend(makeHtmlForSearchTitle());
+}
+
+function makeHtmlForSearchTitle(){
+  return '<div class="row" style="display:flex; justify-content: center;"><h2 class="text-center search_title" style="text-decoration: underline;">SearchResult</h2></div>';
+}
+
+/********************************************************************************************
+*記事リスト挿入用メソッド
+*********************************************************************************************/
+function getJsonAndInsertHtmlForArticleList2(inputJson, url, containerClassName){
+  $('.' + containerClassName).empty();
+
+  //callbackオブジェクト定義
+  var callback = new Callback();
+  callback.callback = function(){
+      insertHtmlForArticleList2(containerClassName, this.result);
+  }
+  //jsonデータの取得とcallback起動
+  getJsonAndDoSomething(inputJson, url, callback);
+}
+
+function insertHtmlForArticleList2(containerClassName, jsonData){
+  for(var i in jsonData){
+    console.log(jsonData[i].upd_ymd);
+    $('.' + containerClassName).append(
+      makeHtmlForArticleList2(jsonData[i])
+    );
+  }
+}
+
+function makeHtmlForArticleList2(article){
+  //opacityを設定しない
+  return '<div class="col-sm-4 mb-1 cardWrapper">'
+    + '<div class="card mb-3" style="max-width: 25rem;">'
+    + '<a href="/articles/post/' + article.id + '">'
+    + '<img class="card-img-top" src="/img/uploaded/' + article.thumbnail + '">'
+    + '</a>'
+    + '<div class="card-body text-center">'
+    + '<span>' + article.title + '</span>'
+    + '</div>'
+    + '<div class="card-footer text-center" style="font-size:11px; background-color:#ffffff">'
+    + '<span>' + sampleDate(new Date(article.upd_ymd.replace(/-/g,'/')),'YYYY/MM/DD') + '</span>'
+    + '</div>'
+    + '</div>'
+    + '</div>'
+    ;
+}
+
+
 
 /********************************************************************************************
 *jsonデータ取得用に渡すプロトタイプ
@@ -137,8 +202,8 @@ function getJsonWithFile(inputJson, url){
 /********************************************************************************************
 *記事リスト挿入用メソッド
 *********************************************************************************************/
-function getJsonAndInsertHtmlForArticleList(inputJson, url){
-  var containerClassName = 'articleList';
+function getJsonAndInsertHtmlForArticleList(inputJson, url, containerClassName){
+  // var containerClassName = 'articleList';
   $('.' + containerClassName).empty();
 
   //callbackオブジェクト定義
@@ -202,7 +267,10 @@ function sampleDate(date, format) {
 *********************************************************************************************/
 $(document).ready(function(e)
 {
-  //各種グローバル変数定義
+  // navbarの高さを取得する
+  var height = $('.navbar').height();
+  // bodyのpaddingにnavbarの高さを設定する
+  $('body').css('padding-top',height*2.5);
 
   //フェードイン
   $('.fadeIn').delay(600).fadeIn("slow");
@@ -210,6 +278,7 @@ $(document).ready(function(e)
   $('.searchBtn').click(function(){
     var word = $('.searchWord').val();
     search(word);
+
   });
 
 });

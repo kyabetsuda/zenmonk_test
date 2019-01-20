@@ -17,7 +17,7 @@ function loadCategories(){
       };
       var url = '/articles/getContentByCategory';
       //json取得とcallback起動
-      getJsonAndInsertHtmlForArticleList(inputJson, url);
+      getJsonAndInsertHtmlForArticleList(inputJson, url, 'articleList');
       $("html,body").animate({scrollTop:heightOfTopString + (height*2.5)});
     });
   }

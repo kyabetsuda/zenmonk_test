@@ -34,6 +34,7 @@ $cakeDescription = 'Tsudarticles';
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
     <?= $this->Html->script('bootstrap.bundle.min.js') ?>
+    <?= $this->Html->script('siema.min.js') ?>
     <?= $this->Html->script('default.js') ?>
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -67,6 +68,14 @@ $cakeDescription = 'Tsudarticles';
 	</div>
 </nav>
 
+<div class="container"　style="display:none;">
+  <div class="searchResult">
+  </div>
+  <div class="row articleList2">
+
+  </div>
+</div>
+
 <!-- コンテンツ -->
 <div class="container contentBody">
 	<?= $this->fetch('content') ?>
@@ -77,6 +86,12 @@ $cakeDescription = 'Tsudarticles';
 	<div class="text-muted text-center" style="font-size:12px">©︎2018 Shiran All Rights Reserved. </div>
 	</div>
 </footer>
+
+<!--csrfトークン生成-->
+<?= $this->Form->create(null, [
+// 'url'=>['controller'=>'Article','action'=>'index'],
+]) ?>
+<?= $this->Form->end() ?>
 
 </body>
 </html>

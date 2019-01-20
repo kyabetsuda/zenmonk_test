@@ -5,5 +5,5 @@ $(document).ready(function(e)
 {
   var inputJson = {};
   var url = '/articles/index';
-  getJsonAndInsertHtmlForArticleList(inputJson, url);
+  getJsonAndInsertHtmlForArticleList(inputJson, url, 'articleList');
 });

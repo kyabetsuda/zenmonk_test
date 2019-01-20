@@ -18,7 +18,7 @@
 </div>
 
 <!--csrfトークン生成-->
-<?= $this->Form->create(null, [
+<!-- <?= $this->Form->create(null, [
 'url'=>['controller'=>'Article','action'=>'index'],
 ]) ?>
-<?= $this->Form->end() ?>
+<?= $this->Form->end() ?> -->

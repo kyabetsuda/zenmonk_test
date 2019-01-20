@@ -110,10 +110,15 @@ class ArticlesController extends AppController
 	public function getContent(){
 		$this->autoRender = FALSE;
 		if($this->request->is('ajax')) {
-			$articles = $this->Articles->find()->where(['title like' => '%' . $this->request->data['word'] . '%', 'draft' => '0']);
-			Log::write('debug','before : ' . $articles->content);
-			$articles->content = htmlspecialchars_decode($articles->content,ENT_QUOTES|ENT_HTML5);
-			Log::write('debug','after : ' . $articles->content);
+			//$articles = $this->Articles->find()->where(['title like' => '%' . $this->request->data['word'] . '%', 'draft' => '0']);
+			$conn = ConnectionManager::get('default');
+			$stmt = $conn->prepare(
+				'select * from articles where draft = :draft and title like :title'
+			);
+			$stmt->bindValue(':draft', '0');
+			$stmt->bindValue(':title', '%' . $this->request->data['word'] . '%');
+			$stmt->execute();
+			$articles = $stmt->fetchAll('assoc');
 			$resultJ = json_encode($articles);
 			$this->response->type('json');
 			$this->response->body($resultJ);
