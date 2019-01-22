@@ -1,0 +1,30 @@
+2018-12-08 02:47:16 Error: [RuntimeException] Unknown command `cake controller`. Run `cake --help` to get the list of valid commands. in /Applications/XAMPP/xamppfiles/htdocs/zenmonk/vendor/cakephp/cakephp/src/Console/CommandRunner.php on line 321
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/zenmonk/vendor/cakephp/cakephp/src/Console/CommandRunner.php(159): Cake\Console\CommandRunner->resolveName(Object(Cake\Console\CommandCollection), Object(Cake\Console\ConsoleIo), 'controller')
+#1 /Applications/XAMPP/xamppfiles/htdocs/zenmonk/bin/cake.php(12): Cake\Console\CommandRunner->run(Array)
+#2 {main}
+
+
+2018-12-08 02:48:21 Error: [Cake\Database\Exception] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'zenmonk.search_result' doesn't exist in /Applications/XAMPP/xamppfiles/htdocs/zenmonk/vendor/cakephp/cakephp/src/Database/Schema/Collection.php on line 131
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/zenmonk/vendor/cakephp/cakephp/src/Database/Schema/Collection.php(97): Cake\Database\Schema\Collection->_reflect('Column', 'search_result', Array, Object(Cake\Database\Schema\TableSchema))
+#1 /Applications/XAMPP/xamppfiles/htdocs/zenmonk/vendor/cakephp/cakephp/src/Database/Schema/CachedCollection.php(63): Cake\Database\Schema\Collection->describe('search_result', Array)
+#2 /Applications/XAMPP/xamppfiles/htdocs/zenmonk/vendor/cakephp/cakephp/src/ORM/Table.php(548): Cake\Database\Schema\CachedCollection->describe('search_result')
+#3 /Applications/XAMPP/xamppfiles/htdocs/zenmonk/vendor/cakephp/cakephp/src/ORM/Table.php(673): Cake\ORM\Table->getSchema()
+#4 /Applications/XAMPP/xamppfiles/htdocs/zenmonk/vendor/cakephp/bake/src/Shell/Task/TemplateTask.php(288): Cake\ORM\Table->getPrimaryKey()
+#5 /Applications/XAMPP/xamppfiles/htdocs/zenmonk/vendor/cakephp/bake/src/Shell/Task/TemplateTask.php(142): Bake\Shell\Task\TemplateTask->_loadController()
+#6 /Applications/XAMPP/xamppfiles/htdocs/zenmonk/vendor/cakephp/cakephp/src/Console/Shell.php(532): Bake\Shell\Task\TemplateTask->main('SearchResult')
+#7 /Applications/XAMPP/xamppfiles/htdocs/zenmonk/vendor/cakephp/cakephp/src/Console/Shell.php(525): Cake\Console\Shell->runCommand(Array, false, Array)
+#8 /Applications/XAMPP/xamppfiles/htdocs/zenmonk/vendor/cakephp/cakephp/src/Console/CommandRunner.php(342): Cake\Console\Shell->runCommand(Array, true)
+#9 /Applications/XAMPP/xamppfiles/htdocs/zenmonk/vendor/cakephp/cakephp/src/Console/CommandRunner.php(164): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
+#10 /Applications/XAMPP/xamppfiles/htdocs/zenmonk/bin/cake.php(12): Cake\Console\CommandRunner->run(Array)
+#11 {main}
+
+
+2018-12-08 10:15:31 Error: [RuntimeException] Unknown command `cake controller`. Run `cake --help` to get the list of valid commands. in /Applications/XAMPP/xamppfiles/htdocs/zenmonk/vendor/cakephp/cakephp/src/Console/CommandRunner.php on line 321
+Stack Trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/zenmonk/vendor/cakephp/cakephp/src/Console/CommandRunner.php(159): Cake\Console\CommandRunner->resolveName(Object(Cake\Console\CommandCollection), Object(Cake\Console\ConsoleIo), 'controller')
+#1 /Applications/XAMPP/xamppfiles/htdocs/zenmonk/bin/cake.php(12): Cake\Console\CommandRunner->run(Array)
+#2 {main}
+
+
