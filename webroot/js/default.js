@@ -138,7 +138,7 @@ function getJson(inputJson, url){
       url: "http://" + location.hostname + url,
       success: function(data,dataType)
       {
-        //alert("success");
+        alert("success");
       },
       /**
        * Ajax通信が失敗した場合に呼び出されるメソッド
