@@ -8,10 +8,6 @@ function searchByCategory(word){
   var url = '/articles/getContentByCategory';
   getJsonAndInsertHtmlForArticleList2(inputJson, url, 'articleList2');
   insertSearchTitleIntoArticleList('searchResult');
-
-  //スクロール
-  var height = $('.navbar').height();
-  $("html,body").animate({scrollTop:(height*2.5)});
 }
 
 /********************************************************************************************
