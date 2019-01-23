@@ -1,5 +1,5 @@
 /********************************************************************************************
-*カテゴリー取得
+*カテゴリーから記事を取得
 *********************************************************************************************/
 function searchByCategory(word){
   var inputJson = {
@@ -17,7 +17,6 @@ function searchByCategory(word){
 $(document).ready(function(e)
 {
   $('.articleCategory').click(function(){
-    //alert($(this).text());
     searchByCategory($(this).text());
   })
 

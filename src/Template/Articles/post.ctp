@@ -5,6 +5,7 @@
 <div class="row" style="display:flex; justify-content: center;">
   <h2><?=$article->title?></h2>
 </div>
+<br>
 <div class="row">
   <div class="mx-auto">
     <div class="articleCategories">
@@ -15,6 +16,7 @@
     </div>
   </div>
 </div>
+<br>
 <div class="row">
   <div class="col-12">
   <?=$article->content?>
