@@ -65,7 +65,7 @@ function getJsonAndInsertHtmlForArticleList2(inputJson, url, containerClassName)
       insertHtmlForArticleList2(containerClassName, this.result);
       //スクロール
       var height = $('.navbar').height();
-      $("html,body").animate({scrollTop:(height*2.5)});
+      $("html,body").animate({scrollTop:(height)});
   }
   //jsonデータの取得とcallback起動
   getJsonAndDoSomething(inputJson, url, callback);
