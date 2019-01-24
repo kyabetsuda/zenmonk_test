@@ -192,10 +192,16 @@ class ArticlesController extends AppController
    */
 	public function editOrDeleteList(){
 		$secretUrl = Configure::read("secretUrl");
-		$this->paginate = [
-				'contain' => ['Categories']
-		];
-		$articles = $this->paginate($this->Articles);
+		$conn = ConnectionManager::get('default');
+		$stmt = $conn->prepare(
+			'select t1.id, t1.title, t1.thumbnail, t1.upd_ymd from articles t1 order by t1.upd_ymd desc'
+		);
+		$stmt->execute();
+		$articles = $stmt->fetchAll('assoc');
+		// $this->paginate = [
+		// 		'contain' => ['Categories']
+		// ];
+		// $articles = $this->paginate($this->Articles);
 		$this->set(compact('articles','secretUrl'));
 	}
 
