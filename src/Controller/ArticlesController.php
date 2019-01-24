@@ -81,7 +81,7 @@ class ArticlesController extends AppController
 		if($this->request->is('ajax')) {
 			$conn = ConnectionManager::get('default');
 			$stmt = $conn->prepare(
-	    	'select * from articles where draft = :draft'
+	    	'select * from articles where draft = :draft order by upd_ymd desc'
 			);
 			$stmt->bindValue(':draft', '0');
 			$stmt->execute();
