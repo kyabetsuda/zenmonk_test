@@ -7,7 +7,7 @@
 #/vendor/*
 .ftpconfig
 package.json
-js/test/*
+/webroot/js/test/*
 
 # OS generated files #
 ######################
