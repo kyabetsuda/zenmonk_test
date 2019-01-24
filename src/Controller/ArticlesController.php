@@ -255,14 +255,14 @@ class ArticlesController extends AppController
 				//javascript側で設定されていない場合は初期値-1をそのまま渡すようにしている
 				$article->draft = $this->request->data['draft'];
 			}
-
+			Log::write('debug','before save');
 			//更新
 			if ($this->Articles->save($article)) {
 				$this->Flash->success(__('The article has been saved.'));
 			}else{
 				$this->cakeError('error404');
 			}
-
+			Log::write('debug','after save');
 			//一旦カテゴリーを全部削除する
 			$ArticlesCategoriesForDelete = $this->ArticlesCategories->find()->where(['article_id' => $article->id]);
 			foreach($ArticlesCategoriesForDelete as $category){

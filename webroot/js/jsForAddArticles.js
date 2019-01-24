@@ -159,7 +159,7 @@ function uploadArticle(){
 
   //カテゴリーを全て追加する
   $('.articleCategories').find('input').each(function(){
-    console.log($(this).val());
+    //console.log($(this).val());
     categories.push($(this).val());
   });
 
@@ -171,6 +171,9 @@ function uploadArticle(){
     "categories" : categories,
     "content" : content,
     "draft" : draft
+  }
+  for(var i in categories){
+    console.log(categories[i]);
   }
   var url = '/articles/uploadArticle';
   var callback = new Callback();
@@ -303,7 +306,9 @@ $(document).ready(function(e)
   });
 
   $('.articleCategory').click(function(){
+    var inputId = searchCategoryFromName($(this).text());
     $(this).remove();
+    $('.articleCategories').find('input[value="' + inputId + '"]').remove();
   });
 
 
