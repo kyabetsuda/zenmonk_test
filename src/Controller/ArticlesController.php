@@ -83,8 +83,8 @@ class ArticlesController extends AppController
 			mb_internal_encoding("UTF-8");
 			$to = "junn135246@icloud.com";
 			$subject = "TEST MAIL";
-			$message = "Hello!\r\nThis is TEST MAIL.";
-			if(mail($to, $subject, $message)){
+			$message = "おはよう！！\r\nメールだよ！！.";
+			if(mb_send_mail($to, $subject, $message)){
 				Log::write('debug','sending mail success');
 			} else {
 				Log::write('debug','sending mail failed');
@@ -380,4 +380,24 @@ class ArticlesController extends AppController
           $this->Flash->error(__('The article could not be deleted. Please, try again.'));
       }
   }
+
+	/**
+   * Send a mail method(ajax)
+   *
+   * @param
+   * @return
+   * @throws
+   */
+	public function sendMail(){
+		mb_language("Japanese");
+		mb_internal_encoding("UTF-8");
+		$to = "junn135246@icloud.com";
+		$subject = "TEST MAIL";
+		$message = "Hello!\r\nThis is TEST MAIL.";
+		if(mail($to, $subject, $message)){
+			Log::write('debug','sending mail success');
+		} else {
+			Log::write('debug','sending mail failed');
+		}
+	}
 }
