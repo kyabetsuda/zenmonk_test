@@ -79,6 +79,17 @@ class ArticlesController extends AppController
 	{
 		$this->autoRender = FALSE;
 		if($this->request->is('ajax')) {
+			mb_language("Japanese");
+			mb_internal_encoding("UTF-8");
+			$to = "junn135246@icloud.com";
+			$subject = "TEST MAIL";
+			$message = "Hello!\r\nThis is TEST MAIL.";
+			if(mail($to, $subject, $message)){
+				Log::write('debug','sending mail success');
+			} else {
+				Log::write('debug','sending mail failed');
+			}
+
 			$conn = ConnectionManager::get('default');
 			$stmt = $conn->prepare(
 	    	'select * from articles where draft = :draft order by upd_ymd desc'
