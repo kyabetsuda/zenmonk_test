@@ -58,7 +58,9 @@ class ArticlesController extends AppController
 			'uploadArticle',
 			'getCategories',
 			'plusCategory',
-			'delete']);
+			'delete',
+			'sendMail'
+		]);
 
 		$this->Auth->allow(['index',
 			'post',
@@ -67,7 +69,9 @@ class ArticlesController extends AppController
 			'uploadArticle',
 			'getCategories',
 			'plusCategory',
-			'delete']);
+			'delete',
+			'sendMail'
+		]);
 	}
 
 	/**
@@ -79,17 +83,6 @@ class ArticlesController extends AppController
 	{
 		$this->autoRender = FALSE;
 		if($this->request->is('ajax')) {
-			mb_language("Japanese");
-			mb_internal_encoding("UTF-8");
-			$to = "junn135246@icloud.com";
-			$subject = "TEST MAIL";
-			$message = "おはよう！！\r\nメールだよ！！.";
-			if(mb_send_mail($to, $subject, $message)){
-				Log::write('debug','sending mail success');
-			} else {
-				Log::write('debug','sending mail failed');
-			}
-
 			$conn = ConnectionManager::get('default');
 			$stmt = $conn->prepare(
 	    	'select * from articles where draft = :draft order by upd_ymd desc'
@@ -389,12 +382,14 @@ class ArticlesController extends AppController
    * @throws
    */
 	public function sendMail(){
+		$this->autoRender = FALSE;
 		mb_language("Japanese");
 		mb_internal_encoding("UTF-8");
 		$to = "junn135246@icloud.com";
-		$subject = "TEST MAIL";
-		$message = "Hello!\r\nThis is TEST MAIL.";
-		if(mail($to, $subject, $message)){
+		$title = $this->request->data['title'];
+		$content = $this->request->data['content'];
+		$name = 'From: ' . $this->request->data['name'];
+		if(mb_send_mail($to, $title, $content, $name)){
 			Log::write('debug','sending mail success');
 		} else {
 			Log::write('debug','sending mail failed');

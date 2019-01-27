@@ -19,8 +19,11 @@
 
 	<!-- 記事一覧 -->
 	<?php echo $this->element('Articles/articleList'); ?>
-
+	<br>
 	<!-- カテゴリー一覧 -->
 	<?php echo $this->element('Articles/categoryList'); ?>
+	<br>
+	<!-- メールフォーム-->
+	<?php echo $this->element('Articles/mailForm'); ?>
 
 </div>
