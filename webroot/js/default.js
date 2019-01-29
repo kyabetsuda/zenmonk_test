@@ -148,11 +148,11 @@ function getJson(inputJson, url){
        */
       error: function(XMLHttpRequest, textStatus, errorThrown)
       {
-        alert('コンテンツ取得エラー');
-        // alert('Error : ' + errorThrown + '\n'
-        //   + 'textStatus : ' + textStatus + '\n'
-        //   + 'XMLHttpRequest : ' + XMLHttpRequest.status
-        // );
+        //alert('コンテンツ取得エラー');
+        alert('ErrorCode : ' + XMLHttpRequest.status + '\n'
+          + 'textStatus : ' + textStatus + '\n'
+          + 'Error : ' + XMLHttpRequest.responseText
+        );
       }
   });
 }

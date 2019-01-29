@@ -29,6 +29,7 @@ class ArticlesController extends AppController
 	    $this->loadComponent('MakeHtml');
 			$this->Categories = TableRegistry::get('Categories');
 			$this->ArticlesCategories = TableRegistry::get('ArticlesCategories');
+			$this->Mails = TableRegistry::get('Mails');
 	}
 
 
@@ -383,12 +384,31 @@ class ArticlesController extends AppController
    */
 	public function sendMail(){
 		$this->autoRender = FALSE;
+
 		mb_language("Japanese");
 		mb_internal_encoding("UTF-8");
 		$to = "junn135246@icloud.com";
 		$title = $this->request->data['title'];
 		$content = $this->request->data['content'];
 		$name = 'From: ' . $this->request->data['name'];
+
+		$mail = $this->Mails->newEntity();
+		$mail->name = $name;
+		$mail->title = $title;
+		$mail->content = $content;
+		$mail->remote_address = $_SERVER["REMOTE_ADDR"];
+		if (!$this->Mails->save($mail)) {
+			$this->response->type('text');
+			$this->response->body('メール送信に失敗しました'
+				. "\n"
+				. '●予想される原因'
+				. "\n"
+				. 'メールは一日5回までしか送信できません'
+			);
+			$this->response->statusCode(404);
+			return $this->response;
+		}
+
 		if(mb_send_mail($to, $title, $content, $name)){
 			Log::write('debug','sending mail success');
 		} else {
