@@ -13,6 +13,16 @@ $(document).ready(function(e)
 			'justify-content' : 'center'
 		});
 
+		if($(window).height() >= $(window).width()){
+			$('.titleString').css({
+				'font-size' : '6vh'
+			});
+		}else{
+			$('.titleString').css({
+				'font-size' : '6vw'
+			});
+		}
+
 		//topStringの下にはnavbar*2.5の余白があるため、articleListはそれ分下げる
 		$('.articleListTitle').css({
 		  'margin-top' : height*2.5,
