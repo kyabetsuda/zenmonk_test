@@ -265,7 +265,7 @@ function makeBtnForCategory(id, name){
 
 function makeHtmlForPreview(content){
   return '<div style="max-width:100%">'
-    + '<pre>'
+    + '<pre class="post">'
     + content
     + '</pre>'
     + '</div>'
