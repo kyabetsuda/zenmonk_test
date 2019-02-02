@@ -263,6 +263,15 @@ function makeBtnForCategory(id, name){
    + '<div class="btn btn-outline-dark border articleCategory">' + name + '</div>'
 }
 
+function makeHtmlForPreview(content){
+  return '<div style="max-width:100%">'
+    + '<pre>'
+    + content
+    + '</pre>'
+    + '</div>'
+    + '<script src="/js/jsForArticle.js"></script>';
+}
+
 /********************************************************************************************
 *各種ボタンにイベントリスナーを追加する
 *********************************************************************************************/
@@ -309,6 +318,18 @@ $(document).ready(function(e)
     var inputId = searchCategoryFromName($(this).text());
     $(this).remove();
     $('.articleCategories').find('input[value="' + inputId + '"]').remove();
+  });
+
+  $(".previewArticle").click(function(){
+    var content = $(".articleContent").val();
+    $("#previewArticle").empty();
+    $("#previewArticle").append(
+      makeHtmlForPreview(content)
+    );
+    $(".previewArticle").modaal({
+        content_source: '#previewArticle',
+        fullscreen: true
+    });
   });
 
 

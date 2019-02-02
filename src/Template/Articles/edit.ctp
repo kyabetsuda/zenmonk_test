@@ -64,6 +64,7 @@
     <div class="row">
       <div class="mx-auto">
         <button type="button" class="uploadArticle">upload</button>
+        <button type="button" class="previewArticle">preview</button>
       </div>
     </div>
     <?= $this->Form->end() ?>
@@ -82,5 +83,8 @@
 
     <?php echo $this->element('UploadPictures/uplPicture', ["callbackForLoad" => "callbackForLoad"]); ?>
     <?php echo $this->element('UploadVideos/uplVideos'); ?>
-
+    <div class="container">
+      <div id="previewArticle" class="row" style="display:none;">
+      </div>
+    </div>
 </div>
