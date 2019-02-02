@@ -12,7 +12,7 @@
 	<div class="row">
 		<div class="topString">
 			<div>
-				<div id="title" style="font-size:6vw">&lt;!-- 雑記です --&gt;</div>
+				<div id="title" style="font-size:7vw">&lt;!-- 雑記です --&gt;</div>
 			</div>
 		</div>
 	</div>
