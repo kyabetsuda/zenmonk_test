@@ -12,11 +12,11 @@
   <div class="row" style="display:flex; justify-content: center;"><h2 class="text-center" style="text-decoration: underline;">フォーム</h2></div>
   <div class="row" style="margin-bottom:1.5vh">
     <div>*名前</div>
-    <input type="text" class="mailName" style="width:100vw;">
+    <input type="text" class="mailName" style="width:100vw;border: 1px solid #dcdcdc;">
   </div>
   <div class="row" style="margin-bottom:1.5vh">
     <div>*タイトル</div>
-    <input type="text" class="mailTitle" style="width:100vw;">
+    <input type="text" class="mailTitle" style="width:100vw;border: 1px solid #dcdcdc;">
   </div>
   <div class="row" style="margin-bottom:1.5vh">
     <div>*本文</div>
