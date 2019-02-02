@@ -9,7 +9,7 @@
 
 <!-- カテゴリーリスト -->
 <div class="container" style="max-width:90vw;">
-  <div class="row" style="display:flex; justify-content: center;"><h2 class="text-center" style="text-decoration: underline;">Categories</h2></div>
+  <div class="row" style="display:flex; justify-content: center;"><h2 class="text-center" style="text-decoration: underline;">カテゴリー</h2></div>
   <div class="row categoryList" style="
     display: flex;
     justify-content: center;

@@ -9,22 +9,22 @@
 
 <!-- メールフォーム -->
 <div class="container" style="max-width:90vw;">
-  <div class="row" style="display:flex; justify-content: center;"><h2 class="text-center" style="text-decoration: underline;">Form</h2></div>
+  <div class="row" style="display:flex; justify-content: center;"><h2 class="text-center" style="text-decoration: underline;">フォーム</h2></div>
   <div class="row" style="margin-bottom:1.5vh">
-    <div>*Name</div>
+    <div>*名前</div>
     <input type="text" class="mailName" style="width:100vw;">
   </div>
   <div class="row" style="margin-bottom:1.5vh">
-    <div>*Title</div>
+    <div>*タイトル</div>
     <input type="text" class="mailTitle" style="width:100vw;">
   </div>
   <div class="row" style="margin-bottom:1.5vh">
-    <div>*Content</div>
-    <textarea class="mailContent" style="width:100vw;border: 1px solid #dcdcdc;"></textarea>
+    <div>*本文</div>
+    <textarea class="mailContent" rows="10" style="width:100vw;border: 1px solid #dcdcdc;"></textarea>
   </div>
   <div class="row">
     <div class="btn btn-outline-dark border sendMail">
-      Send
+      送信
     </div>
   </div>
 </div>

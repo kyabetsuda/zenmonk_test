@@ -13,7 +13,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = 'Tsudarticles';
+$cakeDescription = '<!-- 雑記です -->';
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,6 +31,8 @@ $cakeDescription = 'Tsudarticles';
     <?= $this->Html->css('thisDefault.css') ?>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/styles/default.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css"/>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
     <?= $this->Html->script('bootstrap.bundle.min.js') ?>
@@ -42,7 +44,9 @@ $cakeDescription = 'Tsudarticles';
 </head>
 <body class="d-flex flex-column">
 <nav class="navbar navbar-expand-lg navbar-light d-print fixed-top">
-	<a class="navbar-brand" href="/top">Tsudarticles</a>
+	<a class="navbar-brand" href="/top">
+    <img alt="" src="/img/zatsu.png" style="width : 7vh; height : 7vh">
+  </a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topmenu" aria-controls="topmenu" aria-expanded="false" aria-label="toggledMenu">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -57,10 +61,10 @@ $cakeDescription = 'Tsudarticles';
 				<div class="input-group">
 					<li class="nav-item mr-2 mb-2">
 						<!--<input type="text" class="form-control mr-auto rounded" placeholder="Search Works" aria-label="Search Works" aria-describedby="basic-addon1">-->
-						<?=$this->Form->text('word',['class' => 'form-control mr-auto rounded searchWord', 'placeholder' => 'Search'])?>
+						<?=$this->Form->text('word',['class' => 'form-control mr-auto rounded searchWord', 'placeholder' => 'キーワード'])?>
 					</li>
 					<li class="nav-item">
-						<div class="btn btn-outline-success searchBtn">Search</div>
+						<div class="btn btn-outline-success searchBtn">検索</div>
 					</li>
 				</div>
 		</ul>
@@ -82,9 +86,9 @@ $cakeDescription = 'Tsudarticles';
 </div>
 
 <footer class="footer mt-auto py-3">
-  <div class="text-muted text-center" style="font-size:10px"></div>
-	<div class="text-muted text-center" style="font-size:12px">©︎2018 Shiran All Rights Reserved. </div>
-	</div>
+	<div class="text-muted text-center" style="font-size:1vw">
+    ©︎2018 Shiran All Rights Reserved.
+  </div>
 </footer>
 
 <!--csrfトークン生成-->

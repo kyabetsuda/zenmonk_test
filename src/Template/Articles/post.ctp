@@ -2,6 +2,7 @@
 <?= $this->Html->script('jsForPost.js') ?>
 
 <div class="fadeIn">
+<div class="post">
 <div class="row" style="display:flex; justify-content: center;">
   <h2><?=$article->title?></h2>
 </div>
@@ -20,5 +21,6 @@
   <div class="col-12">
   <?=$article->content?>
   </div>
+</div>
 </div>
 </div>

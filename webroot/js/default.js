@@ -50,7 +50,7 @@ function insertSearchTitleIntoArticleList(containerClassName){
 }
 
 function makeHtmlForSearchTitle(){
-  return '<div class="row" style="display:flex; justify-content: center;"><h2 class="text-center search_title" style="text-decoration: underline;">SearchResult</h2></div>';
+  return '<div class="row" style="display:flex; justify-content: center;"><h2 class="text-center search_title" style="text-decoration: underline;">検索結果</h2></div>';
 }
 
 /********************************************************************************************

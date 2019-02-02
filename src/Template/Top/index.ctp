@@ -12,18 +12,22 @@
 	<div class="row">
 		<div class="topString">
 			<div>
-				<div id="title" style="font-size:10vw">Tsudarticles</div>
+				<div id="title" style="font-size:6vw">&lt;!-- 雑記です --&gt;</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- 記事一覧 -->
-	<?php echo $this->element('Articles/articleList'); ?>
-	<br>
-	<!-- カテゴリー一覧 -->
-	<?php echo $this->element('Articles/categoryList'); ?>
-	<br>
-	<!-- メールフォーム-->
-	<?php echo $this->element('Articles/mailForm'); ?>
+	<div class="elements">
+		<!-- 記事一覧 -->
+		<?php echo $this->element('Articles/articleList'); ?>
+		<br>
+		<br>
+		<!-- カテゴリー一覧 -->
+		<?php echo $this->element('Articles/categoryList'); ?>
+		<br>
+		<br>
+		<!-- メールフォーム-->
+		<?php echo $this->element('Articles/mailForm'); ?>
+	</div>
 
 </div>
