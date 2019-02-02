@@ -4,7 +4,7 @@
 <div class="fadeIn">
 <div class="post">
 <div class="row" style="display:flex; justify-content: center;">
-  <h2><?=$article->title?></h2>
+  <h2 style="color:#000000"><?=$article->title?></h2>
 </div>
 <br>
 <div class="row"style="
