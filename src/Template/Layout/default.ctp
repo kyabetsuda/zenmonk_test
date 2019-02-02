@@ -87,7 +87,7 @@ $cakeDescription = '<!-- 雑記です -->';
 
 <footer class="footer mt-auto py-3">
 	<div class="text-muted text-center" style="font-size:1vw">
-    ©︎2018 Shiran All Rights Reserved.
+    ©︎2019 Zakkidesu All Rights Reserved.
   </div>
 </footer>
 
