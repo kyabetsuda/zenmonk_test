@@ -60,7 +60,8 @@ class ArticlesController extends AppController
 			'getCategories',
 			'plusCategory',
 			'delete',
-			'sendMail'
+			'sendMail',
+			'getPost'
 		]);
 
 		$this->Auth->allow(['index',
@@ -71,7 +72,8 @@ class ArticlesController extends AppController
 			'getCategories',
 			'plusCategory',
 			'delete',
-			'sendMail'
+			'sendMail',
+			'getPost'
 		]);
 	}
 
@@ -169,14 +171,66 @@ class ArticlesController extends AppController
    * @return
    * @throws
    */
-  public function post($id = null)
+  public function post()
   {
-      $article = $this->Articles->get($id, [
-          'contain' => ['Categories']
-      ]);
-			$article->content = htmlspecialchars_decode($article->content,ENT_QUOTES|ENT_HTML5);
-      $this->set('article', $article);
   }
+
+	/**
+   * get post for view
+   *
+   * @param
+   * @return
+   * @throws
+   */
+	 public function getPost(){
+		 $this->autoRender = FALSE;
+		 if($this->request->is('ajax')) {
+ 			//$articles = $this->Articles->find()->where(['title like' => '%' . $this->request->data['word'] . '%', 'draft' => '0']);
+ 			$conn = ConnectionManager::get('default');
+ 			$stmt = $conn->prepare(
+ 				'select'
+				. ' t1.id as "article_id"'
+				. ' ,t1.title'
+				. ' ,t1.content'
+				. ' ,t3.id as "category_id"'
+				. ' ,t3.name as "category_name"'
+				. ' from'
+				. ' ((articles t1'
+				. ' left outer join articles_categories t2 on t1.id = t2.article_id)'
+				. ' left outer join categories t3 on t2.category_id = t3.id)'
+				. ' where'
+				. ' t1.draft = :draft'
+				. ' and t1.id = :id'
+ 			);
+ 			$stmt->bindValue(':draft', '0');
+ 			$stmt->bindValue(':id', $this->request->data['no']);
+ 			$stmt->execute();
+ 			$results = $stmt->fetchAll('assoc');
+			//結果がnullの場合はエラー
+
+			//カテゴリー配列
+			$categories = array();
+			foreach($results as $result){
+				$category = array();
+				$category['id'] = $result['category_id'];
+				$category['name'] = $result['category_name'];
+				$categories[] = $category;
+			}
+			//返却用$articleの作成
+			$article = array();
+			$result = $results[0];
+			$article['id'] = $result['article_id'];
+			$article['title'] = $result['title'];
+			$article['content'] = $result['content'];
+			$article['categories'] = $categories;
+ 			$resultJ = json_encode($article);
+ 			$this->response->type('json');
+ 			$this->response->body($resultJ);
+ 			return $this->response;
+ 		}else{
+ 			$this->cakeError('error404');
+ 		}
+	 }
 
   /**
    * Add method
@@ -242,23 +296,18 @@ class ArticlesController extends AppController
 		if($this->request->is('ajax')) {
 			if($this->request->data['id'] != null){
 				$article = $this->Articles->find()->where(['id' => $this->request->data['id']])->first();
-				//articleがeditの場合はコンテンツをそのままセットする
-				//ここは保守性が悪い気がする。いずれ訂正したい
-				$article->content = h($this->request->data['content']);
 				//articleがnullの場合は新規追加
 				if($article == null){
 					$article = $this->Articles->newEntity();
-					$article->content = $this->MakeHtml->makeHtmlForArticles($this->request->data['content']);
 				}
 			}else{
 				//idがそもそも設定されていない場合は新規追加
 				$article = $this->Articles->newEntity();
-				$article->content = $this->MakeHtml->makeHtmlForArticles($this->request->data['content']);
-				Log::write('debug','new Entity was created, id : ' . $article->id);
 			}
 
 			//各種データ登録
 			$article->title = $this->request->data['title'];
+			$article->content = $this->request->data['content'];
 			$article->thumbnail = $this->request->data['thumbnail'];
 			$article->contName = "articles";
 			if($this->request->data['draft']  > -1){
@@ -266,14 +315,16 @@ class ArticlesController extends AppController
 				//javascript側で設定されていない場合は初期値-1をそのまま渡すようにしている
 				$article->draft = $this->request->data['draft'];
 			}
-			Log::write('debug','before save');
+
 			//更新
+			Log::write('debug','before save');
 			if ($this->Articles->save($article)) {
 				$this->Flash->success(__('The article has been saved.'));
 			}else{
 				$this->cakeError('error404');
 			}
 			Log::write('debug','after save');
+
 			//一旦カテゴリーを全部削除する
 			$ArticlesCategoriesForDelete = $this->ArticlesCategories->find()->where(['article_id' => $article->id]);
 			foreach($ArticlesCategoriesForDelete as $category){

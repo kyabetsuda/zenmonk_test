@@ -4,22 +4,18 @@
 <div class="fadeIn">
 <div class="post">
 <div class="row" style="display:flex; justify-content: center;">
-  <h2 style="color:#000000"><?=$article->title?></h2>
+  <h2 class="articleTitle" style="color:#000000">
+  </h2>
 </div>
 <br>
-<div class="row"style="
+<div class="row articleCategories"style="
   display: flex;
   justify-content: center;
   ">
-      <?php foreach($article->categories as $category): ?>
-        <input type="hidden" value="<?=$category->id?>">
-        <div class="btn btn-outline-dark border articleCategory"><?=$category->name?></div>
-      <?php endforeach?>
 </div>
 <br>
 <div class="row">
-  <div class="col-12">
-  <?=$article->content?>
+  <div class="col-12 articleContent">
   </div>
 </div>
 </div>

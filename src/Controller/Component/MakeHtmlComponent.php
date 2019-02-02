@@ -12,13 +12,13 @@ class MakeHtmlComponent extends Component
 	}
 
 	public function makeHtmlForArticles($content){
-		return h('<div style="max-width:100%">'
-			. '<pre>'
+		return '<div style="max-width:100%">'
+			. '<pre class="post">'
 			. $content
 			. '</pre>'
 			. '</div>'
 			. '<script src="/js/jsForArticle.js"></script>'
-		);
+		;
 	}
 
 	public function makeHtmlForVideos($video){
