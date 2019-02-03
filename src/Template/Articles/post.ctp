@@ -1,4 +1,5 @@
 
+<?= $this->Html->css('cssForAddArticles.css') ?>
 <?= $this->Html->script('jsForPost.js') ?>
 
 <div class="fadeIn">
