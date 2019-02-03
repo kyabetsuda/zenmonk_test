@@ -18,7 +18,7 @@ callbackForMvLoad = function(){
 };
 
 /********************************************************************************************
-*コードブロック、または引用ブロック
+*各種挿入用
 *********************************************************************************************/
 
 /*
@@ -47,6 +47,15 @@ function insertCitationBlock(containerClassName){
 
   insertAtCaret(containerClassName,block);
 
+}
+
+/*
+*見出しの挿入
+*/
+function insertHeading(containerClassName){
+  var heading = '<h3 class="heading"> </h3>'
+
+  insertAtCaret(containerClassName,heading);
 }
 
 /********************************************************************************************
@@ -302,6 +311,10 @@ $(document).ready(function(e)
 
   $('.addCitation').click(function(){
     insertCitationBlock('articleContent');
+  });
+
+  $('.addHeading').click(function(){
+    insertHeading('articleContent');
   });
 
   $('.addCategory').click(function(){
