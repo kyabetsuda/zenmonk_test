@@ -4,6 +4,8 @@
  * @var \App\Model\Entity\Article $article
  */
 ?>
+
+<?= $this->Html->css('cssForAddArticles.css') ?>
 <?= $this->Html->script('jsForAddArticles.js') ?>
 
 
@@ -72,6 +74,7 @@
     <legend><?= __('Accessories') ?></legend>
     <div class="btn addCode">addCode</div>
     <div class="btn addCitation">addCitation</div>
+    <div class="btn addHeading">addHeading</div>
     <select id="category_id" name="category_id">
       <?php foreach($categories as $category): ?>
         <option value="<?=$category->id?>"><?=$category->name?></option>
