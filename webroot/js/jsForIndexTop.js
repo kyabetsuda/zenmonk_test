@@ -13,6 +13,7 @@ $(document).ready(function(e)
 			'justify-content' : 'center'
 		});
 
+		//タイトルの大きさを画面サイズによって可変対応
 		if($(window).height() >= $(window).width()){
 			$('.titleString').css({
 				'font-size' : '6vh'

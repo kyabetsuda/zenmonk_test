@@ -25,36 +25,28 @@ callbackForMvLoad = function(){
 *コードブロックの挿入
 */
 function insertCodeBlock(containerClassName){
-  var val = $('.' + containerClassName).val();
-  //中身が空じゃないときは改行コードを入れる
-  if (!val == "" ) {
-    $('.' + containerClassName).val($('.' + containerClassName).val() + '\n');
-  }
+  var block = '<pre>\n'
+      + '<code>\n'
+      + '\n'
+      + '</code>\n'
+      + '</pre>';
 
-  $('.' + containerClassName).val($('.' + containerClassName).val()
-    + '<pre>\n'
-    + '<code>\n'
-    + '\n'
-    + '</code>\n'
-    + '</pre>');
+  insertAtCaret(containerClassName,block);
+
 }
 
 /*
 *引用ブロックの挿入
 */
 function insertCitationBlock(containerClassName){
-  var val = $('.' + containerClassName).val();
-  //中身が空じゃないときは改行コードを入れる
-  if (!val == "" ) {
-    $('.' + containerClassName).val($('.' + containerClassName).val() + '\n');
-  }
+  var block = '<blockquote>\n'
+  + '<p>\n'
+  + '\n'
+  + '</p>\n'
+  + '</blockquote>';
 
-  $('.' + containerClassName).val($('.' + containerClassName).val()
-    + '<blockquote>\n'
-    + '<p>\n'
-    + '\n'
-    + '</p>\n'
-    + '</blockquote>');
+  insertAtCaret(containerClassName,block);
+
 }
 
 /********************************************************************************************
@@ -68,20 +60,13 @@ function makeGzHtmlForArticle(gzSrc){
   return "<img class='mx-auto d-block' style='max-width: 100%; margin : 1%;' src='"
       + gzSrc
       + "'>";
-
 }
 
 /*
 *画像HTML挿入
 */
 function insertGzHtmlIntoArticle(gzHtml, containerClassName){
-  var val = $('.' + containerClassName).val();
-  //中身が空じゃないときは改行コードを入れる
-  if (!val == "" ) {
-    $('.' + containerClassName).val($('.' + containerClassName).val() + '\n');
-  }
-
-  $('.' + containerClassName).val($('.' + containerClassName).val() + gzHtml);
+  insertAtCaret(containerClassName,gzHtml);
 }
 
 /*
@@ -122,19 +107,13 @@ function makeMvHtmlForArticle(mvSrc,title){
   return "<video class='mx-auto d-block' style='max-width: 100%; margin : 1%;' src='"
       + mvSrc + title
       + "' controls></video>";
-
 }
 
 /*
 *動画HTML挿入
 */
 function insertMvHtmlIntoArticle(mvHtml, containerClassName){
-  var val = $('.' + containerClassName).val();
-  //中身が空じゃないときは改行コードを入れる
-  if (!val == "" ) {
-    val = val + '\n';
-  }
-  $('.' + containerClassName).val(val + mvHtml);
+  insertAtCaret(containerClassName,mvHtml);
 }
 
 
@@ -270,6 +249,29 @@ function makeHtmlForPreview(content){
     + '</pre>'
     + '</div>'
     + '<script src="/js/jsForArticle.js"></script>';
+}
+
+
+/********************************************************************************************
+*テキストエリアのカーソル位置に文字列挿入(http://d.hatena.ne.jp/spitfire_tree/20131209/1386575758)
+*********************************************************************************************/
+function insertAtCaret(target, str) {
+  var obj = $('.' + target);
+  obj.focus();
+  //ブラウザがIEの場合
+  if(navigator.userAgent.match(/MSIE/)) {
+    var r = document.selection.createRange();
+    r.text = str;
+    r.select();
+  //それ以外
+  } else {
+    var s = obj.val();
+    var p = obj.get(0).selectionStart;
+    var np = p + str.length;
+    obj.val(s.substr(0, p) + str + s.substr(p));
+    //挿入したテキストの最後にカーソルを合わせる
+    obj.get(0).setSelectionRange(np, np);
+  }
 }
 
 /********************************************************************************************
