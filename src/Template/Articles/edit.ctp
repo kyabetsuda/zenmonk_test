@@ -75,6 +75,7 @@
     <div class="btn addCode">addCode</div>
     <div class="btn addCitation">addCitation</div>
     <div class="btn addHeading">addHeading</div>
+    <div class="btn addToc">addToc</div>
     <select id="category_id" name="category_id">
       <?php foreach($categories as $category): ?>
         <option value="<?=$category->id?>"><?=$category->name?></option>

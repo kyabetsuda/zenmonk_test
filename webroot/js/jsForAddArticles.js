@@ -53,9 +53,25 @@ function insertCitationBlock(containerClassName){
 *見出しの挿入
 */
 function insertHeading(containerClassName){
-  var heading = '<h3 class="heading"> </h3>'
+  var heading = '<h3 class="heading" id=""></h3>'
 
   insertAtCaret(containerClassName,heading);
+}
+
+/*
+*目次の挿入
+*/
+function insertToc(containerClassName){
+  var toc = '<div id="toc_container">\n'
+  + '<p class="toc_title">\n'
+  + ' 目次\n'
+  + '</p>\n'
+  + '<ul class="toc_list">\n'
+  + '<li><a href="#"></a></li>\n'
+  + '</ul>\n'
+  + '</div>'
+
+  insertAtCaret(containerClassName,toc);
 }
 
 /********************************************************************************************
@@ -315,6 +331,10 @@ $(document).ready(function(e)
 
   $('.addHeading').click(function(){
     insertHeading('articleContent');
+  });
+
+  $('.addToc').click(function(){
+    insertToc('articleContent');
   });
 
   $('.addCategory').click(function(){
