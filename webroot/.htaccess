@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteCond %{REMOTE_ADDR} !^(60\.79\.201\.117)
+    RewriteCond %{REMOTE_ADDR} !^(60\.79\.201\.117|1\.75\.245\.60)
     RewriteRule ^(js/admin/.*)$ error [L]
     #RewriteRule ^(css/.*|js/.*|img/.*|font/.*|favicon.ico)$ error [L]
     RewriteCond %{REQUEST_FILENAME} !-f
