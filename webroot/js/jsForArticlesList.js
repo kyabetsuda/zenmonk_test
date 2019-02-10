@@ -3,7 +3,14 @@
 *********************************************************************************************/
 $(document).ready(function(e)
 {
-  var inputJson = {};
+  var page = $('.' + pageContainerClassName).val();
+  var inputJson = {
+    'page' : page
+  };
   var url = '/articles/index';
-  getJsonAndInsertHtmlForArticleList(inputJson, url, 'articleList');
+  var articleContainerClassName = 'articleList';
+  var paginationContainerClassName = 'pagination';
+  var pageContainerClassName = 'page';
+  getJsonAndInsertHtmlForArticleList(inputJson, url, articleContainerClassName, paginationContainerClassName, pageContainerClassName);
+
 });

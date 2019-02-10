@@ -57,10 +57,14 @@ function makeHtmlForArticleCategories(category){
 *********************************************************************************************/
 function searchByCategory(word){
   var inputJson = {
+    'page' : '0',
     'word' : word
   }
   var url = '/articles/getContentByCategory';
-  getJsonAndInsertHtmlForArticleList2(inputJson, url, 'articleList2');
+  var articleContainerClassName = 'articleList2';
+  var paginationContainerClassName = 'pagination2';
+  var pageContainerClassName = 'page2';
+  getJsonAndInsertHtmlForArticleList(inputJson, url, articleContainerClassName, paginationContainerClassName, pageContainerClassName, true);
   insertSearchTitleIntoArticleList('searchResult');
 }
 

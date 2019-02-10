@@ -78,7 +78,11 @@ $cakeDescription = '<!-- 雑記です -->';
   <div class="searchResult">
   </div>
   <div class="row articleList2">
-
+  </div>
+  <div class="row" style="display:flex; justify-content: center;">
+    <div class="pagination2">
+    </div>
+    <input type="hidden" class="page2" value="0" />
   </div>
 </div>
 
