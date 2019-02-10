@@ -1,4 +1,4 @@
-<?= $this->Html->script('jsForUploadVideos.js') ?>
+<?= $this->Html->script('admin/jsForUploadVideos.js') ?>
 
 <legend><?= __('Uplaod Videos') ?></legend>
 <hr>

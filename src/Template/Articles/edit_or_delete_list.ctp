@@ -1,4 +1,4 @@
-<?= $this->Html->script('jsForEditOrDeleteList.js') ?>
+<?= $this->Html->script('admin/jsForEditOrDeleteList.js') ?>
 
 <!--作品をフェードインさせるためのdiv -->
 <div class="fadeIn">

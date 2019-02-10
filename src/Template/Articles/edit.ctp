@@ -6,7 +6,7 @@
 ?>
 
 <?= $this->Html->css('cssForAddArticles.css') ?>
-<?= $this->Html->script('jsForAddArticles.js') ?>
+<?= $this->Html->script('admin/jsForAddArticles.js') ?>
 
 
 <legend><?= __('Edit Article') ?></legend>

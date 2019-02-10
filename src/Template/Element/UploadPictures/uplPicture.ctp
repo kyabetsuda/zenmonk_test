@@ -1,4 +1,4 @@
-<?= $this->Html->script('jsForUploadPictures.js',['id' => 'thisFile', 'data-callbackforload' => '{$' . $callbackForLoad . '}' ]) ?>
+<?= $this->Html->script('admin/jsForUploadPictures.js',['id' => 'thisFile', 'data-callbackforload' => '{$' . $callbackForLoad . '}' ]) ?>
 
 <legend><?= __('Uplaod Pictures') ?></legend>
 <hr>
