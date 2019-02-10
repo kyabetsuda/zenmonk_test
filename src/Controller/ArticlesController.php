@@ -88,7 +88,7 @@ class ArticlesController extends AppController
 		if($this->request->is('ajax')) {
 			$conn = ConnectionManager::get('default');
 			$stmt = $conn->prepare(
-				"select id, title, content, ROW_NUM, upd_ymd, 件数, (case when ROW_NUM=件数 then 'last' when ROW_NUM=1 then 'first' else null end) as 'flg' from ( select id, title, content, upd_ymd, @rownum:=@rownum+1 as ROW_NUM, (select count(*) from articles where draft = '0') as '件数' from articles t11, (SELECT @rownum:=0) AS INDEX_NUM where t11.draft = '0' order by upd_ymd desc) t1 limit :limit, 3"
+				"select id, title, content, thumbnail, ROW_NUM, upd_ymd, 件数, (case when ROW_NUM=件数 then 'last' when ROW_NUM=1 then 'first' else null end) as 'flg' from ( select id, title, content, thumbnail, upd_ymd, @rownum:=@rownum+1 as ROW_NUM, (select count(*) from articles where draft = '0') as '件数' from articles t11, (SELECT @rownum:=0) AS INDEX_NUM where t11.draft = '0' order by upd_ymd desc) t1 limit :limit, 3"
 			);
 			//$stmt->bindValue(':draft', '0');
 			$stmt->bindValue(':limit', intval($this->request->data['page']), 'integer');
@@ -121,7 +121,7 @@ class ArticlesController extends AppController
 			//$articles = $this->Articles->find()->where(['title like' => '%' . $this->request->data['word'] . '%', 'draft' => '0']);
 			$conn = ConnectionManager::get('default');
 			$stmt = $conn->prepare(
-				"select id, title, content, ROW_NUM, upd_ymd, 件数, (case when ROW_NUM=件数 then 'last' when ROW_NUM=1 then 'first' else null end) as 'flg' from ( select id, title, content, upd_ymd, @rownum:=@rownum+1 as ROW_NUM, (select count(*) from articles where draft = '0' and title like :title) as '件数' from articles t11, (SELECT @rownum:=0) AS INDEX_NUM where t11.draft = '0' and t11.title like :title order by upd_ymd desc) t1 limit :limit, 3"
+				"select id, title, content, thumbnail, ROW_NUM, upd_ymd, 件数, (case when ROW_NUM=件数 then 'last' when ROW_NUM=1 then 'first' else null end) as 'flg' from ( select id, title, content, thumbnail, upd_ymd, @rownum:=@rownum+1 as ROW_NUM, (select count(*) from articles where draft = '0' and title like :title) as '件数' from articles t11, (SELECT @rownum:=0) AS INDEX_NUM where t11.draft = '0' and t11.title like :title order by upd_ymd desc) t1 limit :limit, 3"
 			);
 			$stmt->bindValue(':limit', intval($this->request->data['page']), 'integer');
 			$stmt->bindValue(':title', '%' . $this->request->data['word'] . '%');
@@ -141,7 +141,7 @@ class ArticlesController extends AppController
 		if($this->request->is('ajax')) {
 			$conn = ConnectionManager::get('default');
 			$stmt = $conn->prepare(
-				"select id, title, content, ROW_NUM, upd_ymd, 件数, (case when ROW_NUM=件数 then 'last' when ROW_NUM=1 then 'first' else null end) as 'flg' from (select id, title, content, upd_ymd, @rownum:=@rownum+1 as ROW_NUM, (select count(*) from articles t111, articles_categories t112, categories t113 where t111.draft = '0' and t111.id = t112.article_id and t112.category_id = t113.id and t113.name = :name) as '件数' from (select t111.id, t111.title, t111.content, t111.upd_ymd from articles t111, articles_categories t112, categories t113, (SELECT @rownum:=0) AS INDEX_NUM where t111.draft = '0' and t111.id = t112.article_id and t112.category_id = t113.id and t113.name = :name order by t111.upd_ymd desc) t11) t1 order by ROW_NUM limit :limit, 3"
+				"select id, title, content, thumbnail, ROW_NUM, upd_ymd, 件数, (case when ROW_NUM=件数 then 'last' when ROW_NUM=1 then 'first' else null end) as 'flg' from (select id, title, content, thumbnail, upd_ymd, @rownum:=@rownum+1 as ROW_NUM, (select count(*) from articles t111, articles_categories t112, categories t113 where t111.draft = '0' and t111.id = t112.article_id and t112.category_id = t113.id and t113.name = :name) as '件数' from (select t111.id, t111.title, t111.content, t111.thumbnail, t111.upd_ymd from articles t111, articles_categories t112, categories t113, (SELECT @rownum:=0) AS INDEX_NUM where t111.draft = '0' and t111.id = t112.article_id and t112.category_id = t113.id and t113.name = :name order by t111.upd_ymd desc) t11) t1 order by ROW_NUM limit :limit, 3"
 			);
 			$stmt->bindValue(':name', $this->request->data['word']);
 			$stmt->bindValue(':limit', intval($this->request->data['page']), 'integer');
