@@ -37,12 +37,6 @@ $cakeDescription = '<!-- 雑記です -->';
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Modaal/0.4.4/js/modaal.min.js"></script>
-    <script type="text/javascript">
-    //PHPでIPアドレスを取得し、それを変数「ipAddress」に代入
-    var ipAddress = '<?php echo $_SERVER['REMOTE_ADDR']; ?>';
-    //出力
-    alert(ipAddress);
-    </script>
     <?= $this->Html->script('bootstrap.bundle.min.js') ?>
     <?= $this->Html->script('siema.min.js') ?>
     <?= $this->Html->script('default.js') ?>
