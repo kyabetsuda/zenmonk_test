@@ -93,7 +93,7 @@ $cakeDescription = 'コーディング雑記';
 
 <footer class="footer mt-auto py-3">
 	<div class="text-muted text-center" style="font-size:1.5vh">
-    ©︎2019 Zakkidesu All Rights Reserved.
+    ©︎2019 CodingZakki All Rights Reserved.
   </div>
 </footer>
 
