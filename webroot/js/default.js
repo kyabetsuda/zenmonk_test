@@ -207,7 +207,7 @@ function makeHtmlForArticleList(article){
   return '<div class="col-sm-4 mb-1 cardWrapper">'
     + '<div class="card mb-3" style="max-width: 25rem;">'
     + '<a style="" href="/articles/post?no=' + article.id + '">'
-    + '<img style="max-height: 10rem" class="card-img-top" src="/img/uploaded/' + article.thumbnail + '">'
+    + '<img style="max-width: 90%; height: auto;" class="card-img-top d-flex mx-auto" src="/img/uploaded/' + article.thumbnail + '">'
     + '</a>'
     + '<div class="card-body text-center">'
     + '<span>' + article.title + '</span>'
