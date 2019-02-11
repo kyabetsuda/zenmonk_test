@@ -22,12 +22,19 @@
 		<?php echo $this->element('Articles/articleList'); ?>
 		<br>
 		<br>
+		<br>
 		<!-- カテゴリー一覧 -->
 		<?php echo $this->element('Articles/categoryList'); ?>
 		<br>
 		<br>
+		<br>
 		<!-- メールフォーム-->
 		<?php echo $this->element('Articles/mailForm'); ?>
+		<br>
+		<br>
+		<br>
+		<!-- メールフォーム-->
+		<?php echo $this->element('Articles/profile'); ?>
 	</div>
 
 </div>
