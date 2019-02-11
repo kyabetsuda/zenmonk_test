@@ -13,7 +13,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = '<!-- 雑記です -->';
+$cakeDescription = 'コーディング雑記';
 ?>
 <!DOCTYPE html>
 <html>
