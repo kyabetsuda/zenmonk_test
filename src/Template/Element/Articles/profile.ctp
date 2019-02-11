@@ -18,6 +18,7 @@
       <div class="col-12">*名前 : ツダ</div>
       <div class="col-12">*概要 : 主にコーディング関連の記事を書くつもりです。よろしくお願いします。</div>
       <div class="col-12">*趣味 : 読書、カフェ巡りなど</div>
+      <div class="col-12">*twitter : <a href="https://twitter.com/codingzakki">https://twitter.com/codingzakki</a></div>
     </div>
   </div>
 </div>
