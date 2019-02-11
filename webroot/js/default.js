@@ -206,8 +206,8 @@ function insertHtmlForArticleList(containerClassName, jsonData){
 function makeHtmlForArticleList(article){
   return '<div class="col-sm-4 mb-1 cardWrapper">'
     + '<div class="card mb-3" style="max-width: 25rem;">'
-    + '<a href="/articles/post?no=' + article.id + '">'
-    + '<img style="max-height:40vh; width: auto" class="card-img-top" src="/img/uploaded/' + article.thumbnail + '">'
+    + '<a style="" href="/articles/post?no=' + article.id + '">'
+    + '<img style="max-height: 50rem" class="card-img-top" src="/img/uploaded/' + article.thumbnail + '">'
     + '</a>'
     + '<div class="card-body text-center">'
     + '<span>' + article.title + '</span>'
