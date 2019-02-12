@@ -78,6 +78,7 @@
     <div class="btn addToc">addToc</div>
     <div class="btn addHref">addHref</div>
     <div class="btn addSmallHref">addSmallHref</div>
+    <div class="btn addCenteredFont">addCenteredFont</div>
     <select class="font-color" name="font-color">
       <option value="#000000">black</option>
       <option value="#ff0000">red</option>

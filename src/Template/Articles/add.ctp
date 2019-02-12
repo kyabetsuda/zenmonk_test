@@ -82,6 +82,7 @@
       <option value="#ffff00">yellow</option>
     </select>
     <div class="btn addColorFont">addColorFont</div>
+    <div class="btn addCenteredFont">addCenteredFont</div>
     <select id="category_id" name="category_id">
       <?php foreach($categories as $category): ?>
         <option value="<?=$category->id?>"><?=$category->name?></option>

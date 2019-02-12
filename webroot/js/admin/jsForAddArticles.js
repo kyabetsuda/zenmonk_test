@@ -101,6 +101,17 @@ function insertColorFont(containerClassName, color){
   insertAtCaret(containerClassName,span);
 }
 
+/*
+*中央揃えの文字の挿入
+*/
+function insertCenteredFont(containerClassName){
+  var span = '<div style="display: flex; justify-content: center;">\n'
+    + '\n'
+    + '</div>'
+
+  insertAtCaret(containerClassName,span);
+}
+
 /********************************************************************************************
 *画像にイベントリスナーを追加する
 *********************************************************************************************/
@@ -375,6 +386,10 @@ $(document).ready(function(e)
   $('.addColorFont').click(function(){
     var color = $('.font-color option:selected').val();
     insertColorFont('articleContent', color);
+  });
+
+  $('.addCenteredFont').click(function(){
+    insertCenteredFont('articleContent');
   });
 
   $('.addCategory').click(function(){
