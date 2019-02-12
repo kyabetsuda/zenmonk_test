@@ -67,6 +67,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/articles/delete', ['controller' => 'Articles', 'action'=>'delete']);
     $routes->connect('/articles/sendMail', ['controller' => 'Articles', 'action'=>'sendMail']);
     $routes->connect('/articles/getPost', ['controller' => 'Articles', 'action'=>'getPost']);
+    //$routes->connect('/articles/test', ['controller' => 'Articles', 'action'=>'test']);
     $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/addArticles', ['controller' => 'Articles', 'action' => 'add']);
     $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/editArticles/**', ['controller' => 'Articles', 'action' => 'edit']);
     $routes->connect('/aDIXNbg5EJ9AiUSmHWrH1ZwaZwcw3t08aNnVaNzv9oA=/editOrDeleteList', ['controller' => 'Articles', 'action' => 'editOrDeleteList']);

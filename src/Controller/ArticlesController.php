@@ -458,4 +458,8 @@ class ArticlesController extends AppController
 			Log::write('debug','sending mail failed');
 		}
 	}
+
+	// public function test(){
+	// 	$this->autoRender = FALSE;
+	// }
 }
