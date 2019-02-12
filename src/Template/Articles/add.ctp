@@ -74,6 +74,14 @@
     <div class="btn addCitation">addCitation</div>
     <div class="btn addHeading">addHeading</div>
     <div class="btn addToc">addToc</div>
+    <div class="btn addHref">addHref</div>
+    <div class="btn addSmallHref">addSmallHref</div>
+    <select class="font-color" name="font-color">
+      <option value="#000000">black</option>
+      <option value="#ff0000">red</option>
+      <option value="#ffff00">yellow</option>
+    </select>
+    <div class="btn addColorFont">addColorFont</div>
     <select id="category_id" name="category_id">
       <?php foreach($categories as $category): ?>
         <option value="<?=$category->id?>"><?=$category->name?></option>

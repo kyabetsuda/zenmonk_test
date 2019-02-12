@@ -74,6 +74,33 @@ function insertToc(containerClassName){
   insertAtCaret(containerClassName,toc);
 }
 
+/*
+*Hrefの挿入
+*/
+function insertHref(containerClassName){
+  var href = '<a href=""></a>'
+
+  insertAtCaret(containerClassName,href);
+}
+
+/*
+*Hrefの挿入
+*/
+function insertSmallHref(containerClassName){
+  var href = '<a href="" style="font-size:1.5vh"></a>'
+
+  insertAtCaret(containerClassName,href);
+}
+
+/*
+*文字色の挿入
+*/
+function insertColorFont(containerClassName, color){
+  var span = '<span style="color:' + color + '"></span>'
+
+  insertAtCaret(containerClassName,span);
+}
+
 /********************************************************************************************
 *画像にイベントリスナーを追加する
 *********************************************************************************************/
@@ -335,6 +362,19 @@ $(document).ready(function(e)
 
   $('.addToc').click(function(){
     insertToc('articleContent');
+  });
+
+  $('.addHref').click(function(){
+    insertHref('articleContent');
+  });
+
+  $('.addSmallHref').click(function(){
+    insertSmallHref('articleContent');
+  });
+
+  $('.addColorFont').click(function(){
+    var color = $('.font-color option:selected').val();
+    insertColorFont('articleContent', color);
   });
 
   $('.addCategory').click(function(){
