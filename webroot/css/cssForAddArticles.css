@@ -29,6 +29,7 @@
     */
 }
 
+/* highlight.js */
 pre, code {
     white-space: pre;
     overflow-x: scroll;
@@ -38,7 +39,7 @@ pre, code {
     overflow-x: scroll;
     padding: 0.5em;
     padding-right: 100%;
-    /* background: #002b36; */
-    /* color: #839496; */
+    /* background: #002b36;
+    color: #839496; */
     -webkit-text-size-adjust: none;
 }

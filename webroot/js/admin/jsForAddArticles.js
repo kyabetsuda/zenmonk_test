@@ -20,10 +20,7 @@ callbackForMvLoad = function(){
 /********************************************************************************************
 *各種挿入用
 *********************************************************************************************/
-
-/*
-*コードブロックの挿入
-*/
+//コードブロックの挿入
 function insertCodeBlock(containerClassName){
   var block = '<pre>\n'
       + '<code>\n'
@@ -35,9 +32,7 @@ function insertCodeBlock(containerClassName){
 
 }
 
-/*
-*引用ブロックの挿入
-*/
+//引用ブロックの挿入
 function insertCitationBlock(containerClassName){
   var block = '<blockquote>\n'
   + '<p>\n'
@@ -49,18 +44,14 @@ function insertCitationBlock(containerClassName){
 
 }
 
-/*
-*見出しの挿入
-*/
+//見出しの挿入
 function insertHeading(containerClassName){
   var heading = '<h3 class="heading" id=""></h3>'
 
   insertAtCaret(containerClassName,heading);
 }
 
-/*
-*目次の挿入
-*/
+//目次の挿入
 function insertToc(containerClassName){
   var toc = '<div id="toc_container">\n'
   + '<p class="toc_title">\n'
@@ -74,36 +65,28 @@ function insertToc(containerClassName){
   insertAtCaret(containerClassName,toc);
 }
 
-/*
-*Hrefの挿入
-*/
+//Hrefの挿入
 function insertHref(containerClassName){
   var href = '<a href=""></a>'
 
   insertAtCaret(containerClassName,href);
 }
 
-/*
-*Hrefの挿入
-*/
+//Hrefの挿入
 function insertSmallHref(containerClassName){
   var href = '<a href="" style="font-size:1.5vh"></a>'
 
   insertAtCaret(containerClassName,href);
 }
 
-/*
-*文字色の挿入
-*/
+//文字色の挿入
 function insertColorFont(containerClassName, color){
   var span = '<span style="color:' + color + '"></span>'
 
   insertAtCaret(containerClassName,span);
 }
 
-/*
-*中央揃えの文字の挿入
-*/
+//中央揃えの文字の挿入
 function insertCenteredFont(containerClassName){
   var span = '<div style="display: flex; justify-content: center;">\n'
     + '\n'
@@ -115,26 +98,19 @@ function insertCenteredFont(containerClassName){
 /********************************************************************************************
 *画像にイベントリスナーを追加する
 *********************************************************************************************/
-
-/*
-*画像挿入ようHTML作成
-*/
+//画像挿入ようHTML作成
 function makeGzHtmlForArticle(gzSrc){
   return "<img class='mx-auto d-block' style='max-width: 100%; margin : 1%;' src='"
       + gzSrc
       + "'>";
 }
 
-/*
-*画像HTML挿入
-*/
+//画像HTML挿入
 function insertGzHtmlIntoArticle(gzHtml, containerClassName){
   insertAtCaret(containerClassName,gzHtml);
 }
 
-/*
-*画像リストにイベントリスナーを追加する
-*/
+//画像リストにイベントリスナーを追加する
 function addEventListenerToImg(){
   //画像を全部挿入し終わってからイベントリスナーをつける
   $('.pictThumbnail').click(function(){
@@ -153,9 +129,7 @@ function addEventListenerToImg(){
 /********************************************************************************************
 *動画にイベントリスナーを追加する
 *********************************************************************************************/
-/*
-*動画リストにイベントリスナーを追加する
-*/
+//動画リストにイベントリスナーを追加する
 function addEventListenerToImgForMv(){
   //画像を全部挿入し終わってからイベントリスナーをつける
   $('.mvThumbnail').click(function(){
@@ -163,18 +137,14 @@ function addEventListenerToImgForMv(){
   });
 }
 
-/*
-*動画挿入用HTML作成
-*/
+//動画挿入用HTML作成
 function makeMvHtmlForArticle(mvSrc,title){
   return "<video class='mx-auto d-block' style='max-width: 100%; margin : 1%;' src='"
       + mvSrc + title
       + "' controls></video>";
 }
 
-/*
-*動画HTML挿入
-*/
+//動画HTML挿入
 function insertMvHtmlIntoArticle(mvHtml, containerClassName){
   insertAtCaret(containerClassName,mvHtml);
 }
@@ -188,7 +158,7 @@ function uploadArticle(){
   var title = $('.articleTitle').val();
   var thumbnail = $('.articleThumbnail').val();
   var categories = [];
-  var content = $('.articleContent').val();
+  var content = replaceHtmlInsideCodeWithEscape($('.articleContent').val()); //codeタグ内をhtmlエスケープ
   var draft = -1;
 
   //下書きが清書か判定する
@@ -228,6 +198,7 @@ function uploadArticle(){
 /********************************************************************************************
 *新規カテゴリー追加
 *********************************************************************************************/
+//カテゴリー追加
 function plusCategory(){
   var category = $('.plusedCategory').val();
   var inputJson = {
@@ -247,16 +218,12 @@ function plusCategory(){
   getJsonAndDoSomething(inputJson, url, callback);
 }
 
-/*
-*セレクトボックス挿入用の HTML 作成
-*/
+//セレクトボックス挿入用の HTML 作成
 function makeOptionForCategories(data){
   return '<option value="' + data.id + '">' + data.name + '</option>';
 }
 
-/*
-*記事にカテゴリーを追加する
-*/
+//記事にカテゴリーを追加する
 function addCategoryToArticle(){
   var id = $('#category_id option:selected').val();
   var name = $('#category_id option:selected').text();
@@ -282,9 +249,7 @@ function addCategoryToArticle(){
   }
 }
 
-/*
-*カテゴリー名からカテゴリーIDを検索する
-*/
+//カテゴリー名からカテゴリーIDを検索する
 function searchCategoryFromName(name){
   var val = 0;
   $('#category_id').find('option').each(function(){
@@ -297,14 +262,13 @@ function searchCategoryFromName(name){
   return val;
 }
 
-/*
-*カテゴリー追加ようのHTML作成
-*/
+//カテゴリー追加ようのHTML作成
 function makeBtnForCategory(id, name){
   return '<input type="hidden" value="' + id + '">'
    + '<div class="btn btn-outline-dark border articleCategory">' + name + '</div>'
 }
 
+//プレビュー用のHTML作成
 function makeHtmlForPreview(content){
   return '<div style="max-width:100%">'
     + '<pre class="post">'
@@ -335,6 +299,32 @@ function insertAtCaret(target, str) {
     //挿入したテキストの最後にカーソルを合わせる
     obj.get(0).setSelectionRange(np, np);
   }
+}
+
+/********************************************************************************************
+*codeタグ内のhtmlをエスケープする
+*********************************************************************************************/
+function replaceHtmlInsideCodeWithEscape(str){
+  return str.replace(/(<code.*>)([\s\S]*?)(<\/code>)/gim, function(){
+    return arguments[1] + escape_html(arguments[2]) + arguments[3];
+  });
+}
+
+//htmlのエスケープ(https://qiita.com/saekis/items/c2b41cd8940923863791)
+function escape_html (string) {
+  if(typeof string !== 'string') {
+    return string;
+  }
+  return string.replace(/[&'`"<>]/g, function(match) {
+    return {
+      '&': '&amp;',
+      "'": '&#x27;',
+      '`': '&#x60;',
+      '"': '&quot;',
+      '<': '&lt;',
+      '>': '&gt;',
+    }[match]
+  });
 }
 
 /********************************************************************************************
@@ -414,13 +404,15 @@ $(document).ready(function(e)
     var content = $(".articleContent").val();
     $("#previewArticle").empty();
     $("#previewArticle").append(
-      makeHtmlForPreview(content)
+      makeHtmlForPreview(
+        //codeタグ内をhtmlエスケープ
+        replaceHtmlInsideCodeWithEscape(content)
+      )
     );
     $(".previewArticle").modaal({
         content_source: '#previewArticle',
         fullscreen: true
     });
   });
-
 
 });
