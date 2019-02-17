@@ -1,0 +1,28 @@
+.card{
+  max-width: 25rem;
+}
+
+.card-title{
+  text-align: center;
+  text-decoration: underline;
+}
+
+.card-img-top{
+  max-width: 90%;
+  height: auto;
+  display: flex;
+  margin: 0 auto;
+}
+.card-body{
+  color : #555555;
+}
+.card-body > a {
+  display:flex;
+  justify-content: center;
+}
+
+.card-footer{
+  font-size:11px;
+  background-color:#ffffff;
+  text-align: center;
+}

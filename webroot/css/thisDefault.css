@@ -46,11 +46,6 @@ area {
   min-height: 0.01px;
 }
 
-.post{
-  color : #555555;
-  font-size: 2.2vh;
-}
-
 /* 引用用のcss */
 blockquote {
     position: relative;

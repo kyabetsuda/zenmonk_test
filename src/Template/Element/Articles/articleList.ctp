@@ -5,9 +5,10 @@
  */
 ?>
 
+<?= $this->Html->css('cssForArticleList.css') ?>
 <?= $this->Html->script('jsForArticlesList.js') ?>
 
-<div class="row articleListTitle" style="display:flex; justify-content: center;"><h2 class="text-center" style="text-decoration: underline;">記事</h2></div>
+<div class="row articleListTitle" style="display:flex; justify-content: center;"><h2 class="text-center" style="text-decoration: underline;"></h2></div>
 <div
   class="row articleList"
 >
@@ -17,9 +18,3 @@
   </div>
   <input type="hidden" class="page" value="0" />
 </div>
-
-<!--csrfトークン生成-->
-<!-- <?= $this->Form->create(null, [
-'url'=>['controller'=>'Article','action'=>'index'],
-]) ?>
-<?= $this->Form->end() ?> -->

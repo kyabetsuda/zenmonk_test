@@ -205,14 +205,22 @@ function insertHtmlForArticleList(containerClassName, jsonData){
 
 function makeHtmlForArticleList(article){
   return '<div class="col-sm-4 mb-1 cardWrapper">'
-    + '<div class="card mb-3" style="max-width: 25rem;">'
-    + '<a style="" href="/articles/post?no=' + article.id + '">'
-    + '<img style="max-width: 90%; height: auto;" class="card-img-top d-flex mx-auto" src="/img/uploaded/' + article.thumbnail + '">'
-    + '</a>'
-    + '<div class="card-body text-center">'
-    + '<span>' + article.title + '</span>'
+    + '<div class="card mb-3">'
+    + '<div class="card-title">'
+    + '<br>'
+    + '<h5>' + article.title + '</h5>'
     + '</div>'
-    + '<div class="card-footer text-center" style="font-size:11px; background-color:#ffffff">'
+    + '<a href="/articles/post?no=' + article.id + '">'
+    + '<img class="card-img-top" src="/img/uploaded/' + article.thumbnail + '">'
+    + '</a>'
+    + '<div class="card-body">'
+    + '<span>' + getFirstSentenceFromStr(article.content) + '...</span>'
+    + '<br>'
+    + '<a href="/articles/post?no=' + article.id + '">'
+    + '<button class="btn btn-outline-dark border">続きを読む</button>'
+    + '</a>'
+    + '</div>'
+    + '<div class="card-footer">'
     + '<span>' + sampleDate(new Date(article.upd_ymd.replace(/-/g,'/')),'YYYY/MM/DD') + '</span>'
     + '</div>'
     + '</div>'
@@ -227,6 +235,10 @@ function sampleDate(date, format) {
     format = format.replace(/DD/, date.getDate());
 
     return format;
+}
+
+function getFirstSentenceFromStr(str){
+  return str.match(/^.*。/);
 }
 
 /********************************************************************************************

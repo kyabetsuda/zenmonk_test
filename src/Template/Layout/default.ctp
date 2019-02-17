@@ -54,16 +54,9 @@ $cakeDescription = 'コーディング雑記';
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	<div class="collapse navbar-collapse" id="topmenu">
-		<ul class="navbar-nav mr-auto">
-			<!-- <li class="nav-item"><a class="nav-link" href="/articles/">Articles</a></li> -->
-		</ul>
-		<!-- <?= $this->Form->create(null, [
-			'url'=>['controller'=>'SearchResult','action'=>'index'],
-		]) ?> -->
-		<ul class="navbar-nav">
+		<ul class="navbar-nav ml-auto">
 				<div class="input-group">
 					<li class="nav-item mr-2 mb-2">
-						<!--<input type="text" class="form-control mr-auto rounded" placeholder="Search Works" aria-label="Search Works" aria-describedby="basic-addon1">-->
 						<?=$this->Form->text('word',['class' => 'form-control mr-auto rounded searchWord', 'placeholder' => 'キーワード'])?>
 					</li>
 					<li class="nav-item">
@@ -71,7 +64,6 @@ $cakeDescription = 'コーディング雑記';
 					</li>
 				</div>
 		</ul>
-		<!-- <?= $this->Form->end() ?> -->
 	</div>
 </nav>
 

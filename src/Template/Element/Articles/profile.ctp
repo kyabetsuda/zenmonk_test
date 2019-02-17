@@ -6,10 +6,9 @@
 ?>
 
 <?= $this->Html->script('jsForMailForm.js') ?>
-
-<!-- メールフォーム -->
-<div class="container" style="max-width:90vw;">
-  <div class="row" style="display:flex; justify-content: center;"><h2 class="text-center" style="text-decoration: underline;">プロフィール</h2></div>
+<div class="container" style="border: 1px solid #dcdcdc;">
+  <br>
+  <div class="row" style="display:flex; justify-content: center;"><h5 class="text-center" style="text-decoration: underline;">プロフィール</h5></div>
   <div class="row" style="display: flex; justify-content: center">
     <img src="/img/zatsu.png"/>
   </div>
@@ -21,10 +20,5 @@
       <div class="col-12">*twitter : <a href="https://twitter.com/codingzakki">https://twitter.com/codingzakki</a></div>
     </div>
   </div>
+  <br>
 </div>
-
-<!--csrfトークン生成-->
-<!-- <?= $this->Form->create(null, [
-'url'=>['controller'=>'Article','action'=>'index'],
-]) ?>
-<?= $this->Form->end() ?> -->

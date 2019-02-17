@@ -8,17 +8,13 @@
 <?= $this->Html->script('jsForCategoryList.js') ?>
 
 <!-- カテゴリーリスト -->
-<div class="container" style="max-width:90vw;">
-  <div class="row" style="display:flex; justify-content: center;"><h2 class="text-center" style="text-decoration: underline;">カテゴリー</h2></div>
+<div class="container" style="max-width:90vw; border: 1px solid #dcdcdc;">
+  <br>
+  <div class="row" style="display:flex; justify-content: center;"><h5 class="text-center" style="text-decoration: underline;">カテゴリー</h5></div>
   <div class="row categoryList" style="
     display: flex;
     justify-content: center;
   ">
   </div>
+  <br>
 </div>
-
-<!--csrfトークン生成-->
-<!-- <?= $this->Form->create(null, [
-'url'=>['controller'=>'Article','action'=>'index'],
-]) ?>
-<?= $this->Form->end() ?> -->
