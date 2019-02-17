@@ -238,7 +238,7 @@ function sampleDate(date, format) {
 }
 
 function getFirstSentenceFromStr(str){
-  return str.match(/^.*。/);
+  return str.match(/^.*。/m);
 }
 
 /********************************************************************************************
