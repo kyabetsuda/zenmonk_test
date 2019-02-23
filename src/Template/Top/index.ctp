@@ -20,5 +20,6 @@
 	<!-- 記事一覧 -->
 	<?php echo $this->element('Articles/articleList'); ?>
 	<!-- プロフィール-->
+	<br>
 	<?php echo $this->element('Articles/profile'); ?>
 </div>
