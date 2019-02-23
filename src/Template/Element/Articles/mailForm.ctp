@@ -5,8 +5,6 @@
  */
 ?>
 
-<?= $this->Html->script('jsForMailForm.js') ?>
-
 <!-- メールフォーム -->
 <div class="container" style="max-width:90vw; border: 1px solid #dcdcdc;">
     <br>
