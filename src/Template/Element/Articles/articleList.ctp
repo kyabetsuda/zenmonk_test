@@ -18,5 +18,6 @@
       <!-- If we need pagination -->
       <br>
       <div class="swiper-pagination"></div>
+      <br>
   </div>
 </div>
