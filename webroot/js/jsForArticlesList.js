@@ -3,14 +3,17 @@
 *********************************************************************************************/
 $(document).ready(function(e)
 {
-  var page = $('.' + pageContainerClassName).val();
-  var inputJson = {
-    'page' : page
-  };
+  var inputJson = {};
   var url = '/articles/index';
   var articleContainerClassName = 'articleList';
-  var paginationContainerClassName = 'pagination';
-  var pageContainerClassName = 'page';
-  getJsonAndInsertHtmlForArticleList(inputJson, url, articleContainerClassName, paginationContainerClassName, pageContainerClassName);
-
+  var params = GetQueryString();
+  //リクエストパラメータが無いとき
+  if(!params){
+    getJsonAndInsertHtmlForArticleList(inputJson, url, articleContainerClassName, false);
+  }else{
+    //リクエストパラメータはあるけど、wordがないとき
+    if(!"word" in params){
+      getJsonAndInsertHtmlForArticleList(inputJson, url, articleContainerClassName, false);
+    }
+  }
 });

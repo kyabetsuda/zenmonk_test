@@ -1,20 +1,5 @@
-  /********************************************************************************************
-*bodyがnavの下に隠れないようにする
-*********************************************************************************************/
-//フェードは消しておく
-$('head').append(
-  '<style>.fadeIn{display:none;}'
-);
-
-//コンテンツがnavbarに隠れないようにする
-$(window).on('load resize', function(){
-
-  // // navbarの高さを取得する
-  // var height = $('.navbar').height();
-  // // bodyのpaddingにnavbarの高さを設定する
-  // $('body').css('padding-top',height*2.5);
-
-});
+//Swiper変数
+var mySwiper = null;
 
 /********************************************************************************************
 *jsonデータ取得用に渡すプロトタイプ
@@ -122,76 +107,95 @@ function getJsonWithFile(inputJson, url){
 /********************************************************************************************
 *検索用
 *********************************************************************************************/
-function search(word){
+function search(word, resetFlg){
 
   var inputJson = {
-    'page' : '0',
     'word' : word
   }
   var url = '/articles/getContent';
+  var articleContainerClassName = 'articleList';
+  getJsonAndInsertHtmlForArticleList(inputJson, url, articleContainerClassName, resetFlg);
+  $('.titleOfArticleListTitle').text('検索ワード : ' + word);
+}
 
-  //トップページ以外にいる場合
-  if(!$('.articleList').length){
+function goSearch(word){
+  location.href = 'http://' + location.hostname + '/?word=' + word;
+}
 
-    var pageContainerClassName2 = 'page2';
-    var paginationContainerClassName2 = 'pagination2';
-    getJsonAndInsertHtmlForArticleList(inputJson, url, 'articleList2', paginationContainerClassName2, pageContainerClassName2, true);
-    insertSearchTitleIntoArticleList('searchResult');
-    //スクロール
-    var height = $('.navbar').height();
-    $("html,body").animate({scrollTop:height});
-    return;
+/********************************************************************************************
+*カテゴリー一覧
+*********************************************************************************************/
+function loadCategories(){
+  var categoryContainerClassName = 'categoryList';
+  var inputJson = {};
+  var url = '/articles/getCategories';
+  var callback = new Callback();
+  callback.callback = function(){
+    insertHtmlIntoCategoryList(categoryContainerClassName,this.result);
 
+    //カテゴリーにリスナー追加
+    $('.category').click(function(){
+      var word = $(this).text();
+      if(!$('.articleList').length){
+       goSearchByCategory(word);
+      }else{
+       searchByCategory(word, true);
+       scrollToArticleListTitle();
+       hideToggler();
+      }
+    });
   }
+  //json取得とcallback起動
+  getJsonAndDoSomething(inputJson, url, callback);
 
-  var pageContainerClassName = 'page';
-  var paginationContainerClassName = 'pagination';
-  getJsonAndInsertHtmlForArticleList(inputJson, url, 'articleList', paginationContainerClassName, pageContainerClassName, true);
-
-  //スクロール
-  var height = $('.navbar').height();
-  var heightOfTopString = $('.topString').height();
-  $("html,body").animate({scrollTop:heightOfTopString + (height*2.5)});
 }
 
-function insertSearchTitleIntoArticleList(containerClassName){
-  $('.' + containerClassName).empty();
-  $('.' + containerClassName).prepend(makeHtmlForSearchTitle());
+function insertHtmlIntoCategoryList(containerClassName, jsonData){
+  for(var i in jsonData){
+    $('.' + containerClassName).append(
+      makeHtmlForCategoryList(jsonData[i])
+    );
+  }
 }
 
-function makeHtmlForSearchTitle(){
-  return '<div class="row" style="display:flex; justify-content: center;"><h2 class="text-center search_title" style="text-decoration: underline;">検索結果</h2></div>';
+function makeHtmlForCategoryList(category){
+  return '<button class="btn btn-outline-dark border category">' + category.name + '</button>';
+}
+
+function goSearchByCategory(word){
+  location.href = 'http://' + location.hostname + '/?category=' + word;
+}
+
+function searchByCategory(word, resetFlg){
+  var inputJson = {
+    'word' : word
+  }
+  var url = '/articles/getContentByCategory';
+  var articleContainerClassName = 'articleList';
+  getJsonAndInsertHtmlForArticleList(inputJson, url, articleContainerClassName, resetFlg);
+  $('.titleOfArticleListTitle').text('カテゴリー : ' + word);
 }
 
 /********************************************************************************************
 *記事リスト挿入用メソッド
 *********************************************************************************************/
-function getJsonAndInsertHtmlForArticleList(inputJson, url, articleContainerClassName, paginationContainerClassName, pageContainerClassName, resetFlg){
+function getJsonAndInsertHtmlForArticleList(inputJson, url, articleContainerClassName, resetFlg){
   $('.' + articleContainerClassName).empty();
-
-  //リセットフラグがonのとき、ページネーションをリセット
-  if(resetFlg){
-    $('.' + pageContainerClassName).val(0);
-    $('.' + paginationContainerClassName).empty();
-  }
-
   //callbackオブジェクト定義
   var callback = new Callback();
   callback.callback = function(){
+
       //記事リスト
       insertHtmlForArticleList(articleContainerClassName, this.result);
-
-      //ページネーション
-      var first = this.result[0]['flg'];
-      var last = this.result[this.result.length-1]['flg'];
-      if(this.result.length != 1){
-        //取得件数が1件のとき以外にページネーション
-        console.log(this.result.length);
-        insertHtmlForPagination(first, last, paginationContainerClassName, pageContainerClassName, inputJson, url, articleContainerClassName);
+      $('.fadeIn').fadeIn(550,function(){
+      });
+      if(resetFlg){
+        mySwiper.update();
+      }else{
+        mySwiper = initializeSwiper();
       }
-  }
 
-  //jsonデータの取得とcallback起動
+  }
   getJsonAndDoSomething(inputJson, url, callback);
 }
 
@@ -204,8 +208,8 @@ function insertHtmlForArticleList(containerClassName, jsonData){
 }
 
 function makeHtmlForArticleList(article){
-  return '<div class="col-sm-4 mb-1 cardWrapper">'
-    + '<div class="card mb-3">'
+  return '<div class="cardWrapper fadeIn swiper-slide">'
+    + '<div class="card m-1">'
     + '<div class="card-title">'
     + '<br>'
     + '<h5>' + article.title + '</h5>'
@@ -217,7 +221,7 @@ function makeHtmlForArticleList(article){
     + '<span>' + getFirstSentenceFromStr(article.content) + '...</span>'
     + '<br>'
     + '<a href="/articles/post?no=' + article.id + '">'
-    + '<button class="btn btn-outline-dark border">続きを読む</button>'
+    + '<button class="btn btn-outline-dark border mt-3">続きを読む</button>'
     + '</a>'
     + '</div>'
     + '<div class="card-footer">'
@@ -241,63 +245,38 @@ function getFirstSentenceFromStr(str){
   return str.match(/^.*。/m);
 }
 
-/********************************************************************************************
-*次へ、戻るボタン挿入メソッド
-*********************************************************************************************/
-function insertHtmlForPagination(first, last, paginationContainerClassName, pageContainerClassName, inputJson, url, articleContainerClassName){
-  var directionPrevious = 'previous';
-  var directionNext = 'next';
-
-  $('.' + paginationContainerClassName).empty();
-
-  //一番最初の要素がある場合には表示しない
-  if( first != 'first'){
-    $('.' + paginationContainerClassName).append(
-      makeHtmlForPagination('previous', '前へ')
-    );
-    //イベントリスナーを付与
-    $('.previous').click(function(){
-      doPagination(directionPrevious , paginationContainerClassName, pageContainerClassName, inputJson, url, articleContainerClassName);
-    });
+function initializeSwiper(){
+  var count = 3;
+  if(isMobileDevice()){
+    count = 1;
   }
+  var mySwiper = new Swiper ('.swiper-container', {
 
-  //一番最後の要素がある場合には表示しない
-  if( last != 'last'){
-    $('.' + paginationContainerClassName).append(
-      makeHtmlForPagination('next', '次へ')
-    );
-    //イベントリスナーを付与
-    $('.next').click(function(){
-      doPagination(directionNext ,paginationContainerClassName, pageContainerClassName, inputJson, url, articleContainerClassName);
-    })
-  }
+    // Optional parameters
+    direction: 'horizontal',
 
-}
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+      type:'fraction'
+    },
 
-function makeHtmlForPagination(className, text){
-  return '<button class="btn btn-outline-dark border ' + className + '" style="margin : 2px">' + text + '</button>';
-}
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
 
-/********************************************************************************************
-*ページネーション
-*********************************************************************************************/
-function doPagination(direction, paginationContainerClassName, pageContainerClassName, inputJson, url, articleContainerClassName){
-  var page = $('.' + pageContainerClassName).val();
-  if( direction == 'previous'){
-    $('.' + pageContainerClassName).val(parseInt(page, 10) - 1);
-    page = parseInt($('.' + pageContainerClassName).val(), 10)*3;
+    // And if we need scrollbar
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
 
-    inputJson.page = page
-    //記事の取得および記事リストへの挿入
-    getJsonAndInsertHtmlForArticleList(inputJson, url, articleContainerClassName, paginationContainerClassName, pageContainerClassName, false);
-  }else if( direction == 'next'){
-    $('.' + pageContainerClassName).val(parseInt(page, 10) + 1);
-    page = parseInt($('.' + pageContainerClassName).val(), 10)*3;
+    // slideperView
+    slidesPerView: count
+  })
 
-    inputJson.page = page
-    //記事の取得および記事リストへの挿入
-    getJsonAndInsertHtmlForArticleList(inputJson, url, articleContainerClassName, paginationContainerClassName, pageContainerClassName, false);
-  }
+  return mySwiper;
 }
 
 /********************************************************************************************
@@ -328,22 +307,63 @@ function GetQueryString() {
 }
 
 /********************************************************************************************
+*携帯かどうか判断 : https://coderwall.com/p/i817wa/one-line-function-to-detect-mobile-devices-with-javascript
+*********************************************************************************************/
+function isMobileDevice() {
+    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+};
+
+/********************************************************************************************
+*スクロール
+*********************************************************************************************/
+function scrollToArticleListTitle(){
+  var height = $(window).height()*0.8;
+  $("html,body").animate({scrollTop:height});
+}
+/********************************************************************************************
+*トグルメニューを隠す
+*********************************************************************************************/
+function hideToggler(){
+  $('#topmenu').collapse('hide');
+}
+/********************************************************************************************
 *各種ボタンにイベントリスナーを追加する
 *********************************************************************************************/
 $(document).ready(function(e)
 {
+  //カテゴリー一覧取得
+  loadCategories();
 
-  // navbarの高さを取得する
-  var height = $('.navbar').height();
-  // bodyのpaddingにnavbarの高さを設定する
-  $('body').css('padding-top',height*2.5);
+  var params = GetQueryString();
+  //リクエストパラメータがセットされている時
+  if(params){
+    if("word" in params){
+      search(params['word'], false);
+      scrollToArticleListTitle();
+    }
+    if("category" in params){
+      searchByCategory(params['category'], false);
+      scrollToArticleListTitle();
+    }
+  }
 
-  //フェードイン
-  $('.fadeIn').delay(600).fadeIn("slow");
-
+  //searchボタンを押下したとき
   $('.searchBtn').click(function(){
     var word = $('.searchWord').val();
-    search(word);
+    if(!$('.articleList').length){
+      goSearch(word);
+    }else{
+      search(word, true);
+      scrollToArticleListTitle();
+      hideToggler();
+    }
   });
 
+  // navbarの高さを取得する→
+  // bodyのpaddingにnavbarの高さを設定する
+  var height = $('.navbar').height();
+  $('body').css('padding-top',height*2.5);
+
+  //fadeIn
+  $('.fadeIn').fadeIn(1000);
 });

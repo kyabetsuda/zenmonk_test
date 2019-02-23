@@ -35,52 +35,42 @@ $cakeDescription = 'コーディング雑記';
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Modaal/0.4.4/css/modaal.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/rainbow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.6/css/swiper.min.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Modaal/0.4.4/js/modaal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.6/js/swiper.min.js"></script>
     <?= $this->Html->script('bootstrap.bundle.min.js') ?>
-    <?= $this->Html->script('siema.min.js') ?>
     <?= $this->Html->script('default.js') ?>
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
 <body class="d-flex flex-column">
-<nav class="navbar navbar-expand-lg navbar-light d-print fixed-top">
+<nav class="navbar navbar-light d-print fixed-top">
 	<a class="navbar-brand" href="/top">
     <img alt="" src="/img/zatsu.png" style="width : 7vh; height : 7vh">
   </a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topmenu" aria-controls="topmenu" aria-expanded="false" aria-label="toggledMenu">
 		<span class="navbar-toggler-icon"></span>
 	</button>
-	<div class="collapse navbar-collapse" id="topmenu">
-		<ul class="navbar-nav ml-auto">
-				<div class="input-group">
-					<li class="nav-item mr-2 mb-2">
-						<?=$this->Form->text('word',['class' => 'form-control mr-auto rounded searchWord', 'placeholder' => 'キーワード'])?>
-					</li>
-					<li class="nav-item">
-						<div class="btn btn-outline-success searchBtn">検索</div>
-					</li>
-				</div>
-		</ul>
+	<div class="collapse navbar-collapse"id="topmenu">
+    <div class="nav-item">
+      <div class="container">
+        <div class="row">
+              <input class="form-control searchWord" type="text" placeholder="記事検索"/>
+              <button class="btn btn-outline-success searchBtn d-flex ml-auto">検索</button>
+        </div>
+        <br>
+        <div class="row categoryList">
+        </div>
+      </div>
+    </div>
 	</div>
 </nav>
 
-<div class="container"　style="display:none;">
-  <div class="searchResult">
-  </div>
-  <div class="row articleList2">
-  </div>
-  <div class="row" style="display:flex; justify-content: center;">
-    <div class="pagination2">
-    </div>
-    <input type="hidden" class="page2" value="0" />
-  </div>
-</div>
-
 <!-- コンテンツ -->
-<div class="container contentBody">
+<div class="container contentBody fadeIn">
 	<?= $this->fetch('content') ?>
 </div>
 

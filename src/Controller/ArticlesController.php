@@ -60,7 +60,6 @@ class ArticlesController extends AppController
 			'getCategories',
 			'plusCategory',
 			'delete',
-			'sendMail',
 			'getPost'
 		]);
 
@@ -72,7 +71,6 @@ class ArticlesController extends AppController
 			'getCategories',
 			'plusCategory',
 			'delete',
-			'sendMail',
 			'getPost'
 		]);
 	}
@@ -88,10 +86,9 @@ class ArticlesController extends AppController
 		if($this->request->is('ajax')) {
 			$conn = ConnectionManager::get('default');
 			$stmt = $conn->prepare(
-				"select id, title, content, thumbnail, ROW_NUM, upd_ymd, 件数, (case when ROW_NUM=件数 then 'last' when ROW_NUM=1 then 'first' else null end) as 'flg' from ( select id, title, content, thumbnail, upd_ymd, @rownum:=@rownum+1 as ROW_NUM, (select count(*) from articles where draft = '0') as '件数' from articles t11, (SELECT @rownum:=0) AS INDEX_NUM where t11.draft = '0' order by upd_ymd desc) t1 limit :limit, 3"
+				"select id, title, content, thumbnail, ROW_NUM, upd_ymd, 件数, (case when ROW_NUM=件数 then 'last' when ROW_NUM=1 then 'first' else null end) as 'flg' from ( select id, title, content, thumbnail, upd_ymd, @rownum:=@rownum+1 as ROW_NUM, (select count(*) from articles where draft = '0') as '件数' from articles t11, (SELECT @rownum:=0) AS INDEX_NUM where t11.draft = '0' order by upd_ymd desc) t1 order by ROW_NUM"
 			);
-			//$stmt->bindValue(':draft', '0');
-			$stmt->bindValue(':limit', intval($this->request->data['page']), 'integer');
+			// $stmt->bindValue(':limit', intval($this->request->data['page']), 'integer');
 			$stmt->execute();
 			$article = $stmt->fetchAll('assoc');
 			$resultJ = json_encode($article);
@@ -101,13 +98,6 @@ class ArticlesController extends AppController
 		}else{
 			$this->cakeError('error404');
 		}
-
-	    // $this->paginate = [
-			// 		'conditions'=>['draft'=>'0'],
-	    //     'contain' => ['Categories']
-	    // ];
-	    // $articles = $this->paginate($this->Articles);
-	    // $this->set(compact('articles'));
 	}
 
 	/**
@@ -121,9 +111,9 @@ class ArticlesController extends AppController
 			//$articles = $this->Articles->find()->where(['title like' => '%' . $this->request->data['word'] . '%', 'draft' => '0']);
 			$conn = ConnectionManager::get('default');
 			$stmt = $conn->prepare(
-				"select id, title, content, thumbnail, ROW_NUM, upd_ymd, 件数, (case when ROW_NUM=件数 then 'last' when ROW_NUM=1 then 'first' else null end) as 'flg' from ( select id, title, content, thumbnail, upd_ymd, @rownum:=@rownum+1 as ROW_NUM, (select count(*) from articles where draft = '0' and title like :title) as '件数' from articles t11, (SELECT @rownum:=0) AS INDEX_NUM where t11.draft = '0' and t11.title like :title order by upd_ymd desc) t1 limit :limit, 3"
+				"select id, title, content, thumbnail, ROW_NUM, upd_ymd, 件数, (case when ROW_NUM=件数 then 'last' when ROW_NUM=1 then 'first' else null end) as 'flg' from ( select id, title, content, thumbnail, upd_ymd, @rownum:=@rownum+1 as ROW_NUM, (select count(*) from articles where draft = '0' and title like :title) as '件数' from articles t11, (SELECT @rownum:=0) AS INDEX_NUM where t11.draft = '0' and t11.title like :title order by upd_ymd desc) t1 order by ROW_NUM"
 			);
-			$stmt->bindValue(':limit', intval($this->request->data['page']), 'integer');
+			// $stmt->bindValue(':limit', intval($this->request->data['page']), 'integer');
 			$stmt->bindValue(':title', '%' . $this->request->data['word'] . '%');
 			$stmt->execute();
 			$articles = $stmt->fetchAll('assoc');
@@ -141,10 +131,10 @@ class ArticlesController extends AppController
 		if($this->request->is('ajax')) {
 			$conn = ConnectionManager::get('default');
 			$stmt = $conn->prepare(
-				"select id, title, content, thumbnail, ROW_NUM, upd_ymd, 件数, (case when ROW_NUM=件数 then 'last' when ROW_NUM=1 then 'first' else null end) as 'flg' from (select id, title, content, thumbnail, upd_ymd, @rownum:=@rownum+1 as ROW_NUM, (select count(*) from articles t111, articles_categories t112, categories t113 where t111.draft = '0' and t111.id = t112.article_id and t112.category_id = t113.id and t113.name = :name) as '件数' from (select t111.id, t111.title, t111.content, t111.thumbnail, t111.upd_ymd from articles t111, articles_categories t112, categories t113, (SELECT @rownum:=0) AS INDEX_NUM where t111.draft = '0' and t111.id = t112.article_id and t112.category_id = t113.id and t113.name = :name order by t111.upd_ymd desc) t11) t1 order by ROW_NUM limit :limit, 3"
+				"select id, title, content, thumbnail, ROW_NUM, upd_ymd, 件数, (case when ROW_NUM=件数 then 'last' when ROW_NUM=1 then 'first' else null end) as 'flg' from (select id, title, content, thumbnail, upd_ymd, @rownum:=@rownum+1 as ROW_NUM, (select count(*) from articles t111, articles_categories t112, categories t113 where t111.draft = '0' and t111.id = t112.article_id and t112.category_id = t113.id and t113.name = :name) as '件数' from (select t111.id, t111.title, t111.content, t111.thumbnail, t111.upd_ymd from articles t111, articles_categories t112, categories t113, (SELECT @rownum:=0) AS INDEX_NUM where t111.draft = '0' and t111.id = t112.article_id and t112.category_id = t113.id and t113.name = :name order by t111.upd_ymd desc) t11) t1 order by ROW_NUM"
 			);
 			$stmt->bindValue(':name', $this->request->data['word']);
-			$stmt->bindValue(':limit', intval($this->request->data['page']), 'integer');
+			// $stmt->bindValue(':limit', intval($this->request->data['page']), 'integer');
 			$stmt->execute();
 			$articles = $stmt->fetchAll('assoc');
 			$resultJ = json_encode($articles);
@@ -249,10 +239,6 @@ class ArticlesController extends AppController
 		);
 		$stmt->execute();
 		$articles = $stmt->fetchAll('assoc');
-		// $this->paginate = [
-		// 		'contain' => ['Categories']
-		// ];
-		// $articles = $this->paginate($this->Articles);
 		$this->set(compact('articles','secretUrl'));
 	}
 
@@ -425,39 +411,39 @@ class ArticlesController extends AppController
    * @return
    * @throws
    */
-	public function sendMail(){
-		$this->autoRender = FALSE;
-
-		mb_language("Japanese");
-		mb_internal_encoding("UTF-8");
-		$to = "junn135246@icloud.com";
-		$title = $this->request->data['title'];
-		$content = $this->request->data['content'];
-		$name = 'From: ' . $this->request->data['name'];
-
-		$mail = $this->Mails->newEntity();
-		$mail->name = $name;
-		$mail->title = $title;
-		$mail->content = $content;
-		$mail->remote_address = $_SERVER["REMOTE_ADDR"];
-		if (!$this->Mails->save($mail)) {
-			$this->response->type('text');
-			$this->response->body('メール送信に失敗しました'
-				. "\n"
-				. '●予想される原因'
-				. "\n"
-				. 'メールは一日5回までしか送信できません'
-			);
-			$this->response->statusCode(404);
-			return $this->response;
-		}
-
-		if(mb_send_mail($to, $title, $content, $name)){
-			Log::write('debug','sending mail success');
-		} else {
-			Log::write('debug','sending mail failed');
-		}
-	}
+	// public function sendMail(){
+	// 	$this->autoRender = FALSE;
+	//
+	// 	mb_language("Japanese");
+	// 	mb_internal_encoding("UTF-8");
+	// 	$to = "junn135246@icloud.com";
+	// 	$title = $this->request->data['title'];
+	// 	$content = $this->request->data['content'];
+	// 	$name = 'From: ' . $this->request->data['name'];
+	//
+	// 	$mail = $this->Mails->newEntity();
+	// 	$mail->name = $name;
+	// 	$mail->title = $title;
+	// 	$mail->content = $content;
+	// 	$mail->remote_address = $_SERVER["REMOTE_ADDR"];
+	// 	if (!$this->Mails->save($mail)) {
+	// 		$this->response->type('text');
+	// 		$this->response->body('メール送信に失敗しました'
+	// 			. "\n"
+	// 			. '●予想される原因'
+	// 			. "\n"
+	// 			. 'メールは一日5回までしか送信できません'
+	// 		);
+	// 		$this->response->statusCode(404);
+	// 		return $this->response;
+	// 	}
+	//
+	// 	if(mb_send_mail($to, $title, $content, $name)){
+	// 		Log::write('debug','sending mail success');
+	// 	} else {
+	// 		Log::write('debug','sending mail failed');
+	// 	}
+	// }
 
 	// public function test(){
 	// 	$this->autoRender = FALSE;

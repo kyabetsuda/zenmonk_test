@@ -89,3 +89,7 @@ blockquote cite {
 .category{
   margin:2px;
 }
+
+.fadeIn{
+  display:none;
+}

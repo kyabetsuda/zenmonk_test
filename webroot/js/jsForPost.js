@@ -9,7 +9,7 @@ function loadPost(){
   var url = '/articles/getPost'
   var callback = new Callback();
   callback.callback = function(){
-    console.log(this.result);
+
     //タイトル
     $('.articleTitle').append(
       this.result.title
@@ -24,7 +24,7 @@ function loadPost(){
       }
     }
     $('.articleCategory').click(function(){
-      searchByCategory($(this).text());
+      goSearchByCategory($(this).text());
     })
 
     //コンテンツ
@@ -51,27 +51,11 @@ function makeHtmlForArticleCategories(category){
    + '<div class="btn btn-outline-dark border articleCategory">' + category.name + '</div>'
 }
 
-
-/********************************************************************************************
-*カテゴリーから記事を取得
-*********************************************************************************************/
-function searchByCategory(word){
-  var inputJson = {
-    'page' : '0',
-    'word' : word
-  }
-  var url = '/articles/getContentByCategory';
-  var articleContainerClassName = 'articleList2';
-  var paginationContainerClassName = 'pagination2';
-  var pageContainerClassName = 'page2';
-  getJsonAndInsertHtmlForArticleList(inputJson, url, articleContainerClassName, paginationContainerClassName, pageContainerClassName, true);
-  insertSearchTitleIntoArticleList('searchResult');
-}
-
 /********************************************************************************************
 *各種ボタンにイベントリスナーを追加する
 *********************************************************************************************/
 $(document).ready(function(e)
 {
+  //記事のロード
   loadPost();
 });
