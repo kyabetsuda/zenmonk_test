@@ -212,7 +212,7 @@ function makeHtmlForArticleList(article){
     + '<div class="card m-1">'
     + '<div class="card-title">'
     + '<br>'
-    + '<h5>' + article.title + '</h5>'
+    + '<h5 class="m-2">' + article.title + '</h5>'
     + '</div>'
     + '<a href="/articles/post?no=' + article.id + '">'
     + '<img class="card-img-top" src="/img/uploaded/' + article.thumbnail + '">'
