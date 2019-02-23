@@ -19,5 +19,7 @@
       <br>
       <div class="swiper-pagination"></div>
       <br>
+      <!-- If we need scrollbar -->
+      <div class="swiper-scrollbar"></div>
   </div>
 </div>
