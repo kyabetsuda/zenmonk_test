@@ -5,7 +5,6 @@
  */
 ?>
 
-<?= $this->Html->script('jsForMailForm.js') ?>
 <div class="container" style="border: 1px solid #dcdcdc;">
   <br>
   <div class="row" style="display:flex; justify-content: center;"><h5 class="text-center" style="text-decoration: underline;">プロフィール</h5></div>
