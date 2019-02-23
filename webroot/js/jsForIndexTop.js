@@ -40,7 +40,8 @@ $(document).ready(function(e)
 
 		//タイトルをクリックするとスクロール
 		$('.topString').click(function(){
-			$("html,body").animate({scrollTop:heightOfTopString + (height*2.5)});
+			scrollToArticleListTitle();
+			// $("html,body").animate({scrollTop:heightOfTopString + (height*2.5)});
 		});
 
 		//タイトル文字にアニメーションを追加する
