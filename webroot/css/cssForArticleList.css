@@ -34,3 +34,13 @@
 .swiper-container{
   width:95%;
 }
+
+.swiper-scrollbar-drag {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background: #c0c0c0;
+  border-radius: 10px;
+  left: 0;
+  top: 0;
+}
