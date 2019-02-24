@@ -2,14 +2,17 @@
 *記事をロード
 *********************************************************************************************/
 function loadPost(){
-  var params = GetQueryString();
+  var url = location.href;
+  var new_url = url.replace(/\?.*$/,"");
+  var splittedArr = getSplittedString(new_url, '/');
+  var no = splittedArr[splittedArr.length-1];
   var inputJson = {
-    'no' : params["no"]
+    'no' : no
   }
   var url = '/articles/getPost'
   var callback = new Callback();
   callback.callback = function(){
-
+    
     //タイトル
     $('.articleTitle').append(
       this.result.title

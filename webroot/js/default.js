@@ -125,6 +125,9 @@ function goSearch(word){
 /********************************************************************************************
 *カテゴリー一覧
 *********************************************************************************************/
+/********************
+*カテゴリーリストロード
+*********************/
 function loadCategories(){
   var categoryContainerClassName = 'categoryList';
   var inputJson = {};
@@ -150,6 +153,9 @@ function loadCategories(){
 
 }
 
+/********************
+*カテゴリーhtml挿入
+*********************/
 function insertHtmlIntoCategoryList(containerClassName, jsonData){
   for(var i in jsonData){
     $('.' + containerClassName).append(
@@ -158,14 +164,23 @@ function insertHtmlIntoCategoryList(containerClassName, jsonData){
   }
 }
 
+/********************
+*カテゴリーhtml作成
+*********************/
 function makeHtmlForCategoryList(category){
   return '<button class="btn btn-outline-dark border category">' + category.name + '</button>';
 }
 
+/********************
+*カテゴリー検索用リダイレクト
+*********************/
 function goSearchByCategory(word){
   location.href = 'http://' + location.hostname + '/?category=' + word;
 }
 
+/********************
+*カテゴリーによる検索
+*********************/
 function searchByCategory(word, resetFlg){
   var inputJson = {
     'word' : word
@@ -179,6 +194,9 @@ function searchByCategory(word, resetFlg){
 /********************************************************************************************
 *記事リスト挿入用メソッド
 *********************************************************************************************/
+/********************
+*記事リストに記事を挿入
+*********************/
 function getJsonAndInsertHtmlForArticleList(inputJson, url, articleContainerClassName, resetFlg){
   $('.' + articleContainerClassName).empty();
   //callbackオブジェクト定義
@@ -199,6 +217,9 @@ function getJsonAndInsertHtmlForArticleList(inputJson, url, articleContainerClas
   getJsonAndDoSomething(inputJson, url, callback);
 }
 
+/********************
+*記事html挿入
+*********************/
 function insertHtmlForArticleList(containerClassName, jsonData){
   for(var i in jsonData){
     $('.' + containerClassName).append(
@@ -207,6 +228,9 @@ function insertHtmlForArticleList(containerClassName, jsonData){
   }
 }
 
+/********************
+*記事html作成
+*********************/
 function makeHtmlForArticleList(article){
   return '<div class="cardWrapper fadeIn swiper-slide">'
     + '<div class="card m-1">'
@@ -214,13 +238,13 @@ function makeHtmlForArticleList(article){
     + '<br>'
     + '<h5 class="m-2">' + article.title + '</h5>'
     + '</div>'
-    + '<a href="/articles/post?no=' + article.id + '">'
+    + '<a href="/articles/post/' + article.id + '">'
     + '<img class="card-img-top" src="/img/uploaded/' + article.thumbnail + '">'
     + '</a>'
     + '<div class="card-body">'
     + '<span>' + getFirstSentenceFromStr(article.content) + '...</span>'
     + '<br>'
-    + '<a href="/articles/post?no=' + article.id + '">'
+    + '<a href="/articles/post/' + article.id + '">'
     + '<button class="btn btn-outline-dark border mt-3">続きを読む</button>'
     + '</a>'
     + '</div>'
@@ -232,6 +256,9 @@ function makeHtmlForArticleList(article){
     ;
 }
 
+/********************
+*date型変換
+*********************/
 function sampleDate(date, format) {
 
     format = format.replace(/YYYY/, date.getFullYear());
@@ -241,10 +268,16 @@ function sampleDate(date, format) {
     return format;
 }
 
+/********************
+*最初の文を取得
+*********************/
 function getFirstSentenceFromStr(str){
   return str.match(/^.*。/m);
 }
 
+/********************
+*swiper initialize
+*********************/
 function initializeSwiper(){
   var count = 3;
   if(isMobileDevice()){
@@ -304,6 +337,14 @@ function GetQueryString() {
       return result;
   }
   return null;
+}
+
+/********************************************************************************************
+*stringをsplit
+*********************************************************************************************/
+function getSplittedString(str, splitter) {
+  var words = str.split(splitter);
+  return words;
 }
 
 /********************************************************************************************

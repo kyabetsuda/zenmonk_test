@@ -182,14 +182,20 @@ class ArticlesController extends AppController
 				. ' left outer join categories t3 on t2.category_id = t3.id)'
 				. ' where'
 				. ' t1.draft = :draft'
-				. ' and t1.id = :id'
+				//mysqlは比較する型が違う時に文字列を勝手に型変換するためt1.1dを文字列にcastする(https://sousaku-memo.net/php-system/123)
+				. ' and CAST(t1.id AS CHAR) = :id'
  			);
  			$stmt->bindValue(':draft', '0');
  			$stmt->bindValue(':id', $this->request->data['no']);
  			$stmt->execute();
  			$results = $stmt->fetchAll('assoc');
 			//結果がnullの場合はエラー
-
+			if(count($results) == 0){
+				$this->response->type('text');
+				$this->response->body('記事を取得できませんでした');
+				$this->response->statusCode(404);
+				return $this->response;
+			}
 			//カテゴリー配列
 			$categories = array();
 			foreach($results as $result){
