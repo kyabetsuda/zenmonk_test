@@ -173,6 +173,7 @@ class ArticlesController extends AppController
  				'select'
 				. ' t1.id as "article_id"'
 				. ' ,t1.title'
+				. ' ,t1.thumbnail'
 				. ' ,t1.content'
 				. ' ,t3.id as "category_id"'
 				. ' ,t3.name as "category_name"'
@@ -209,6 +210,7 @@ class ArticlesController extends AppController
 			$result = $results[0];
 			$article['id'] = $result['article_id'];
 			$article['title'] = $result['title'];
+			$article['thumbnail'] = $result['thumbnail'];
 			$article['content'] = $result['content'];
 			$article['categories'] = $categories;
  			$resultJ = json_encode($article);

@@ -3,6 +3,10 @@
   font-size: 2.2vh;
 }
 
+.post a div{
+  color : #555555;
+}
+
 .heading{
   color : #000000;
   border-bottom: solid 3px black;

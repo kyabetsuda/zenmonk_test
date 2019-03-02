@@ -95,6 +95,34 @@ function insertCenteredFont(containerClassName){
   insertAtCaret(containerClassName,span);
 }
 
+//記事の引用を挿入する
+function insertArticleCitation(id, containerClassName){
+  var inputJson = {
+    'no' : id
+  };
+  var url = '/articles/getPost'
+  var callback = new Callback();
+  callback.callback = function(){
+    console.log(this.result);
+    var citation ='<a href="/articles/post/' + this.result.id + '">'
+      + '<div style="width:100%; border: 1px solid #dcdcdc; overflow:hidden">'
+      + '<br>'
+      + '<img src="/img/uploaded/' + this.result.thumbnail + '" style="float:left; margin:10px; max-height:15vh; width:auto"/>'
+      + '<div class="mr-3 ml-3">'
+      + '<h6 style="font-weight:bold; text-decoration:underline">' + this.result.title + '</h6>'
+      + '<div class="">' + getFirstSentenceFromStr(this.result.content) + '</div>'
+      + '</div>'
+      + '<br>'
+      + '</div>'
+      + '</a>'
+      ;
+
+    insertAtCaret(containerClassName, citation);
+  };
+
+  getJsonAndDoSomething(inputJson, url, callback);
+}
+
 /********************************************************************************************
 *画像にイベントリスナーを追加する
 *********************************************************************************************/
@@ -392,6 +420,11 @@ $(document).ready(function(e)
 
   $('.uploadArticle').click(function(){
     uploadArticle();
+  });
+
+  $('.addArticleCitation').click(function(){
+    var id = $('.addedCitation').val();
+    insertArticleCitation(id, 'articleContent');
   });
 
   $('.articleCategory').click(function(){

@@ -93,6 +93,8 @@
     <div class="btn addCategory">addCategory</div>
     <input class="plusedCategory" type="text">
     <div class="btn plusCategory">plusCategory</div>
+    <input class="addedCitation" type="text">
+    <div class="btn addArticleCitation">addCitation</div>
 
     <?php echo $this->element('UploadPictures/uplPicture', ["callbackForLoad" => "callbackForLoad"]); ?>
     <?php echo $this->element('UploadVideos/uplVideos'); ?>
