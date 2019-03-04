@@ -1,99 +1,95 @@
-/*
-
-Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
-
-*/
-
-.hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  background: #F0F0F0;
+body {
+  /* font-family: fantasy,Arial,Avenir,'Helvetica Neue','Helvetica','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic'; */
+  /* font-family: "Meiryo","メイリオ",monospace,serif,sans-serif; */
+  font-family: -apple-system, blinkMacSystemFont, /* Macの欧文はSan Francisco (OS X 10.11以降) */
+               'Helvetica Neue', /* Macの欧文 (OS X 10.10以前) */
+               'Segoe UI',       /* Windowsの欧文 */
+               YuGothicM,        /* Windows8.1以上は游ゴシック */
+               YuGothic,         /* Macの游ゴシック */
+               Meiryo,           /* 游ゴシックが入っていないWindows */
+               sans-serif;
+  min-height: 100vh;
+  word-wrap: break-word;
 }
 
-
-/* Base color: saturation 0; */
-
-.hljs,
-.hljs-subst {
-  color: #444;
+/* Windows */
+@font-face {
+  font-family: YuGothicM;
+  font-weight: normal;
+  src: local('YuGothic-Medium'),  /* Mediumを明示的に指定 */
+       local('Yu Gothic Medium'), /* Chrome用 */
+       local('YuGothic-Regular'); /* Windows8.1ではMediumがないのでRegularを指定 */
 }
-
-.hljs-comment {
-  color: #888888;
-}
-
-.hljs-keyword,
-.hljs-attribute,
-.hljs-selector-tag,
-.hljs-meta-keyword,
-.hljs-doctag,
-.hljs-name {
+@font-face {
+  font-family: YuGothicM;
   font-weight: bold;
+  src: local('YoGothic-Bold'), /* Boldはそのまま */
+       local('Yu Gothic');     /* Chrome用 */
 }
 
-
-/* User color: hue: 0 */
-
-.hljs-type,
-.hljs-string,
-.hljs-number,
-.hljs-selector-id,
-.hljs-selector-class,
-.hljs-quote,
-.hljs-template-tag,
-.hljs-deletion {
-  color: #880000;
+nav {
+  background-color: #ffffff;
 }
 
-.hljs-title,
-.hljs-section {
-  color: #880000;
-  font-weight: bold;
+area {
+  border:none;
+  outline:none;
 }
 
-.hljs-regexp,
-.hljs-symbol,
-.hljs-variable,
-.hljs-template-variable,
-.hljs-link,
-.hljs-selector-attr,
-.hljs-selector-pseudo {
-  color: #BC6060;
+.navbar-nav.navbar-center {
+  position: absolute;
+  left: 50%;
+  transform: translatex(-50%);
 }
 
-
-/* Language color: hue: 90; */
-
-.hljs-literal {
-  color: #78A960;
+* {
+  min-height: 0.01px;
 }
 
-.hljs-built_in,
-.hljs-bullet,
-.hljs-code,
-.hljs-addition {
-  color: #397300;
+/* 引用用のcss */
+blockquote {
+    position: relative;
+    padding: 10px 15px 10px 50px;
+    box-sizing: border-box;
+    font-style: italic;
+    background: #efefef;
+    color: #555;
 }
 
-
-/* Meta color: hue: 200 */
-
-.hljs-meta {
-  color: #1f7199;
+blockquote:before{
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: -3px;
+    vertical-align: middle;
+    content: "“";
+    font-family: sans-serif;
+    color: #cfcfcf;
+    font-size: 90px;
+    line-height: 1;
 }
 
-.hljs-meta-string {
-  color: #4d99bf;
+blockquote p {
+    padding: 0;
+    margin: 10px 0;
+    line-height: 1.7;
 }
 
-
-/* Misc effects */
-
-.hljs-emphasis {
-  font-style: italic;
+blockquote cite {
+    display: block;
+    text-align: right;
+    color: #888888;
+    font-size: 0.9em;
 }
 
-.hljs-strong {
-  font-weight: bold;
+/* .categoryList{
+  border: 1px solid #dcdcdc;
+} */
+
+.category{
+  margin:2px;
+}
+
+.fadeIn{
+  display:none;
 }

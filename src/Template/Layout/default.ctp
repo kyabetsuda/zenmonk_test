@@ -27,18 +27,16 @@ $cakeDescription = 'コーディング雑記';
     	?>
     </title>
     <?= $this->Html->meta('icon') ?>
-    <?= $this->Html->css('bootstrap.css') ?>
-    <?= $this->Html->css('thisDefault.css') ?>
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/styles/default.min.css"/>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/default.css<?php echo '?time='.time(); ?>"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css"/>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Modaal/0.4.4/css/modaal.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/rainbow.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.6/css/swiper.min.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <?= $this->Html->script('default.js') ?>
+    <script src="/js/default.js<?php echo '?time='.time(); ?>"></script>
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
@@ -55,8 +53,8 @@ $cakeDescription = 'コーディング雑記';
     <div class="nav-item">
       <div class="container">
         <div class="row">
-              <input class="form-control searchWord" type="text" placeholder="記事検索"/>
-              <button class="btn btn-outline-success searchBtn d-flex ml-auto">検索</button>
+          <input class="form-control searchWord" type="text" placeholder="記事検索"/>
+          <button class="btn btn-outline-success searchBtn d-flex ml-auto">検索</button>
         </div>
         <br>
         <div class="row categoryList">
@@ -71,6 +69,7 @@ $cakeDescription = 'コーディング雑記';
 	<?= $this->fetch('content') ?>
 </div>
 
+<!-- フッター -->
 <footer class="footer mt-auto py-3">
 	<div class="text-muted text-center" style="font-size:1.5vh">
     ©︎2019 CodingZakki All Rights Reserved.
@@ -78,9 +77,7 @@ $cakeDescription = 'コーディング雑記';
 </footer>
 
 <!--csrfトークン生成-->
-<?= $this->Form->create(null, [
-// 'url'=>['controller'=>'Article','action'=>'index'],
-]) ?>
+<?= $this->Form->create(null, []) ?>
 <?= $this->Form->end() ?>
 
 <!-- スクリプト -->
