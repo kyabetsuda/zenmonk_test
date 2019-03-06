@@ -23,10 +23,10 @@ $cakeDescription = 'コーディング雑記';
     <title>
   	<?= $cakeDescription ?>
   	<?php
-		//echo $this->fetch('title');
-    	?>
+		// echo $this->fetch('title');
+    // $this->Html->meta('icon') → favicon.icoをアイコンにする
+    ?>
     </title>
-    <?= $this->Html->meta('icon') ?>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/default.css<?php echo '?time='.time(); ?>"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"/>
@@ -76,7 +76,6 @@ $cakeDescription = 'コーディング雑記';
   </div>
 </footer>
 
-<!--csrfトークン生成-->
 <?= $this->Form->create(null, []) ?>
 <?= $this->Form->end() ?>
 
