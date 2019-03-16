@@ -6,8 +6,11 @@
 <div class="post">
 <div class="row">
   <div class="col-12" style="display:flex; justify-content: center;">
-    <h2 class="articleTitle" style="color:#000000">
+    <h2 class="articleTitle">
     </h2>
+  </div>
+  <div style="width:100%; display:flex; justify-content: center;">
+    <div class="postdate"></div>
   </div>
 </div>
 <br>

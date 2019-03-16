@@ -2,6 +2,15 @@ body{
   padding-top : 15vh;
 }
 
+.articleTitle {
+  color:#000000;
+}
+
+.postdate {
+  color:#d3d3d3;
+  font-size:90%;
+}
+
 .post{
   color : #555555;
   /* font-size: 2.2vh; */
@@ -16,7 +25,6 @@ body{
 @media (max-height: 600px) and (orientation: landscape){
   .post {
     font-size: 80%; } }
-
 
 .post a div{
   color : #555555;

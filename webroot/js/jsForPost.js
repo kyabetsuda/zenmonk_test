@@ -38,6 +38,11 @@ function loadPost(){
       makeHtmlForArticleContent(this.result.content)
     );
 
+    //記事の日付挿入
+    $('.postdate').append(
+      sampleDate(new Date(this.result.upd_ymd.replace(/-/g,'/')),'YYYY/MM/DD')
+    );
+
 
   }
   getJsonAndDoSomething(inputJson, url, callback);

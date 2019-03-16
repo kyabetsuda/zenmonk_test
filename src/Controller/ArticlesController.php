@@ -177,6 +177,7 @@ class ArticlesController extends AppController
 				. ' ,t1.content'
 				. ' ,t3.id as "category_id"'
 				. ' ,t3.name as "category_name"'
+				. ' ,t1.upd_ymd as "upd_ymd"'
 				. ' from'
 				. ' ((articles t1'
 				. ' left outer join articles_categories t2 on t1.id = t2.article_id)'
@@ -213,6 +214,7 @@ class ArticlesController extends AppController
 			$article['thumbnail'] = $result['thumbnail'];
 			$article['content'] = $result['content'];
 			$article['categories'] = $categories;
+			$article['upd_ymd'] = $result['upd_ymd'];
  			$resultJ = json_encode($article);
  			$this->response->type('json');
  			$this->response->body($resultJ);
