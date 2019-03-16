@@ -1,5 +1,9 @@
 <?= $this->Html->script('admin/jsForEditOrDeleteList.js') ?>
-
+<style>
+	body{
+		padding-top: 15vh;
+	}
+</style>
 <!--作品をフェードインさせるためのdiv -->
 <h1 class="text-center">Articles</h1>
 <div class="row">
