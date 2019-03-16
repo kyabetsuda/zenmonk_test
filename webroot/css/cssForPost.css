@@ -1,7 +1,22 @@
+body{
+  padding-top : 15vh;
+}
+
 .post{
   color : #555555;
-  font-size: 2.2vh;
+  /* font-size: 2.2vh; */
 }
+
+/* post縦長 */
+@media (max-width: 600px) and (orientation: portrait){
+  .post {
+    font-size: 85%; } }
+
+/* post横長 */
+@media (max-height: 600px) and (orientation: landscape){
+  .post {
+    font-size: 80%; } }
+
 
 .post a div{
   color : #555555;

@@ -44,7 +44,7 @@ $cakeDescription = 'コーディング雑記';
 <body class="d-flex flex-column">
 <nav class="navbar navbar-light d-print fixed-top">
 	<a class="navbar-brand" href="/top">
-    <img alt="" src="/img/zatsu.png" style="width : 7vh; height : 7vh">
+    <img class="navbar-icon" alt="" src="/img/zatsu.png">
   </a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topmenu" aria-controls="topmenu" aria-expanded="false" aria-label="toggledMenu">
 		<span class="navbar-toggler-icon"></span>

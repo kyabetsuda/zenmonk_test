@@ -5,14 +5,16 @@
  */
 ?>
 
-<?= $this->Html->script('jsForIndexTop.js') ?>
+<!-- <?= $this->Html->script('jsForIndexTop.js') ?> -->
+<link rel="stylesheet" href="/css/cssForIndexTop.css<?php echo '?time='.time(); ?>"/>
+<script src="/js/jsForIndexTop.js<?php echo '?time='.time(); ?>"></script>
 
 <!--作品をフェードインさせるためのdiv -->
 <div class="row">
 	<div class="topString">
-		<div>
+		<!-- <div> -->
 			<div class="titleString" id="title" style="font-weight:bold">コーディング雑記</div>
-		</div>
+		<!-- </div> -->
 	</div>
 </div>
 

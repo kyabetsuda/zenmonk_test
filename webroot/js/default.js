@@ -391,8 +391,8 @@ $(document).ready(function(e)
 
   // navbarの高さを取得する→
   // bodyのpaddingにnavbarの高さを設定する
-  var height = $('.navbar').height();
-  $('body').css('padding-top',height*2.5);
+  // var height = $('.navbar').height();
+  // $('body').css('padding-top',height*2.5);
 
   // fadeIn
   $('.fadeIn').fadeIn(1000);

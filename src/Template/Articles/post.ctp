@@ -1,6 +1,6 @@
 
-<?= $this->Html->css('cssForPost.css') ?>
-<?= $this->Html->script('jsForPost.js') ?>
+<link rel="stylesheet" href="/css/cssForPost.css<?php echo '?time='.time(); ?>"/>
+<script src="/js/jsForPost.js<?php echo '?time='.time(); ?>"></script>
 
 <div class="fadeIn">
 <div class="post">

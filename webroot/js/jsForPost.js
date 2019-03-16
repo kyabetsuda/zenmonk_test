@@ -12,7 +12,10 @@ function loadPost(){
   var url = '/articles/getPost'
   var callback = new Callback();
   callback.callback = function(){
-    
+
+    //document.title変更
+    document.title = this.result.title + " - コーディング雑記"
+
     //タイトル
     $('.articleTitle').append(
       this.result.title

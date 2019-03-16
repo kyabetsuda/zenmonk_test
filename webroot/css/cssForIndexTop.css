@@ -1,0 +1,41 @@
+.topString{
+  height : 100vh;
+  width : 100vw;
+  display : flex;
+  align-items : center;
+  justify-content : center;
+}
+
+/* topString縦長 */
+@media (max-width: 599px) and (orientation: portrait){
+  .titleString {
+    font-size: 10vw; } }
+@media (min-width: 600px) and (orientation: portrait){
+  .titleString {
+    font-size: 11vw; } }
+@media (min-width: 900px) and (orientation: portrait){
+  .titleString {
+    font-size: 12vw; } }
+@media (min-width: 1200px) and (orientation: portrait) {
+  .titleString {
+    font-size: 13vw; } }
+@media (min-width: 1800px) and (orientation: portrait){
+  .titleString {
+    font-size: 14vw; } }
+
+/* topString横長 */
+@media (max-height: 599px) and (orientation: landscape){
+  .titleString {
+    font-size: 10vh; } }
+@media (min-height: 600px) and (orientation: landscape){
+  .titleString {
+    font-size: 11vh; } }
+@media (min-height: 900px) and (orientation: landscape){
+  .titleString {
+    font-size: 12vh; } }
+@media (min-height: 1200px) and (orientation: landscape) {
+  .titleString {
+    font-size: 13vh; } }
+@media (min-height: 1800px) and (orientation: landscape){
+  .titleString {
+    font-size: 14vh; } }

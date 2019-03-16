@@ -27,6 +27,50 @@ body {
        local('Yu Gothic');     /* Chrome用 */
 }
 
+/* navbar-icon縦長 */
+@media (max-width: 599px) and (orientation: portrait){
+  .navbar-icon {
+    height: 12vw;
+    width: 12vw;} }
+@media (min-width: 600px) and (orientation: portrait){
+  .navbar-icon {
+    height: 10vw;
+    width: 10vw; } }
+@media (min-width: 900px) and (orientation: portrait){
+  .navbar-icon {
+    height: 8vw;
+    width: 8vw;} }
+@media (min-width: 1200px) and (orientation: portrait){
+  .navbar-icon {
+    height: 7vw;
+    width: 7vw; } }
+@media (min-width: 1800px) and (orientation: portrait){
+  .navbar-icon {
+    height: 6vw;
+    width: 6vw;} }
+
+/* navbar-icon横長 */
+@media (max-height: 599px) and (orientation: landscape){
+  .navbar-icon {
+    height: 12vh;
+    width: 12vh;} }
+@media (min-height: 600px) and (orientation: landscape){
+  .navbar-icon {
+    height: 10vh;
+    width: 10vh; } }
+@media (min-height: 900px) and (orientation: landscape){
+  .navbar-icon {
+    height: 8vh;
+    width: 8vh;} }
+@media (min-height: 1200px) and (orientation: landscape){
+  .navbar-icon {
+    height: 7vh;
+    width: 7vh; } }
+@media (min-height: 1800px) and (orientation: landscape){
+  .navbar-icon {
+    height: 6vh;
+    width: 6vh;} }
+
 nav {
   background-color: #ffffff;
 }
