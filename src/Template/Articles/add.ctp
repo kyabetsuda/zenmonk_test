@@ -4,8 +4,8 @@
  * @var \App\Model\Entity\Article $article
  */
 ?>
-<?= $this->Html->css('cssForAddArticles.css') ?>
-<?= $this->Html->script('admin/jsForAddArticles.js') ?>
+<link rel="stylesheet" href="/css/cssForAddArticles.css<?php echo '?time='.time(); ?>"/>
+<script src="/js/admin/jsForAddArticles.js<?php echo '?time='.time(); ?>"></script>
 
 
 <legend><?= __('Add Article') ?></legend>
