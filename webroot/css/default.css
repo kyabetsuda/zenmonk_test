@@ -137,3 +137,15 @@ blockquote cite {
 .fadeIn{
   display:none;
 }
+
+/* 記事の表示数を設定するためのcss */
+.media-queries {
+  display: none;
+  /* デフォルト = 3 */
+  font-family: 'three';
+}
+
+@media (max-width: 599px) and (orientation: portrait){
+  .media-queries {
+    /* 横幅が短いとき = 1 */
+    font-family: 'one';} }

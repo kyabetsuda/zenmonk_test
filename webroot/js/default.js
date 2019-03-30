@@ -318,7 +318,11 @@ function hideToggler(){
 /* swiper initialize */
 function initializeSwiper(){
   var count = 3;
-  if(isMobileDevice()){
+  var $win = $(window),
+    $mediaQueries = $('.jsc-media-queries');
+  var layout = $mediaQueries.css('font-family').replace(/"/g, '');
+  console.log(layout);
+  if(layout === 'one'){
     count = 1;
   }
   var mySwiper = new Swiper ('.swiper-container', {

@@ -75,6 +75,7 @@ $cakeDescription = 'コーディング雑記';
     ©︎2019 CodingZakki All Rights Reserved.
   </div>
 </footer>
+<div class="jsc-media-queries media-queries"></div>
 
 <?= $this->Form->create(null, []) ?>
 <?= $this->Form->end() ?>
