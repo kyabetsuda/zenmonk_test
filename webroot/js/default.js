@@ -321,7 +321,6 @@ function initializeSwiper(){
   var $win = $(window),
     $mediaQueries = $('.jsc-media-queries');
   var layout = $mediaQueries.css('font-family').replace(/"/g, '');
-  console.log(layout);
   if(layout === 'one'){
     count = 1;
   }
