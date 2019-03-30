@@ -145,7 +145,7 @@ blockquote cite {
   font-family: 'three';
 }
 
-@media (max-width: 599px) and (orientation: portrait){
+@media (max-width: 2000px) and (orientation: portrait){
   .media-queries {
     /* 横幅が短いとき = 1 */
     font-family: 'one';} }
