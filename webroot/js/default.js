@@ -371,7 +371,8 @@ function sampleDate(date, format) {
 
 /* 最初の文を取得 */
 function getFirstSentenceFromStr(str){
-  return str.match(/^.*。/m);
+  // return str.match(/^.*。/m);
+  return str.substr(0, 30);
 }
 
 /********************************************************************************************
