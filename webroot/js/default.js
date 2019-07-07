@@ -369,14 +369,10 @@ function sampleDate(date, format) {
     return format;
 }
 
-/* 最初の文を取得 */
+/* 最初の文を取得し、頭から何文字かを取得 */
 function getFirstSentenceFromStr(str){
   var tmp = str.match(/^.*。/m);
-  var ret = "";
-  if(tmp !== null){
-      ret = tmp[0].substr(0, 30);
-  }
-  return ret;
+  return (tmp !== null) ? tmp[0].substr(0, 30) : "";
 }
 
 /********************************************************************************************
